@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lines & Slopes — SAT Math Master Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  @page {
+    size: A3 landscape;
+    margin: 14mm 12mm 14mm 12mm;
+  }
+
+  :root {
+    --teal:    #0d9488;
+    --teal-l:  #ccfbf1;
+    --teal-m:  #14b8a6;
+    --blue:    #1e40af;
+    --blue-l:  #dbeafe;
+    --blue-m:  #3b82f6;
+    --orange:  #ea580c;
+    --orange-l:#fff7ed;
+    --orange-m:#f97316;
+    --yellow:  #854d0e;
+    --yellow-l:#fefce8;
+    --yellow-m:#fbbf24;
+    --purple:  #6b21a8;
+    --purple-l:#f3e8ff;
+    --purple-m:#a855f7;
+    --red:     #b91c1c;
+    --red-l:   #fee2e2;
+    --dark:    #0f172a;
+    --mid:     #334155;
+    --muted:   #64748b;
+    --border:  #e2e8f0;
+    --white:   #ffffff;
+    --bg:      #f8fafc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0d4a47 100%);
+    padding: 28px 32px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .hero-left { flex: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--orange-m);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 900;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: var(--yellow-m); }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+  .hero-pills {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+  .hero-right {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px 28px;
+    min-width: 320px;
+  }
+  .hero-right h3 {
+    color: var(--yellow-m);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .key-formula {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .kf-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .kf-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .kf-text {
+    color: white;
+    font-size: 13px;
+  }
+  .kf-text strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--teal-m);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page { padding: 16px 20px; background: var(--bg); }
+
+  /* Section titles */
+  .sec-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .card-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .card h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+  .card h2 small {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  /* Formula boxes */
+  .formula-box {
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid;
+  }
+  .formula-box.teal  { background: var(--teal-l);   border-color: var(--teal);   }
+  .formula-box.blue  { background: var(--blue-l);   border-color: var(--blue);   }
+  .formula-box.orange{ background: var(--orange-l); border-color: var(--orange); }
+  .formula-box.yellow{ background: var(--yellow-l); border-color: var(--yellow-m);}
+  .formula-box.purple{ background: var(--purple-l); border-color: var(--purple); }
+  .formula-box.red   { background: var(--red-l);    border-color: var(--red);    }
+
+  .formula-box .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .formula-box.teal  .label { color: var(--teal);   }
+  .formula-box.blue  .label { color: var(--blue);   }
+  .formula-box.orange .label { color: var(--orange); }
+  .formula-box.yellow .label { color: var(--yellow); }
+  .formula-box.purple .label { color: var(--purple); }
+  .formula-box.red   .label { color: var(--red);    }
+
+  .formula-big {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .formula-note {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* Bullet lists */
+  .blist { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .blist li {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.45;
+    align-items: flex-start;
+  }
+  .blist li .bi {
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    font-weight: 700;
+  }
+  .blist li .bi.teal   { color: var(--teal);   }
+  .blist li .bi.blue   { color: var(--blue);   }
+  .blist li .bi.orange { color: var(--orange); }
+  .blist li .bi.purple { color: var(--purple); }
+  .blist li .bi.red    { color: var(--red);    }
+
+  /* Grids */
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .g2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .g12 { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; }
+  .g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+  .g13 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  .mb12 { margin-bottom: 12px; }
+  .mb20 { margin-bottom: 20px; }
+  .mb6  { margin-bottom: 6px; }
+  .mt8  { margin-top: 8px; }
+
+  /* Inline code */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: #f1f5f9;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--blue);
+  }
+
+  /* Step number badges */
+  .step-badge {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  /* Slope type cards */
+  .slope-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .slope-card-head {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .slope-card-head span {
+    font-size: 13px;
+    font-weight: 800;
+    color: white;
+  }
+  .slope-card-body {
+    background: white;
+    padding: 10px 14px;
+  }
+  .slope-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .slope-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.45;
+  }
+
+  /* SAT Trap box */
+  .trap-box {
+    background: var(--red-l);
+    border: 1.5px dashed var(--red);
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .trap-box .trap-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--red);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Tip box */
+  .tip-box {
+    background: #f0fdf4;
+    border: 1.5px solid #16a34a;
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .tip-box .tip-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #16a34a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Comparison table */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  .comp-table th {
+    background: var(--dark);
+    color: white;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  .comp-table th:first-child { border-radius: 6px 0 0 0; }
+  .comp-table th:last-child  { border-radius: 0 6px 0 0; }
+  .comp-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--mid);
+    vertical-align: top;
+  }
+  .comp-table tr:nth-child(even) td { background: #f8fafc; }
+  .comp-table tr:last-child td:first-child { border-radius: 0 0 0 6px; }
+  .comp-table tr:last-child td:last-child  { border-radius: 0 0 6px 0; }
+  .comp-table td code { font-size: 12px; }
+
+  /* Process flow arrow */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    background: var(--blue);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    color: var(--blue-m);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  /* Divider */
+  hr.div { border: none; border-top: 2px solid var(--border); margin: 20px 0; }
+
+  /* Highlight inline */
+  .hl { font-weight: 700; color: var(--dark); }
+  .hl-t { color: var(--teal); font-weight: 700; }
+  .hl-b { color: var(--blue); font-weight: 700; }
+  .hl-o { color: var(--orange); font-weight: 700; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--dark);
+    color: #94a3b8;
+    font-size: 12px;
+    text-align: center;
+    padding: 16px;
+    margin-top: 0;
+  }
+  .footer strong { color: white; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Digital SAT Math · Last-Minute Reference</div>
+    <h1>Lines &amp; <span>Slopes</span><br>Master Guide</h1>
+    <p class="hero-sub">Everything you need to know — formulas, graphs, forms, tricks &amp; SAT traps</p>
+    <div class="hero-pills">
+      <span class="pill">Slope Formula</span>
+      <span class="pill">3 Equation Forms</span>
+      <span class="pill">Graphing Steps</span>
+      <span class="pill">Parallel &amp; Perpendicular</span>
+      <span class="pill">Intercepts</span>
+      <span class="pill">Distance &amp; Midpoint</span>
+      <span class="pill">SAT Traps</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h3>⚡ Quick-Look Formulas</h3>
+    <div class="key-formula">
+      <div class="kf-row"><div class="kf-dot" style="background:#14b8a6"></div><div class="kf-text">Slope: <strong>m = (y₂−y₁)/(x₂−x₁)</strong></div></div>
+      <div class="kf-row"><div class="kf-dot" style="background:#3b82f6"></div><div class="kf-text">Slope-Intercept: <strong>y = mx + b</strong></div></div>
+      <div class="kf-row"><div class="kf-dot" style="background:#f97316"></div><div class="kf-text">Point-Slope: <strong>y−y₁ = m(x−x₁)</strong></div></div>
+      <div class="kf-row"><div class="kf-dot" style="background:#a855f7"></div><div class="kf-text">Standard Form: <strong>Ax + By = C</strong></div></div>
+      <div class="kf-row"><div class="kf-dot" style="background:#fbbf24"></div><div class="kf-text">Midpoint: <strong>((x₁+x₂)/2, (y₁+y₂)/2)</strong></div></div>
+      <div class="kf-row"><div class="kf-dot" style="background:#f43f5e"></div><div class="kf-text">Distance: <strong>√((Δx)²+(Δy)²)</strong></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE ══════════════ -->
+<div class="page">
+
+<!-- ROW 1: Slope Definition + Types of Slope -->
+<div class="sec-title">01 · Understanding Slope</div>
+<div class="g12 mb20">
+
+  <!-- SLOPE DEFINITION -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">📐</div>
+      <h2>What is Slope?<small>The steepness &amp; direction of a line</small></h2>
+    </div>
+
+    <div class="formula-box teal mb12">
+      <div class="label">The Slope Formula</div>
+      <div class="formula-big">m = (y₂ − y₁) / (x₂ − x₁)</div>
+      <div class="formula-note">Also written as: <strong>m = Δy / Δx = rise / run</strong><br>
+      Given two points (x₁, y₁) and (x₂, y₂) on a line</div>
+    </div>
+
+    <!-- Visual diagram: rise over run -->
+    <svg viewBox="0 0 260 160" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:12px">
+      <!-- Grid lines -->
+      <defs>
+        <pattern id="grid1" width="26" height="26" patternUnits="userSpaceOnUse">
+          <path d="M 26 0 L 0 0 0 26" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="260" height="160" fill="url(#grid1)"/>
+      <!-- Axes -->
+      <line x1="26" y1="130" x2="254" y2="130" stroke="#94a3b8" stroke-width="1.5"/>
+      <line x1="52" y1="10"  x2="52"  y2="150" stroke="#94a3b8" stroke-width="1.5"/>
+      <!-- Arrow heads -->
+      <polygon points="254,130 247,127 247,133" fill="#94a3b8"/>
+      <polygon points="52,10 49,17 55,17" fill="#94a3b8"/>
+      <!-- The line: from (78,110) to (200,36) — positive slope -->
+      <line x1="60" y1="118" x2="220" y2="40" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Points -->
+      <circle cx="88" cy="108" r="5" fill="#0d9488"/>
+      <circle cx="192" cy="48"  r="5" fill="#0d9488"/>
+      <!-- Rise arrow (vertical) -->
+      <line x1="192" y1="108" x2="192" y2="52" stroke="#ea580c" stroke-width="2" stroke-dasharray="4,3"/>
+      <polygon points="192,52 189,60 195,60" fill="#ea580c"/>
+      <!-- Run arrow (horizontal) -->
+      <line x1="88" y1="108" x2="188" y2="108" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,3"/>
+      <polygon points="188,108 180,105 180,111" fill="#3b82f6"/>
+      <!-- Labels -->
+      <text x="200" y="82" font-family="Inter" font-size="11" font-weight="700" fill="#ea580c">RISE</text>
+      <text x="128" y="122" font-family="Inter" font-size="11" font-weight="700" fill="#3b82f6">RUN</text>
+      <text x="86"  y="100" font-family="Inter" font-size="10" fill="#0d9488">(x₁,y₁)</text>
+      <text x="170" y="44"  font-family="Inter" font-size="10" fill="#0d9488">(x₂,y₂)</text>
+      <!-- Axis labels -->
+      <text x="248" y="143" font-family="Inter" font-size="10" fill="#64748b">x</text>
+      <text x="56"  y="16"  font-family="Inter" font-size="10" fill="#64748b">y</text>
+      <!-- Slope label -->
+      <text x="60" y="28" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#0d9488">m = rise/run</text>
+    </svg>
+
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span><span class="hl">Rise</span> = vertical change (Δy) — how far up or down</span></li>
+      <li><span class="bi blue">▶</span><span><span class="hl">Run</span> = horizontal change (Δx) — how far left or right</span></li>
+      <li><span class="bi orange">▶</span><span>Order of points doesn't matter as long as you're consistent with (x₁,y₁) and (x₂,y₂)</span></li>
+      <li><span class="bi teal">▶</span><span>Slope is the same between <em>any</em> two points on the same line</span></li>
+    </ul>
+  </div>
+
+  <!-- TYPES OF SLOPES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">📊</div>
+      <h2>4 Types of Slope<small>Know them at a glance for SAT</small></h2>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px">
+      <!-- Positive -->
+      <div class="slope-card">
+        <div class="slope-card-head" style="background:#0d9488">
+          <span>↗ Positive Slope</span>
+        </div>
+        <div class="slope-card-body">
+          <svg viewBox="0 0 120 90" width="100%" style="display:block;margin-bottom:6px">
+            <defs><pattern id="g-pos" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0fdfa" stroke-width="0.5"/></pattern></defs>
+            <rect width="120" height="90" fill="#f0fdfa" rx="4"/>
+            <line x1="10" y1="75" x2="115" y2="75" stroke="#0d9488" stroke-width="1" opacity="0.4"/>
+            <line x1="20" y1="5"  x2="20"  y2="82" stroke="#0d9488" stroke-width="1" opacity="0.4"/>
+            <line x1="10" y1="80" x2="110" y2="10" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="35" cy="65" r="3.5" fill="#0d9488"/>
+            <circle cx="85" cy="25" r="3.5" fill="#0d9488"/>
+            <text x="40" y="12" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#0d9488">m &gt; 0</text>
+          </svg>
+          <div class="slope-label" style="color:#0d9488">Goes UP left→right</div>
+          <div class="slope-desc">Line rises as x increases. Example: <code>m = 2</code> or <code>m = ½</code></div>
+        </div>
+      </div>
+      <!-- Negative -->
+      <div class="slope-card">
+        <div class="slope-card-head" style="background:#ea580c">
+          <span>↘ Negative Slope</span>
+        </div>
+        <div class="slope-card-body">
+          <svg viewBox="0 0 120 90" width="100%" style="display:block;margin-bottom:6px">
+            <rect width="120" height="90" fill="#fff7ed" rx="4"/>
+            <line x1="10" y1="75" x2="115" y2="75" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+            <line x1="20" y1="5"  x2="20"  y2="82" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+            <line x1="10" y1="10" x2="110" y2="78" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="30" cy="18" r="3.5" fill="#ea580c"/>
+            <circle cx="90" cy="65" r="3.5" fill="#ea580c"/>
+            <text x="40" y="20" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#ea580c">m &lt; 0</text>
+          </svg>
+          <div class="slope-label" style="color:#ea580c">Goes DOWN left→right</div>
+          <div class="slope-desc">Line falls as x increases. Example: <code>m = −3</code> or <code>m = −½</code></div>
+        </div>
+      </div>
+      <!-- Zero -->
+      <div class="slope-card">
+        <div class="slope-card-head" style="background:#1e40af">
+          <span>→ Zero Slope</span>
+        </div>
+        <div class="slope-card-body">
+          <svg viewBox="0 0 120 90" width="100%" style="display:block;margin-bottom:6px">
+            <rect width="120" height="90" fill="#dbeafe" rx="4"/>
+            <line x1="10" y1="75" x2="115" y2="75" stroke="#1e40af" stroke-width="1" opacity="0.4"/>
+            <line x1="20" y1="5"  x2="20"  y2="82" stroke="#1e40af" stroke-width="1" opacity="0.4"/>
+            <line x1="10" y1="45" x2="115" y2="45" stroke="#1e40af" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="30" cy="45" r="3.5" fill="#1e40af"/>
+            <circle cx="90" cy="45" r="3.5" fill="#1e40af"/>
+            <text x="32" y="30" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#1e40af">m = 0</text>
+          </svg>
+          <div class="slope-label" style="color:#1e40af">Horizontal line</div>
+          <div class="slope-desc">Equation: <code>y = k</code> (constant). Rise = 0, so m = 0/run = <strong>0</strong></div>
+        </div>
+      </div>
+      <!-- Undefined -->
+      <div class="slope-card">
+        <div class="slope-card-head" style="background:#6b21a8">
+          <span>↕ Undefined Slope</span>
+        </div>
+        <div class="slope-card-body">
+          <svg viewBox="0 0 120 90" width="100%" style="display:block;margin-bottom:6px">
+            <rect width="120" height="90" fill="#f3e8ff" rx="4"/>
+            <line x1="10" y1="75" x2="115" y2="75" stroke="#6b21a8" stroke-width="1" opacity="0.4"/>
+            <line x1="20" y1="5"  x2="20"  y2="82" stroke="#6b21a8" stroke-width="1" opacity="0.4"/>
+            <line x1="60" y1="8"  x2="60"  y2="84" stroke="#6b21a8" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="60" cy="22" r="3.5" fill="#6b21a8"/>
+            <circle cx="60" cy="65" r="3.5" fill="#6b21a8"/>
+            <text x="64" y="20" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#6b21a8">m = undef.</text>
+          </svg>
+          <div class="slope-label" style="color:#6b21a8">Vertical line</div>
+          <div class="slope-desc">Equation: <code>x = k</code>. Run = 0 → division by zero → <strong>undefined</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trap-box">
+      <div class="trap-title">⚠ SAT TRAP: Zero vs. Undefined</div>
+      <div style="font-size:12px;color:#7f1d1d;line-height:1.5">
+        "Slope of zero" (<strong>horizontal</strong>) and "undefined slope" (<strong>vertical</strong>) are completely different.
+        A <strong>horizontal</strong> line has equation <code>y = 3</code>; a <strong>vertical</strong> line has equation <code>x = 3</code>.
+        Confusing these is a top SAT error.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2: Three Forms -->
+<div class="sec-title">02 · Three Forms of Linear Equations</div>
+<div class="g3 mb20">
+
+  <!-- SLOPE-INTERCEPT FORM -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">①</div>
+      <h2>Slope-Intercept Form<small>Most common on SAT</small></h2>
+    </div>
+    <div class="formula-box teal mb12">
+      <div class="label">Formula</div>
+      <div class="formula-big">y = mx + b</div>
+      <div class="formula-note">
+        <strong>m</strong> = slope &nbsp;|&nbsp; <strong>b</strong> = y-intercept (where line crosses y-axis)
+      </div>
+    </div>
+    <!-- Mini graph -->
+    <svg viewBox="0 0 200 130" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:10px">
+      <defs><pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="200" height="130" fill="url(#g2)"/>
+      <line x1="10" y1="100" x2="195" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+      <line x1="50" y1="5"   x2="50"  y2="120" stroke="#94a3b8" stroke-width="1.5"/>
+      <!-- Line y=2x+20: at x=50→y=100(origin adj), slope 2px/px -->
+      <!-- Mapping: x_screen = 50+x*20, y_screen = 100-y*20 -->
+      <!-- y=2x+1: points at x=-1→y=-1, x=0→y=1, x=2→y=5 -->
+      <!-- x_s=50+x*20, y_s=100-y*20 -->
+      <!-- x=-1: x_s=30, y_s=120 | x=3: x_s=110, y_s=0... too high -->
+      <!-- scale: x*14, y*14 -->
+      <!-- x=0,y=1: xs=50,ys=86 | x=3,y=7: xs=92,ys=2 — too high -->
+      <!-- scale x*16, y*12 -->
+      <!-- y=1.5x+1 | x=0:xs=50,ys=88 | x=5:xs=130,ys=28 -->
+      <line x1="14" y1="122" x2="150" y2="20" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- b marker at x=0 -->
+      <circle cx="50" cy="88" r="5" fill="#3b82f6"/>
+      <text x="54" y="87" font-family="Inter" font-size="10" font-weight="700" fill="#1e40af">b (y-intercept)</text>
+      <!-- slope annotation -->
+      <line x1="82" y1="68" x2="114" y2="68" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="114" y1="68" x2="114" y2="44" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="88" y="80" font-family="Inter" font-size="9" fill="#ea580c" font-weight="700">run</text>
+      <text x="116" y="58" font-family="Inter" font-size="9" fill="#ea580c" font-weight="700">rise</text>
+      <text x="12" y="16" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#0d9488">y = mx + b</text>
+    </svg>
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span>Read slope directly: coefficient of x is <span class="hl">m</span></span></li>
+      <li><span class="bi teal">▶</span><span>Read y-intercept directly: constant term is <span class="hl">b</span></span></li>
+      <li><span class="bi teal">▶</span><span>Example: <code>y = 3x − 5</code> → m = 3, b = −5</span></li>
+      <li><span class="bi orange">▶</span><span>SAT tip: Most "find the equation" answers are in this form</span></li>
+    </ul>
+  </div>
+
+  <!-- POINT-SLOPE FORM -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">②</div>
+      <h2>Point-Slope Form<small>When you have a point + slope</small></h2>
+    </div>
+    <div class="formula-box orange mb12">
+      <div class="label">Formula</div>
+      <div class="formula-big">y − y₁ = m(x − x₁)</div>
+      <div class="formula-note">
+        Use when given: a <strong>point (x₁, y₁)</strong> and a <strong>slope m</strong>
+      </div>
+    </div>
+    <div style="background:#fff7ed;border-radius:8px;padding:12px;margin-bottom:10px;border:1px solid #fed7aa">
+      <div style="font-size:11px;font-weight:700;color:#ea580c;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">📌 Step-by-Step Example</div>
+      <div class="flow mb6" style="flex-direction:column;gap:5px;align-items:flex-start">
+        <div style="font-size:12px;color:#92400e"><strong>Given:</strong> point (2, 5), slope m = 3</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#78350f">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 8px;font-weight:700;font-size:11px">Step 1</div>
+          Plug in: y − <strong>5</strong> = <strong>3</strong>(x − <strong>2</strong>)
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#78350f">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 8px;font-weight:700;font-size:11px">Step 2</div>
+          Distribute: y − 5 = 3x − 6
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#78350f">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 8px;font-weight:700;font-size:11px">Step 3</div>
+          Solve: <strong>y = 3x − 1</strong>
+        </div>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi orange">▶</span><span>Best when SAT gives you a graph and asks for the equation</span></li>
+      <li><span class="bi orange">▶</span><span>Note the <span class="hl">subtraction sign</span> — it's y <em>minus</em> y₁, not plus</span></li>
+      <li><span class="bi orange">▶</span><span>Works with any point on the line, not just the y-intercept</span></li>
+      <li><span class="bi orange">▶</span><span>Convert to slope-intercept form to match SAT answer choices</span></li>
+    </ul>
+  </div>
+
+  <!-- STANDARD FORM -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3e8ff">③</div>
+      <h2>Standard Form<small>Common in SAT word problems</small></h2>
+    </div>
+    <div class="formula-box purple mb12">
+      <div class="label">Formula</div>
+      <div class="formula-big">Ax + By = C</div>
+      <div class="formula-note">
+        A, B, C are integers; A &gt; 0; no fractions. Slope = <strong>−A/B</strong>; y-int = <strong>C/B</strong>
+      </div>
+    </div>
+    <div style="background:#f3e8ff;border-radius:8px;padding:10px 12px;margin-bottom:10px;border:1px solid #d8b4fe">
+      <div style="font-size:11px;font-weight:700;color:#6b21a8;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">🔄 Converting to Slope-Intercept</div>
+      <div style="font-size:12px;color:#4a1772;line-height:1.8">
+        <strong>3x + 2y = 8</strong><br>
+        → 2y = −3x + 8 &nbsp; <em>(subtract 3x)</em><br>
+        → <strong>y = −(3/2)x + 4</strong> &nbsp; <em>(divide by 2)</em><br>
+        ∴ m = <strong>−3/2</strong>, b = <strong>4</strong>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi purple">▶</span><span>To find <span class="hl">x-intercept</span>: set y = 0 → x = C/A</span></li>
+      <li><span class="bi purple">▶</span><span>To find <span class="hl">y-intercept</span>: set x = 0 → y = C/B</span></li>
+      <li><span class="bi purple">▶</span><span>Slope = <code>−A/B</code> (memorize for quick SAT answers)</span></li>
+      <li><span class="bi orange">▶</span><span>SAT often gives standard form; you must convert to slope-intercept</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ROW 3: Graphing + Intercepts -->
+<div class="sec-title">03 · Graphing a Line &amp; Finding Intercepts</div>
+<div class="g2 mb20">
+
+  <!-- GRAPHING STEPS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">📈</div>
+      <h2>How to Graph a Line<small>Step-by-step from equation y = mx + b</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+      <!-- Step 1 -->
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-badge" style="background:#1e40af">1</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#1e40af;margin-bottom:2px">Identify m and b</div>
+          <div style="font-size:12px;color:#475569">From <code>y = 2x + 3</code>: m = 2, b = 3. The y-intercept is the point (0, 3).</div>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-badge" style="background:#0d9488">2</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#0d9488;margin-bottom:2px">Plot the y-intercept</div>
+          <div style="font-size:12px;color:#475569">Place a point at (0, b) on the y-axis. This is your starting point.</div>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">3</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#ea580c;margin-bottom:2px">Use slope to find next point</div>
+          <div style="font-size:12px;color:#475569">m = 2 = 2/1 → go <strong>right 1</strong>, <strong>up 2</strong>. Plot that point: (1, 5).</div>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-badge" style="background:#6b21a8">4</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#6b21a8;margin-bottom:2px">Draw the line</div>
+          <div style="font-size:12px;color:#475569">Connect the two (or more) points with a straight line extending in both directions.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graph demonstration -->
+    <svg viewBox="0 0 300 190" width="100%" style="border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc">
+      <defs>
+        <pattern id="gg" width="25" height="25" patternUnits="userSpaceOnUse">
+          <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e2e8f0" stroke-width="0.7"/>
+        </pattern>
+        <marker id="arrowB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+      <rect width="300" height="190" fill="url(#gg)"/>
+      <!-- Axes: origin at (75, 140) -->
+      <line x1="20" y1="140" x2="290" y2="140" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowB)"/>
+      <line x1="75" y1="180" x2="75"  y2="10"  stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowB)"/>
+      <!-- Tick marks x-axis: every 25px = 1 unit -->
+      <line x1="100" y1="137" x2="100" y2="143" stroke="#94a3b8" stroke-width="1"/><text x="97" y="153" font-family="Inter" font-size="9" fill="#64748b">1</text>
+      <line x1="125" y1="137" x2="125" y2="143" stroke="#94a3b8" stroke-width="1"/><text x="122" y="153" font-family="Inter" font-size="9" fill="#64748b">2</text>
+      <line x1="150" y1="137" x2="150" y2="143" stroke="#94a3b8" stroke-width="1"/><text x="147" y="153" font-family="Inter" font-size="9" fill="#64748b">3</text>
+      <line x1="175" y1="137" x2="175" y2="143" stroke="#94a3b8" stroke-width="1"/><text x="172" y="153" font-family="Inter" font-size="9" fill="#64748b">4</text>
+      <line x1="200" y1="137" x2="200" y2="143" stroke="#94a3b8" stroke-width="1"/><text x="197" y="153" font-family="Inter" font-size="9" fill="#64748b">5</text>
+      <!-- Tick marks y-axis -->
+      <line x1="72" y1="115" x2="78" y2="115" stroke="#94a3b8" stroke-width="1"/><text x="59" y="119" font-family="Inter" font-size="9" fill="#64748b">1</text>
+      <line x1="72" y1="90"  x2="78" y2="90"  stroke="#94a3b8" stroke-width="1"/><text x="59" y="94"  font-family="Inter" font-size="9" fill="#64748b">2</text>
+      <line x1="72" y1="65"  x2="78" y2="65"  stroke="#94a3b8" stroke-width="1"/><text x="59" y="69"  font-family="Inter" font-size="9" fill="#64748b">3</text>
+      <line x1="72" y1="40"  x2="78" y2="40"  stroke="#94a3b8" stroke-width="1"/><text x="59" y="44"  font-family="Inter" font-size="9" fill="#64748b">4</text>
+      <line x1="72" y1="15"  x2="78" y2="15"  stroke="#94a3b8" stroke-width="1"/><text x="59" y="19"  font-family="Inter" font-size="9" fill="#64748b">5</text>
+      <!-- Line y=2x+3: origin(75,140), scale 25px/unit -->
+      <!-- x=0→y=3: xs=75, ys=140-75=65 | x=-2→y=-1: xs=25,ys=165 | x=3→y=9:xs=150,ys=140-225... -->
+      <!-- y=2x+3: at x=-1: y=1(xs=50,ys=115); x=0:y=3(xs=75,ys=65); x=2:y=7(xs=125,ys=-35 too high) -->
+      <!-- Scale: 25px = 1 unit vertically too. Max y at top = 5 → ys=140-5*25=15 -->
+      <!-- So y=2x+3: x=-1→y=1(xs=50,ys=115); x=1→y=5(xs=100,ys=15) -->
+      <line x1="30" y1="168" x2="190" y2="8" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- y-intercept (0,3): xs=75, ys=140-3*25=65 -->
+      <circle cx="75" cy="65" r="6" fill="#1e40af" stroke="white" stroke-width="2"/>
+      <!-- Step 2 label -->
+      <text x="82" y="62" font-family="Inter" font-size="10" font-weight="700" fill="#1e40af">b = 3</text>
+      <!-- Next point (1,5): xs=100, ys=140-5*25=15 -->
+      <circle cx="100" cy="15" r="6" fill="#ea580c" stroke="white" stroke-width="2"/>
+      <text x="104" y="13" font-family="Inter" font-size="10" font-weight="700" fill="#ea580c">(1, 5)</text>
+      <!-- Rise arrow -->
+      <line x1="100" y1="65" x2="100" y2="19" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="103" y="44" font-family="Inter" font-size="9" fill="#ea580c" font-weight="700">rise=2</text>
+      <!-- Run arrow -->
+      <line x1="75" y1="65" x2="97" y2="65" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="78" y="77" font-family="Inter" font-size="9" fill="#1e40af" font-weight="700">run=1</text>
+      <!-- Formula label -->
+      <text x="170" y="120" font-family="JetBrains Mono" font-size="12" font-weight="700" fill="#0d9488">y = 2x+3</text>
+      <text x="276" y="143" font-family="Inter" font-size="9" fill="#64748b">x</text>
+      <text x="78"  y="12"  font-family="Inter" font-size="9" fill="#64748b">y</text>
+    </svg>
+  </div>
+
+  <!-- INTERCEPTS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fefce8">🎯</div>
+      <h2>X &amp; Y Intercepts<small>Where the line crosses each axis</small></h2>
+    </div>
+
+    <div class="g2 mb12">
+      <div class="formula-box yellow">
+        <div class="label">Y-Intercept</div>
+        <div class="formula-big" style="font-size:16px">Set x = 0</div>
+        <div class="formula-note">The point where the line <strong>crosses the y-axis</strong>. Always has form (0, b).</div>
+      </div>
+      <div class="formula-box blue">
+        <div class="label">X-Intercept</div>
+        <div class="formula-big" style="font-size:16px">Set y = 0</div>
+        <div class="formula-note">The point where the line <strong>crosses the x-axis</strong>. Always has form (a, 0).</div>
+      </div>
+    </div>
+
+    <!-- Visual -->
+    <svg viewBox="0 0 280 160" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:12px">
+      <defs><pattern id="gi" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="280" height="160" fill="url(#gi)"/>
+      <line x1="20" y1="110" x2="265" y2="110" stroke="#94a3b8" stroke-width="1.5"/>
+      <line x1="80" y1="10"  x2="80"  y2="150" stroke="#94a3b8" stroke-width="1.5"/>
+      <!-- Line: from (20,145) to (240, 35) roughly -->
+      <!-- Let's say y-intercept at (0,4) and x-intercept at (3,0) -->
+      <!-- Origin at xs=80, ys=110. Scale 30px/unit -->
+      <!-- y-int: xs=80, ys=110-4*30=110-120=-10 too high -->
+      <!-- Scale 20px/unit. y-int(0,4): xs=80, ys=110-80=30 | x-int(4,0): xs=80+80=160, ys=110 -->
+      <line x1="20" y1="18" x2="220" y2="118" stroke="#6b21a8" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- y-intercept (0,4): xs=80, ys=110-4*20=30 -->
+      <circle cx="80" cy="30" r="7" fill="#854d0e" stroke="white" stroke-width="2"/>
+      <text x="86" y="29" font-family="Inter" font-size="11" font-weight="700" fill="#854d0e">y-intercept (0, b)</text>
+      <text x="86" y="43" font-family="Inter" font-size="10" fill="#78350f">Set x = 0, solve for y</text>
+      <!-- x-intercept (4,0): xs=80+80=160, ys=110 -->
+      <circle cx="160" cy="110" r="7" fill="#1e40af" stroke="white" stroke-width="2"/>
+      <text x="166" y="105" font-family="Inter" font-size="11" font-weight="700" fill="#1e40af">x-intercept (a, 0)</text>
+      <text x="166" y="119" font-family="Inter" font-size="10" fill="#1e40af">Set y = 0, solve for x</text>
+      <!-- Axis labels -->
+      <text x="258" y="113" font-family="Inter" font-size="9" fill="#64748b">x</text>
+      <text x="83"  y="14"  font-family="Inter" font-size="9" fill="#64748b">y</text>
+      <!-- Dotted guides -->
+      <line x1="80" y1="30" x2="40" y2="30" stroke="#854d0e" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+      <line x1="160" y1="110" x2="160" y2="130" stroke="#1e40af" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+    </svg>
+
+    <div style="background:#f8fafc;border-radius:8px;padding:12px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Worked Example: 3x + 2y = 12</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#854d0e;margin-bottom:4px">Y-Intercept (x=0)</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.6">3(0) + 2y = 12<br>2y = 12<br><strong>y = 6 → (0, 6)</strong></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#1e40af;margin-bottom:4px">X-Intercept (y=0)</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.6">3x + 2(0) = 12<br>3x = 12<br><strong>x = 4 → (4, 0)</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-title">✓ SAT SHORTCUT</div>
+      <div style="font-size:12px;color:#14532d;line-height:1.5">
+        For <code>Ax + By = C</code>: x-intercept = <strong>C/A</strong>, y-intercept = <strong>C/B</strong>.
+        No algebra needed — just divide!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 4: Parallel & Perpendicular + Special Lines -->
+<div class="sec-title">04 · Parallel, Perpendicular &amp; Special Lines</div>
+<div class="g3 mb20">
+
+  <!-- PARALLEL -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">∥</div>
+      <h2>Parallel Lines<small>Same slope, different y-intercept</small></h2>
+    </div>
+    <div class="formula-box teal mb12">
+      <div class="label">Condition</div>
+      <div class="formula-big">m₁ = m₂</div>
+      <div class="formula-note">Two lines are parallel if and only if their slopes are <strong>equal</strong> (and they are distinct lines)</div>
+    </div>
+    <svg viewBox="0 0 200 130" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:10px">
+      <defs><pattern id="gpar" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="200" height="130" fill="url(#gpar)"/>
+      <line x1="20" y1="100" x2="190" y2="100" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="50" y1="10"  x2="50"  y2="118" stroke="#94a3b8" stroke-width="1"/>
+      <!-- Line 1: y=x+3 -- xs=50+x*20, ys=100-y*20; y-int=3: xs=50,ys=40; x=5,y=8:xs=150,ys=-60 too high -->
+      <!-- Scale 15px: y-int(0,2):xs=50,ys=70; x=5,y=7:xs=125,ys=-5 -->
+      <!-- Let's use scale 12px: y-int(0,3):xs=50,ys=64; x=6,y=9:xs=122,ys=-8... -->
+      <!-- Scale 10px: y-int(0,3):xs=50,ys=70; x=7,y=10:xs=120,ys=0 -- perfect -->
+      <line x1="10" y1="80" x2="150" y2="10" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Line 2: y=x+0 (m=same, b=0): y-int:xs=50,ys=100; x=9,y=9:xs=140,ys=10 -->
+      <line x1="10" y1="110" x2="160" y2="30" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6,3"/>
+      <!-- Labels -->
+      <text x="110" y="22"  font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#0d9488">y = x+3</text>
+      <text x="110" y="50"  font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#14b8a6">y = x−1</text>
+      <text x="55"  y="14"  font-family="Inter" font-size="10" font-weight="800" fill="#0f172a">∥ Parallel</text>
+    </svg>
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span>Lines <code>y = 2x + 5</code> and <code>y = 2x − 3</code> are parallel (both m = 2)</span></li>
+      <li><span class="bi teal">▶</span><span>Parallel lines <strong>never intersect</strong> — no solution to the system</span></li>
+      <li><span class="bi orange">▶</span><span>SAT: "Which equation is parallel to…?" → keep m, change b</span></li>
+    </ul>
+  </div>
+
+  <!-- PERPENDICULAR -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">⊥</div>
+      <h2>Perpendicular Lines<small>Negative reciprocal slopes</small></h2>
+    </div>
+    <div class="formula-box orange mb12">
+      <div class="label">Condition</div>
+      <div class="formula-big">m₁ × m₂ = −1</div>
+      <div class="formula-note">Equivalently: <strong>m₂ = −1/m₁</strong> (flip fraction, change sign)</div>
+    </div>
+    <svg viewBox="0 0 200 130" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:10px">
+      <rect width="200" height="130" fill="#f8fafc"/>
+      <line x1="20" y1="90" x2="190" y2="90" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="100" y1="10"  x2="100" y2="120" stroke="#94a3b8" stroke-width="1"/>
+      <!-- Line 1: positive slope through center -->
+      <line x1="20" y1="125" x2="180" y2="20" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Line 2: negative reciprocal through center — perpendicular -->
+      <line x1="20" y1="25" x2="180" y2="115" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Right angle marker at intersection ~(100, 73) -->
+      <rect x="96" y="69" width="8" height="8" fill="none" stroke="#0f172a" stroke-width="1.5"/>
+      <!-- Labels -->
+      <text x="148" y="28" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#ea580c">m₁ = 2</text>
+      <text x="130" y="108" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#3b82f6">m₂ = −½</text>
+      <text x="106" y="62" font-family="Inter" font-size="9" fill="#0f172a" font-weight="700">90°</text>
+    </svg>
+    <div style="background:#fff7ed;border-radius:8px;padding:10px;margin-bottom:10px;border:1px solid #fed7aa">
+      <div style="font-size:11px;font-weight:700;color:#ea580c;margin-bottom:5px">HOW TO FIND NEGATIVE RECIPROCAL</div>
+      <div style="font-size:12px;color:#78350f;line-height:1.8">
+        m = <strong>3</strong> → m⊥ = <strong>−1/3</strong><br>
+        m = <strong>−2/5</strong> → m⊥ = <strong>5/2</strong><br>
+        m = <strong>1</strong> → m⊥ = <strong>−1</strong>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi orange">▶</span><span>Perpendicular lines meet at a <strong>right angle (90°)</strong></span></li>
+      <li><span class="bi orange">▶</span><span>Product of slopes = −1 always (except horizontal/vertical pair)</span></li>
+    </ul>
+  </div>
+
+  <!-- SPECIAL LINES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">★</div>
+      <h2>Special Lines<small>Horizontal, vertical &amp; axes</small></h2>
+    </div>
+    <div class="g2 mb10">
+      <div style="background:#dbeafe;border-radius:8px;padding:10px;border:1px solid #93c5fd">
+        <div style="font-size:11px;font-weight:800;color:#1e40af;margin-bottom:4px;text-transform:uppercase">Horizontal Line</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#1e40af;margin-bottom:4px">y = k</div>
+        <div style="font-size:11px;color:#1e3a8a;line-height:1.5">Slope = 0. Passes through (0, k). Parallel to x-axis.</div>
+        <svg viewBox="0 0 100 55" width="100%" style="margin-top:6px">
+          <line x1="5" y1="40" x2="95" y2="40" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="50" y1="5"  x2="50" y2="50" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="5" y1="22" x2="95" y2="22" stroke="#1e40af" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="72" y="17" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#1e40af">y = 2</text>
+          <circle cx="50" cy="22" r="3" fill="#1e40af"/>
+        </svg>
+      </div>
+      <div style="background:#f3e8ff;border-radius:8px;padding:10px;border:1px solid #d8b4fe">
+        <div style="font-size:11px;font-weight:800;color:#6b21a8;margin-bottom:4px;text-transform:uppercase">Vertical Line</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#6b21a8;margin-bottom:4px">x = k</div>
+        <div style="font-size:11px;color:#4a1772;line-height:1.5">Slope = undefined. Passes through (k, 0). Parallel to y-axis.</div>
+        <svg viewBox="0 0 100 55" width="100%" style="margin-top:6px">
+          <line x1="5" y1="40" x2="95" y2="40" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="50" y1="5"  x2="50" y2="50" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="68" y1="5"  x2="68" y2="52" stroke="#6b21a8" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="72" y="28" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#6b21a8">x = 2</text>
+          <circle cx="68" cy="40" r="3" fill="#6b21a8"/>
+        </svg>
+      </div>
+    </div>
+    <table class="comp-table">
+      <thead><tr><th>Property</th><th>Horizontal y=k</th><th>Vertical x=k</th></tr></thead>
+      <tbody>
+        <tr><td>Slope</td><td><code>m = 0</code></td><td><code>undefined</code></td></tr>
+        <tr><td>y-intercept</td><td><code>(0, k)</code></td><td>None (unless k=0)</td></tr>
+        <tr><td>x-intercept</td><td>None (unless k=0)</td><td><code>(k, 0)</code></td></tr>
+        <tr><td>Axis direction</td><td>→ horizontal</td><td>↕ vertical</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ROW 5: Equation Forms Comparison + Distance/Midpoint -->
+<div class="sec-title">05 · Converting Between Forms &amp; Distance/Midpoint</div>
+<div class="g2 mb20">
+
+  <!-- CONVERSION TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">⇄</div>
+      <h2>Converting Between Forms<small>Master this for SAT speed</small></h2>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:10px;padding:14px;border:1px solid var(--border);margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">CONVERSION FLOW</div>
+      <div class="flow" style="gap:8px">
+        <div style="background:#0d9488;color:white;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-align:center">Slope-Intercept<br><code style="color:#99f6e4;background:transparent;font-size:11px">y = mx + b</code></div>
+        <div style="font-size:20px;color:#0d9488;font-weight:900">⇄</div>
+        <div style="background:#ea580c;color:white;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-align:center">Point-Slope<br><code style="color:#fde68a;background:transparent;font-size:11px">y−y₁=m(x−x₁)</code></div>
+        <div style="font-size:20px;color:#6b21a8;font-weight:900">⇄</div>
+        <div style="background:#6b21a8;color:white;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-align:center">Standard Form<br><code style="color:#e9d5ff;background:transparent;font-size:11px">Ax + By = C</code></div>
+      </div>
+    </div>
+
+    <table class="comp-table" style="margin-bottom:12px">
+      <thead>
+        <tr><th>From → To</th><th>What to do</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Slope-int → Standard</strong></td>
+          <td>Move mx to left; multiply to clear fractions</td>
+          <td><code>y=2x+3</code> → <code>2x−y=−3</code></td>
+        </tr>
+        <tr>
+          <td><strong>Standard → Slope-int</strong></td>
+          <td>Solve for y; isolate y on left</td>
+          <td><code>3x+2y=6</code> → <code>y=−(3/2)x+3</code></td>
+        </tr>
+        <tr>
+          <td><strong>Point-slope → Slope-int</strong></td>
+          <td>Distribute m, move constant to right</td>
+          <td><code>y−1=2(x−3)</code> → <code>y=2x−5</code></td>
+        </tr>
+        <tr>
+          <td><strong>Two points → Equation</strong></td>
+          <td>Find m first, then use point-slope form</td>
+          <td>(1,2)&amp;(3,8): m=3 → <code>y=3x−1</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <div class="tip-title">✓ SPEED TRICK FOR SAT</div>
+      <div style="font-size:12px;color:#14532d;line-height:1.5">
+        When given two points, skip point-slope — compute m, then plug into <code>y = mx + b</code> using either point to find b.
+        Faster and fewer steps!
+      </div>
+    </div>
+  </div>
+
+  <!-- DISTANCE & MIDPOINT -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fefce8">📏</div>
+      <h2>Distance &amp; Midpoint<small>Between two points on a coordinate plane</small></h2>
+    </div>
+
+    <div class="g2 mb12">
+      <div class="formula-box yellow">
+        <div class="label">Distance Formula</div>
+        <div class="formula-big" style="font-size:15px">d = √((x₂−x₁)²+(y₂−y₁)²)</div>
+        <div class="formula-note">Pythagorean theorem in disguise: a²+b²=c², where a=Δx, b=Δy, c=distance</div>
+      </div>
+      <div class="formula-box blue">
+        <div class="label">Midpoint Formula</div>
+        <div class="formula-big" style="font-size:15px">M = ((x₁+x₂)/2, (y₁+y₂)/2)</div>
+        <div class="formula-note">Average the x-coordinates and average the y-coordinates separately</div>
+      </div>
+    </div>
+
+    <!-- Visual for distance -->
+    <svg viewBox="0 0 280 160" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:12px">
+      <defs><pattern id="gdm" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="280" height="160" fill="url(#gdm)"/>
+      <line x1="20" y1="120" x2="270" y2="120" stroke="#94a3b8" stroke-width="1"/>
+      <line x1="40" y1="10"  x2="40"  y2="140" stroke="#94a3b8" stroke-width="1"/>
+      <!-- Points A(1,1) and B(4,4) — origin(40,120), scale 30px -->
+      <!-- A: xs=40+30=70, ys=120-30=90 | B: xs=40+120=160, ys=120-120=0... too high -->
+      <!-- Scale 20px: A(1,1):xs=60,ys=100 | B(4,3):xs=120,ys=60 -->
+      <circle cx="60"  cy="100" r="5" fill="#854d0e" stroke="white" stroke-width="2"/>
+      <circle cx="160" cy="40"  r="5" fill="#1e40af" stroke="white" stroke-width="2"/>
+      <!-- Hypotenuse = distance -->
+      <line x1="60" y1="100" x2="160" y2="40" stroke="#6b21a8" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Right triangle legs -->
+      <line x1="60" y1="100" x2="160" y2="100" stroke="#854d0e" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="160" y1="100" x2="160" y2="40" stroke="#1e40af" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Right angle box -->
+      <rect x="152" y="92" width="8" height="8" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Labels -->
+      <text x="36"  y="112" font-family="Inter" font-size="10" font-weight="700" fill="#854d0e">A(x₁,y₁)</text>
+      <text x="163" y="36"  font-family="Inter" font-size="10" font-weight="700" fill="#1e40af">B(x₂,y₂)</text>
+      <text x="95"  y="95"  font-family="Inter" font-size="10" font-weight="700" fill="#854d0e">Δx (run)</text>
+      <text x="164" y="74"  font-family="Inter" font-size="10" font-weight="700" fill="#1e40af">Δy</text>
+      <text x="80"  y="62"  font-family="Inter" font-size="11" font-weight="700" fill="#6b21a8">d (distance)</text>
+      <!-- Midpoint -->
+      <circle cx="110" cy="70" r="5" fill="#0d9488" stroke="white" stroke-width="2"/>
+      <text x="114" y="66" font-family="Inter" font-size="10" font-weight="700" fill="#0d9488">Midpoint M</text>
+    </svg>
+
+    <div style="background:#f8fafc;border-radius:8px;padding:12px;border:1px solid var(--border)">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Worked Example: A(1, 2) and B(5, 6)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;color:var(--mid)">
+        <div>
+          <strong style="color:#854d0e">Distance:</strong><br>
+          d = √((5−1)² + (6−2)²)<br>
+          d = √(16 + 16)<br>
+          d = √32 = <strong>4√2</strong>
+        </div>
+        <div>
+          <strong style="color:#0d9488">Midpoint:</strong><br>
+          M = ((1+5)/2, (2+6)/2)<br>
+          M = (6/2, 8/2)<br>
+          M = <strong>(3, 4)</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 6: SAT-Specific Tips + Common Problem Types -->
+<div class="sec-title">06 · SAT-Specific Strategies &amp; Common Question Types</div>
+<div class="g2 mb20">
+
+  <!-- PROBLEM TYPES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">📝</div>
+      <h2>Common SAT Question Types<small>Lines &amp; Slopes appear in ~20% of Math questions</small></h2>
+    </div>
+
+    <table class="comp-table" style="margin-bottom:12px">
+      <thead><tr><th>Question Type</th><th>What to do</th><th>Key Formula</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Find equation from graph</strong></td>
+          <td>Read y-intercept from graph; pick 2 points to get slope</td>
+          <td><code>y = mx + b</code></td>
+        </tr>
+        <tr>
+          <td><strong>Find equation from 2 points</strong></td>
+          <td>Compute m = Δy/Δx; plug a point in to find b</td>
+          <td><code>m = (y₂−y₁)/(x₂−x₁)</code></td>
+        </tr>
+        <tr>
+          <td><strong>Parallel line equation</strong></td>
+          <td>Keep same slope m; substitute the new given point to find b</td>
+          <td>Same m, new b</td>
+        </tr>
+        <tr>
+          <td><strong>Perpendicular line equation</strong></td>
+          <td>Flip slope &amp; change sign; substitute point to find b</td>
+          <td><code>m⊥ = −1/m</code></td>
+        </tr>
+        <tr>
+          <td><strong>Systems of 2 linear equations</strong></td>
+          <td>Set equations equal or use substitution/elimination</td>
+          <td>Intersection point</td>
+        </tr>
+        <tr>
+          <td><strong>No solution / infinite solutions</strong></td>
+          <td>Same slope = parallel (no solution) OR identical (infinite)</td>
+          <td>Compare slopes</td>
+        </tr>
+        <tr>
+          <td><strong>Interpret slope in context</strong></td>
+          <td>Slope = rate of change; units are y-units per x-unit</td>
+          <td>m = Δy/Δx</td>
+        </tr>
+        <tr>
+          <td><strong>Interpret y-intercept in context</strong></td>
+          <td>b = starting value when x = 0</td>
+          <td>b at x = 0</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tip-box">
+      <div class="tip-title">✓ CONTEXT INTERPRETATION</div>
+      <div style="font-size:12px;color:#14532d;line-height:1.5">
+        If a word problem says "initial value" → that's the <strong>y-intercept (b)</strong>.<br>
+        If it says "rate of change / per unit / each" → that's the <strong>slope (m)</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- TRAPS & TIPS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fee2e2">⚠️</div>
+      <h2>SAT Traps &amp; Power Tips<small>Avoid these mistakes for a perfect score</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 1: Sign of slope from standard form</div>
+        <div style="font-size:12px;color:#7f1d1d;line-height:1.5">
+          In <code>2x + 3y = 6</code>, slope is NOT 2/3. It is <strong>−2/3</strong>.
+          Always convert to y = mx + b first, or use formula <code>m = −A/B</code>.
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 2: Confusing "no slope" with "slope of 0"</div>
+        <div style="font-size:12px;color:#7f1d1d;line-height:1.5">
+          "No slope" = undefined (vertical line). "Slope of zero" = horizontal line.
+          These are opposites — don't mix them up.
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 3: Perpendicular slope with negative original</div>
+        <div style="font-size:12px;color:#7f1d1d;line-height:1.5">
+          If m = −3/4, then m⊥ = +4/3 (flip AND change sign → double negative = positive).
+          Many students forget the sign flip.
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 4: Assuming lines are parallel without checking</div>
+        <div style="font-size:12px;color:#7f1d1d;line-height:1.5">
+          Check slopes! Lines with different slopes always intersect at exactly one point.
+          Equal slopes with same b = same line (infinite solutions).
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: Back-substitution shortcut</div>
+        <div style="font-size:12px;color:#14532d;line-height:1.5">
+          On multiple choice, plug the given point into each answer choice — the one that
+          works AND has the correct slope is your answer. Often faster than solving from scratch.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: Sketching saves you</div>
+        <div style="font-size:12px;color:#14532d;line-height:1.5">
+          Always sketch a quick graph for lines problems. A 5-second sketch eliminates wrong
+          answer traps — especially for sign-of-slope and intercept questions.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 7: At-a-glance summary card -->
+<div class="sec-title">07 · Master Summary — All Formulas at a Glance</div>
+<div class="card mb20">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;border-bottom:2px solid var(--teal);padding-bottom:4px">Slope</div>
+      <ul class="blist">
+        <li><span class="bi teal">▶</span><span><code>m = Δy/Δx = (y₂−y₁)/(x₂−x₁)</code></span></li>
+        <li><span class="bi teal">▶</span><span>Positive: ↗ &nbsp; Negative: ↘</span></li>
+        <li><span class="bi teal">▶</span><span>Zero: horizontal (y=k)</span></li>
+        <li><span class="bi teal">▶</span><span>Undefined: vertical (x=k)</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;border-bottom:2px solid var(--blue);padding-bottom:4px">Equation Forms</div>
+      <ul class="blist">
+        <li><span class="bi blue">▶</span><span>Slope-int: <code>y = mx + b</code></span></li>
+        <li><span class="bi blue">▶</span><span>Point-slope: <code>y−y₁ = m(x−x₁)</code></span></li>
+        <li><span class="bi blue">▶</span><span>Standard: <code>Ax + By = C</code></span></li>
+        <li><span class="bi blue">▶</span><span>Slope from std: <code>m = −A/B</code></span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;border-bottom:2px solid var(--orange);padding-bottom:4px">Parallel &amp; Perp.</div>
+      <ul class="blist">
+        <li><span class="bi orange">▶</span><span>Parallel: <code>m₁ = m₂</code></span></li>
+        <li><span class="bi orange">▶</span><span>Perpendicular: <code>m₁ × m₂ = −1</code></span></li>
+        <li><span class="bi orange">▶</span><span>Perp slope: flip &amp; negate</span></li>
+        <li><span class="bi orange">▶</span><span>∥ never intersect; ⊥ meet at 90°</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;border-bottom:2px solid var(--purple);padding-bottom:4px">Distance &amp; Midpoint</div>
+      <ul class="blist">
+        <li><span class="bi purple">▶</span><span>x-int: set y=0; y-int: set x=0</span></li>
+        <li><span class="bi purple">▶</span><span>Distance: <code>√(Δx²+Δy²)</code></span></li>
+        <li><span class="bi purple">▶</span><span>Midpoint: <code>((x₁+x₂)/2, (y₁+y₂)/2)</code></span></li>
+        <li><span class="bi purple">▶</span><span>Slope interpretation = rate of change</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<div class="footer">
+  <strong>Lines &amp; Slopes · SAT Math Master Guide</strong> &nbsp;·&nbsp;
+  For last-minute revision before your Digital SAT &nbsp;·&nbsp;
+  All formulas tested against College Board specifications
+</div>
+
+</body>
+</html>

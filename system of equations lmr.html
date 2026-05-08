@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Systems of Equations — SAT Math Master Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  @page {
+    size: A3 landscape;
+    margin: 14mm 12mm 14mm 12mm;
+  }
+
+  :root {
+    --teal:    #0d9488;
+    --teal-l:  #ccfbf1;
+    --teal-m:  #14b8a6;
+    --blue:    #1e40af;
+    --blue-l:  #dbeafe;
+    --blue-m:  #3b82f6;
+    --orange:  #ea580c;
+    --orange-l:#fff7ed;
+    --orange-m:#f97316;
+    --yellow:  #854d0e;
+    --yellow-l:#fefce8;
+    --yellow-m:#fbbf24;
+    --purple:  #6b21a8;
+    --purple-l:#f3e8ff;
+    --purple-m:#a855f7;
+    --red:     #b91c1c;
+    --red-l:   #fee2e2;
+    --green:   #15803d;
+    --green-l: #dcfce7;
+    --dark:    #0f172a;
+    --mid:     #334155;
+    --muted:   #64748b;
+    --border:  #e2e8f0;
+    --white:   #ffffff;
+    --bg:      #f8fafc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1a2f6b 45%, #0d4a47 100%);
+    padding: 28px 32px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .hero-left { flex: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--orange-m);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 900;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: var(--yellow-m); }
+  .hero-sub {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .hero-pills {
+    display: flex;
+    gap: 7px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .hero-right {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 18px 24px;
+    min-width: 340px;
+  }
+  .hero-right h3 {
+    color: var(--yellow-m);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .kf-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 7px; }
+  .kf-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .kf-text { color: white; font-size: 12.5px; line-height: 1.4; }
+  .kf-text strong { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5eead4; }
+
+  /* ── PAGE ── */
+  .page { padding: 16px 20px; background: var(--bg); }
+
+  .sec-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .card-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+  }
+  .card h2 { font-size: 15px; font-weight: 800; color: var(--dark); line-height: 1.2; }
+  .card h2 small { display: block; font-size: 11px; font-weight: 500; color: var(--muted); margin-top: 1px; }
+
+  .formula-box {
+    border-radius: 9px; padding: 10px 14px;
+    margin-bottom: 10px; border-left: 4px solid;
+  }
+  .formula-box.teal   { background: var(--teal-l);   border-color: var(--teal);   }
+  .formula-box.blue   { background: var(--blue-l);   border-color: var(--blue);   }
+  .formula-box.orange { background: var(--orange-l); border-color: var(--orange); }
+  .formula-box.yellow { background: var(--yellow-l); border-color: var(--yellow-m); }
+  .formula-box.purple { background: var(--purple-l); border-color: var(--purple); }
+  .formula-box.red    { background: var(--red-l);    border-color: var(--red);    }
+  .formula-box.green  { background: var(--green-l);  border-color: var(--green);  }
+
+  .formula-box .label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .formula-box.teal   .label { color: var(--teal);   }
+  .formula-box.blue   .label { color: var(--blue);   }
+  .formula-box.orange .label { color: var(--orange); }
+  .formula-box.yellow .label { color: var(--yellow); }
+  .formula-box.purple .label { color: var(--purple); }
+  .formula-box.red    .label { color: var(--red);    }
+  .formula-box.green  .label { color: var(--green);  }
+
+  .formula-big { font-family: 'JetBrains Mono',monospace; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .formula-note { font-size: 12px; color: var(--mid); line-height: 1.5; }
+
+  .blist { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .blist li { display: flex; gap: 7px; font-size: 12.5px; color: var(--mid); line-height: 1.4; align-items: flex-start; }
+  .blist li .bi { font-size: 9px; flex-shrink: 0; margin-top: 4px; font-weight: 700; }
+  .blist li .bi.teal   { color: var(--teal);   }
+  .blist li .bi.blue   { color: var(--blue);   }
+  .blist li .bi.orange { color: var(--orange); }
+  .blist li .bi.purple { color: var(--purple); }
+  .blist li .bi.red    { color: var(--red);    }
+  .blist li .bi.green  { color: var(--green);  }
+
+  .g3  { display: grid; grid-template-columns: repeat(3,1fr); gap: 13px; }
+  .g2  { display: grid; grid-template-columns: repeat(2,1fr); gap: 13px; }
+  .g4  { display: grid; grid-template-columns: repeat(4,1fr); gap: 13px; }
+  .g12 { display: grid; grid-template-columns: 1fr 2fr; gap: 13px; }
+  .g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 13px; }
+
+  .mb10 { margin-bottom: 10px; }
+  .mb16 { margin-bottom: 16px; }
+  .mb8  { margin-bottom: 8px;  }
+  .mt8  { margin-top: 8px;     }
+
+  code {
+    font-family: 'JetBrains Mono',monospace;
+    background: #f1f5f9; padding: 1px 5px;
+    border-radius: 4px; font-size: 11.5px; color: var(--blue);
+  }
+
+  .step-badge {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: white; flex-shrink: 0;
+  }
+
+  .trap-box {
+    background: var(--red-l);
+    border: 1.5px dashed var(--red);
+    border-radius: 9px; padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .trap-box .trap-title {
+    font-size: 10px; font-weight: 800; color: var(--red);
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+  }
+
+  .tip-box {
+    background: #f0fdf4;
+    border: 1.5px solid #16a34a;
+    border-radius: 9px; padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .tip-box .tip-title {
+    font-size: 10px; font-weight: 800; color: #16a34a;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+  }
+
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .comp-table th {
+    background: var(--dark); color: white;
+    padding: 7px 10px; text-align: left;
+    font-weight: 700; font-size: 10.5px;
+  }
+  .comp-table th:first-child { border-radius: 6px 0 0 0; }
+  .comp-table th:last-child  { border-radius: 0 6px 0 0; }
+  .comp-table td {
+    padding: 7px 10px; border-bottom: 1px solid var(--border);
+    color: var(--mid); vertical-align: top;
+  }
+  .comp-table tr:nth-child(even) td { background: #f8fafc; }
+
+  .sol-card {
+    border-radius: 10px; overflow: hidden; border: 1px solid var(--border);
+  }
+  .sol-card-head {
+    padding: 9px 13px; display: flex; align-items: center; gap: 7px;
+  }
+  .sol-card-head span { font-size: 12.5px; font-weight: 800; color: white; }
+  .sol-card-body { background: white; padding: 10px 13px; }
+
+  .footer {
+    background: var(--dark); color: #94a3b8;
+    font-size: 11px; text-align: center;
+    padding: 14px;
+  }
+  .footer strong { color: white; }
+
+  .hl   { font-weight: 700; color: var(--dark); }
+  .hl-t { color: var(--teal);   font-weight: 700; }
+  .hl-b { color: var(--blue);   font-weight: 700; }
+  .hl-o { color: var(--orange); font-weight: 700; }
+  .hl-p { color: var(--purple); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Digital SAT Math · Last-Minute Reference</div>
+    <h1>Systems of <span>Equations</span><br>&amp; Unknown Constants</h1>
+    <p class="hero-sub">Every method, every solution type, unknown constants &amp; SAT traps — all in one place</p>
+    <div class="hero-pills">
+      <span class="pill">Substitution</span>
+      <span class="pill">Elimination</span>
+      <span class="pill">Graphing</span>
+      <span class="pill">No Solution</span>
+      <span class="pill">Infinite Solutions</span>
+      <span class="pill">Unknown Constants</span>
+      <span class="pill">Word Problems</span>
+      <span class="pill">SAT Traps</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h3>⚡ Quick-Look Formulas</h3>
+    <div class="kf-row"><div class="kf-dot" style="background:#14b8a6"></div><div class="kf-text">One solution: lines <strong>intersect</strong> → unique (x, y) pair</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#f97316"></div><div class="kf-text">No solution: lines <strong>parallel</strong> → same slope, diff y-int</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#a855f7"></div><div class="kf-text">Infinite solutions: lines <strong>identical</strong> → same slope &amp; y-int</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#3b82f6"></div><div class="kf-text">Substitution: <strong>isolate one variable → substitute</strong></div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#fbbf24"></div><div class="kf-text">Elimination: <strong>add/subtract to cancel a variable</strong></div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#f43f5e"></div><div class="kf-text">Unknown k: set <strong>slope ratios equal</strong> for no/infinite soln</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ══════════ SECTION 1 ══════════ -->
+<div class="sec-title">01 · What is a System of Equations?</div>
+<div class="g3 mb16">
+
+  <!-- Definition -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">∑</div>
+      <h2>Definition &amp; Structure<small>Two or more equations, same variables</small></h2>
+    </div>
+    <div class="formula-box teal mb10">
+      <div class="label">General Form</div>
+      <div class="formula-big" style="font-size:15px">ax + by = c<br>dx + ey = f</div>
+      <div class="formula-note">Find values of <strong>x</strong> and <strong>y</strong> that satisfy <em>both</em> equations simultaneously</div>
+    </div>
+    <ul class="blist mb10">
+      <li><span class="bi teal">▶</span><span>A solution is an ordered pair <span class="hl">(x, y)</span> that makes both equations true</span></li>
+      <li><span class="bi teal">▶</span><span>Graphically: the solution is the <span class="hl">point of intersection</span></span></li>
+      <li><span class="bi teal">▶</span><span>Every system has exactly <span class="hl">0, 1, or infinitely many</span> solutions</span></li>
+      <li><span class="bi orange">▶</span><span>SAT: ~3–5 system questions per test — know all three solving methods</span></li>
+    </ul>
+    <div style="background:#f0fdfa;border-radius:8px;padding:10px;border:1px solid #99f6e4">
+      <div style="font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Example System</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#0f172a;line-height:1.8">
+        2x + y = 7<br>
+        x − y = 2
+      </div>
+      <div style="font-size:12px;color:#0d9488;margin-top:5px;font-weight:600">→ Solution: (3, 1)</div>
+    </div>
+  </div>
+
+  <!-- 3 Solution Types overview -->
+  <div class="card" style="grid-column: span 2">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">📊</div>
+      <h2>Three Solution Types at a Glance<small>The most tested concept on SAT for systems</small></h2>
+    </div>
+    <div class="g3">
+      <!-- One solution -->
+      <div class="sol-card">
+        <div class="sol-card-head" style="background:#0d9488">
+          <span>✓ Exactly One Solution</span>
+        </div>
+        <div class="sol-card-body">
+          <svg viewBox="0 0 130 100" width="100%" style="display:block;margin-bottom:7px;border-radius:6px;background:#f0fdfa">
+            <defs><pattern id="g-one" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M 18 0 L 0 0 0 18" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+            <rect width="130" height="100" fill="url(#g-one)"/>
+            <line x1="10" y1="75" x2="125" y2="75" stroke="#94a3b8" stroke-width="1"/>
+            <line x1="45" y1="5"  x2="45"  y2="90" stroke="#94a3b8" stroke-width="1"/>
+            <!-- Line 1: positive slope -->
+            <line x1="10" y1="88" x2="120" y2="18" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- Line 2: negative slope -->
+            <line x1="10" y1="20" x2="120" y2="82" stroke="#1e40af" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- Intersection point ~(65, 51) -->
+            <circle cx="65" cy="51" r="5" fill="#ea580c" stroke="white" stroke-width="2"/>
+            <text x="70" y="47" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">intersection</text>
+            <text x="12" y="14" font-family="Inter" font-size="9" font-weight="700" fill="#0f172a">Different slopes</text>
+          </svg>
+          <div style="font-size:11px;font-weight:700;color:#0d9488;margin-bottom:4px">CONDITION</div>
+          <div style="font-size:12px;color:#064e3b;margin-bottom:5px"><strong>m₁ ≠ m₂</strong> (different slopes)</div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.5">Lines cross at exactly one point. The (x,y) coordinates of that point are the solution.</div>
+        </div>
+      </div>
+      <!-- No solution -->
+      <div class="sol-card">
+        <div class="sol-card-head" style="background:#ea580c">
+          <span>✗ No Solution</span>
+        </div>
+        <div class="sol-card-body">
+          <svg viewBox="0 0 130 100" width="100%" style="display:block;margin-bottom:7px;border-radius:6px;background:#fff7ed">
+            <rect width="130" height="100" fill="#fff7ed"/>
+            <line x1="10" y1="75" x2="125" y2="75" stroke="#94a3b8" stroke-width="1"/>
+            <line x1="45" y1="5"  x2="45"  y2="90" stroke="#94a3b8" stroke-width="1"/>
+            <!-- Line 1 & 2: same slope, different intercepts (parallel) -->
+            <line x1="10" y1="72" x2="120" y2="22" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="10" y1="90" x2="120" y2="40" stroke="#f97316" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="5,3"/>
+            <text x="85" y="17" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">L₁</text>
+            <text x="85" y="35" font-family="Inter" font-size="9" font-weight="700" fill="#f97316">L₂</text>
+            <text x="12" y="12" font-family="Inter" font-size="9" font-weight="700" fill="#0f172a">Same slope ∥</text>
+          </svg>
+          <div style="font-size:11px;font-weight:700;color:#ea580c;margin-bottom:4px">CONDITION</div>
+          <div style="font-size:12px;color:#78350f;margin-bottom:5px"><strong>m₁ = m₂, b₁ ≠ b₂</strong></div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.5">Parallel lines — never meet. System is <strong>inconsistent</strong>. No (x,y) satisfies both.</div>
+        </div>
+      </div>
+      <!-- Infinite solutions -->
+      <div class="sol-card">
+        <div class="sol-card-head" style="background:#6b21a8">
+          <span>∞ Infinite Solutions</span>
+        </div>
+        <div class="sol-card-body">
+          <svg viewBox="0 0 130 100" width="100%" style="display:block;margin-bottom:7px;border-radius:6px;background:#f3e8ff">
+            <rect width="130" height="100" fill="#f3e8ff"/>
+            <line x1="10" y1="75" x2="125" y2="75" stroke="#94a3b8" stroke-width="1"/>
+            <line x1="45" y1="5"  x2="45"  y2="90" stroke="#94a3b8" stroke-width="1"/>
+            <!-- Both lines are the same — draw one thick and one slightly offset dashed -->
+            <line x1="10" y1="80" x2="120" y2="22" stroke="#6b21a8" stroke-width="4" stroke-linecap="round" opacity="0.25"/>
+            <line x1="10" y1="80" x2="120" y2="22" stroke="#6b21a8" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="7,3"/>
+            <text x="12" y="14" font-family="Inter" font-size="9" font-weight="700" fill="#0f172a">Same line (identical)</text>
+            <text x="58" y="58" font-family="Inter" font-size="8" font-weight="700" fill="#6b21a8">every point is</text>
+            <text x="58" y="68" font-family="Inter" font-size="8" font-weight="700" fill="#6b21a8">a solution</text>
+          </svg>
+          <div style="font-size:11px;font-weight:700;color:#6b21a8;margin-bottom:4px">CONDITION</div>
+          <div style="font-size:12px;color:#4a1772;margin-bottom:5px"><strong>m₁ = m₂, b₁ = b₂</strong></div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.5">Identical lines — every point on the line is a solution. System is <strong>dependent</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION 2: SUBSTITUTION ══════════ -->
+<div class="sec-title">02 · Method 1 — Substitution</div>
+<div class="g2 mb16">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">①</div>
+      <h2>Substitution Method<small>Best when one variable is already isolated</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#0d9488">1</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#0d9488;margin-bottom:2px">Isolate one variable in either equation</div>
+          <div style="font-size:11.5px;color:#475569">Choose the equation with the simplest variable to isolate. Avoid fractions when possible.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#1e40af">2</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#1e40af;margin-bottom:2px">Substitute expression into the other equation</div>
+          <div style="font-size:11.5px;color:#475569">Replace that variable in the second equation. Now you have one equation, one unknown.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">3</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ea580c;margin-bottom:2px">Solve for the remaining variable</div>
+          <div style="font-size:11.5px;color:#475569">Simplify and solve the single-variable equation.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#6b21a8">4</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#6b21a8;margin-bottom:2px">Back-substitute to find the other variable</div>
+          <div style="font-size:11.5px;color:#475569">Plug solved value into either original equation to find the second variable.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#854d0e">5</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#854d0e;margin-bottom:2px">Check your solution in BOTH equations</div>
+          <div style="font-size:11.5px;color:#475569">Verify the (x, y) pair satisfies both original equations.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Worked Example -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">✏</div>
+      <h2>Worked Example — Substitution<small>Step by step with annotations</small></h2>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:9px;padding:12px;border:1px solid var(--border)">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">System:</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--dark);margin-bottom:10px;background:#e0f2fe;padding:8px 12px;border-radius:6px">
+        y = 2x − 1 &nbsp; …(1)<br>
+        3x + y = 9 &nbsp; …(2)
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#0d9488;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 1</div>
+          <div style="font-size:12px;color:var(--mid)">Eq (1) already has y isolated: <code>y = 2x − 1</code></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#1e40af;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 2</div>
+          <div style="font-size:12px;color:var(--mid)">Sub into (2): <code>3x + (2x − 1) = 9</code></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 3</div>
+          <div style="font-size:12px;color:var(--mid)">Simplify: <code>5x − 1 = 9</code> → <code>5x = 10</code> → <strong style="color:#ea580c">x = 2</strong></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#6b21a8;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 4</div>
+          <div style="font-size:12px;color:var(--mid)">Back-sub: <code>y = 2(2) − 1 = 3</code> → <strong style="color:#6b21a8">y = 3</strong></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#854d0e;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">CHECK</div>
+          <div style="font-size:12px;color:var(--mid)">Eq (2): <code>3(2)+3 = 9 ✓</code></div>
+        </div>
+        <div style="background:#ccfbf1;border-radius:6px;padding:8px 12px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#0d9488">
+          Solution: (2, 3)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION 3: ELIMINATION ══════════ -->
+<div class="sec-title">03 · Method 2 — Elimination (Addition/Subtraction)</div>
+<div class="g2 mb16">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">②</div>
+      <h2>Elimination Method<small>Best when coefficients are easy to match</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">1</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ea580c;margin-bottom:2px">Align equations in standard form (Ax + By = C)</div>
+          <div style="font-size:11.5px;color:#475569">Both equations should have x and y on the left, constant on right.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">2</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ea580c;margin-bottom:2px">Multiply to make coefficients of one variable equal (or opposite)</div>
+          <div style="font-size:11.5px;color:#475569">Multiply one or both equations by constants so that one variable will cancel out.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">3</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ea580c;margin-bottom:2px">Add or subtract the equations to eliminate a variable</div>
+          <div style="font-size:11.5px;color:#475569">If signs are opposite → add. If signs are the same → subtract.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">4</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ea580c;margin-bottom:2px">Solve for the remaining variable</div>
+          <div style="font-size:11.5px;color:#475569">The result is a one-variable equation — solve it directly.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="step-badge" style="background:#ea580c">5</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ea580c;margin-bottom:2px">Substitute back to find the other variable</div>
+          <div style="font-size:11.5px;color:#475569">Plug the found value into either original equation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-title">✓ WHEN TO USE ELIMINATION</div>
+      <div style="font-size:11.5px;color:#14532d;line-height:1.5">
+        Use elimination when coefficients of one variable are the same or simple multiples.
+        Example: <code>2x + 3y = 7</code> and <code>4x − 3y = 5</code> → add directly (3y cancels)!
+      </div>
+    </div>
+  </div>
+
+  <!-- Elimination Worked Example -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">✏</div>
+      <h2>Worked Example — Elimination<small>Multiply to match, then cancel</small></h2>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:9px;padding:12px;border:1px solid var(--border)">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">System:</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--dark);margin-bottom:10px;background:#fff7ed;padding:8px 12px;border-radius:6px">
+        3x + 2y = 16 &nbsp;…(1)<br>
+        5x − 2y = 8 &nbsp; …(2)
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 1</div>
+          <div style="font-size:12px;color:var(--mid)">Already in standard form. <code>2y</code> and <code>−2y</code> are already opposite!</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 2</div>
+          <div style="font-size:12px;color:var(--mid)">Add (1) + (2): <code>(3x+5x) + (2y−2y) = 16+8</code></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 3</div>
+          <div style="font-size:12px;color:var(--mid)"><code>8x = 24</code> → <strong style="color:#ea580c">x = 3</strong></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 4</div>
+          <div style="font-size:12px;color:var(--mid)">Sub x=3 into (1): <code>9 + 2y = 16</code> → <code>2y = 7</code> → <strong style="color:#6b21a8">y = 7/2</strong></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div style="background:#854d0e;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">CHECK</div>
+          <div style="font-size:12px;color:var(--mid)">Eq (2): <code>15 − 7 = 8 ✓</code></div>
+        </div>
+        <div style="background:#fff7ed;border-radius:6px;padding:8px 12px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#ea580c">
+          Solution: (3, 7/2)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION 4: UNKNOWN CONSTANTS ══════════ -->
+<div class="sec-title">04 · Solving for Unknown Constants (k, a, b)</div>
+<div class="g3 mb16">
+
+  <!-- Core rules box -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3e8ff">k</div>
+      <h2>The 3 Constant Rules<small>Most important SAT topic for this unit</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:12px">
+      <!-- Rule 1: One solution -->
+      <div style="background:#ccfbf1;border-radius:8px;padding:10px 12px;border-left:4px solid #0d9488">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">✓ For ONE Solution</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px">a₁/a₂ ≠ b₁/b₂</div>
+        <div style="font-size:11.5px;color:#064e3b;line-height:1.4">Coefficient ratios of x and y are NOT equal. Lines intersect. k must NOT satisfy the parallel condition.</div>
+      </div>
+      <!-- Rule 2: No solution -->
+      <div style="background:#fee2e2;border-radius:8px;padding:10px 12px;border-left:4px solid #b91c1c">
+        <div style="font-size:10px;font-weight:700;color:#b91c1c;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">✗ For NO Solution</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px">a₁/a₂ = b₁/b₂ ≠ c₁/c₂</div>
+        <div style="font-size:11.5px;color:#7f1d1d;line-height:1.4">x and y coefficient ratios are EQUAL, but constant ratio is DIFFERENT. Lines are parallel.</div>
+      </div>
+      <!-- Rule 3: Infinite solutions -->
+      <div style="background:#f3e8ff;border-radius:8px;padding:10px 12px;border-left:4px solid #6b21a8">
+        <div style="font-size:10px;font-weight:700;color:#6b21a8;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">∞ For INFINITE Solutions</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px">a₁/a₂ = b₁/b₂ = c₁/c₂</div>
+        <div style="font-size:11.5px;color:#4a1772;line-height:1.4">ALL three ratios are equal. Equations are multiples of each other — same line.</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-title">✓ QUICK METHOD</div>
+      <div style="font-size:11.5px;color:#14532d;line-height:1.5">
+        Rewrite both equations as <code>y = mx + b</code> first.
+        Then compare slopes (m) and intercepts (b) directly — easier to see the condition.
+      </div>
+    </div>
+  </div>
+
+  <!-- No solution worked example -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fee2e2">✗</div>
+      <h2>Find k for No Solution<small>SAT's most common unknown constant question</small></h2>
+    </div>
+
+    <div class="formula-box red mb10">
+      <div class="label">No Solution Condition</div>
+      <div class="formula-big" style="font-size:14px">Same slope (m₁ = m₂), different y-intercept</div>
+      <div class="formula-note">Ratio of x-coefficients = ratio of y-coefficients ≠ ratio of constants</div>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:9px;padding:12px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Example: Find k so that system has no solution</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dark);background:#fee2e2;padding:8px 12px;border-radius:6px;margin-bottom:8px">
+        2x + 3y = 6 &nbsp; …(1)<br>
+        4x + ky = 9 &nbsp; …(2)
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--mid)">
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#b91c1c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 1</div>
+          <div>Set x-coefficient ratio = y-coefficient ratio:<br><code>2/4 = 3/k</code></div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#b91c1c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 2</div>
+          <div>Cross multiply: <code>2k = 12</code> → <strong style="color:#b91c1c">k = 6</strong></div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#b91c1c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 3</div>
+          <div>Verify constants: <code>6/9 = 2/3 ≠ 1/2</code> ✓ (constants differ → no solution)</div>
+        </div>
+        <div style="background:#fee2e2;border-radius:6px;padding:6px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#b91c1c">
+          k = 6 → No Solution
+        </div>
+      </div>
+    </div>
+
+    <ul class="blist">
+      <li><span class="bi red">▶</span><span>Always verify that the constant ratio is <em>not</em> equal — otherwise it becomes infinite solutions</span></li>
+      <li><span class="bi red">▶</span><span>If SAT gives you the system in slope-intercept form, just equate slopes and check intercepts</span></li>
+    </ul>
+  </div>
+
+  <!-- Infinite solutions worked example -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3e8ff">∞</div>
+      <h2>Find k for Infinite Solutions<small>All three ratios must be equal</small></h2>
+    </div>
+
+    <div class="formula-box purple mb10">
+      <div class="label">Infinite Solutions Condition</div>
+      <div class="formula-big" style="font-size:14px">One equation is a multiple of the other</div>
+      <div class="formula-note">All ratios equal: <code>a₁/a₂ = b₁/b₂ = c₁/c₂</code></div>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:9px;padding:12px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Example: Find k for infinite solutions</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dark);background:#f3e8ff;padding:8px 12px;border-radius:6px;margin-bottom:8px">
+        x + 2y = 4 &nbsp; …(1)<br>
+        3x + ky = 12 …(2)
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--mid)">
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#6b21a8;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 1</div>
+          <div>Find multiplier from x-coefficients: <code>3/1 = 3</code> → Eq (2) is 3 × Eq (1)</div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#6b21a8;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 2</div>
+          <div>For y-coefficients: <code>k = 3 × 2 = 6</code> → <strong style="color:#6b21a8">k = 6</strong></div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#6b21a8;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">STEP 3</div>
+          <div>Verify constant: <code>3 × 4 = 12 ✓</code> — all ratios equal → infinite solutions</div>
+        </div>
+        <div style="background:#f3e8ff;border-radius:6px;padding:6px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#6b21a8">
+          k = 6 → Infinite Solutions
+        </div>
+      </div>
+    </div>
+
+    <ul class="blist">
+      <li><span class="bi purple">▶</span><span>Multiply the simpler equation by the constant ratio to match the other</span></li>
+      <li><span class="bi purple">▶</span><span>Check ALL three parts: x-coeff, y-coeff, and constant must all match the same multiplier</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ SECTION 5: COMPARISON TABLE + GRAPHING ══════════ -->
+<div class="sec-title">05 · Method Comparison &amp; Graphing Method</div>
+<div class="g12 mb16">
+
+  <!-- Graphing -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fefce8">③</div>
+      <h2>Graphing Method<small>Visual — best for SAT graph questions</small></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px">
+      <div style="display:flex;gap:9px;align-items:flex-start">
+        <div class="step-badge" style="background:#854d0e;font-size:10px">1</div>
+        <div style="font-size:11.5px;color:var(--mid)">Rewrite each equation as <code>y = mx + b</code></div>
+      </div>
+      <div style="display:flex;gap:9px;align-items:flex-start">
+        <div class="step-badge" style="background:#854d0e;font-size:10px">2</div>
+        <div style="font-size:11.5px;color:var(--mid)">Plot both lines on the same coordinate plane</div>
+      </div>
+      <div style="display:flex;gap:9px;align-items:flex-start">
+        <div class="step-badge" style="background:#854d0e;font-size:10px">3</div>
+        <div style="font-size:11.5px;color:var(--mid)">The intersection point = the solution (x, y)</div>
+      </div>
+    </div>
+
+    <svg viewBox="0 0 220 170" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc">
+      <defs>
+        <pattern id="gg2" width="22" height="22" patternUnits="userSpaceOnUse">
+          <path d="M 22 0 L 0 0 0 22" fill="none" stroke="#e2e8f0" stroke-width="0.6"/>
+        </pattern>
+        <marker id="arrowG" markerWidth="5" markerHeight="5" refX="3" refY="3" orient="auto">
+          <path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+      <rect width="220" height="170" fill="url(#gg2)"/>
+      <!-- Axes: origin at (66, 110) scale 22px -->
+      <line x1="10" y1="110" x2="215" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowG)"/>
+      <line x1="66" y1="165" x2="66"  y2="8"  stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowG)"/>
+      <!-- Tick x -->
+      <line x1="88" y1="107" x2="88" y2="113" stroke="#94a3b8" stroke-width="1"/><text x="85" y="122" font-family="Inter" font-size="8" fill="#64748b">1</text>
+      <line x1="110" y1="107" x2="110" y2="113" stroke="#94a3b8" stroke-width="1"/><text x="107" y="122" font-family="Inter" font-size="8" fill="#64748b">2</text>
+      <line x1="132" y1="107" x2="132" y2="113" stroke="#94a3b8" stroke-width="1"/><text x="129" y="122" font-family="Inter" font-size="8" fill="#64748b">3</text>
+      <line x1="154" y1="107" x2="154" y2="113" stroke="#94a3b8" stroke-width="1"/><text x="151" y="122" font-family="Inter" font-size="8" fill="#64748b">4</text>
+      <!-- Tick y -->
+      <line x1="63" y1="88" x2="69" y2="88" stroke="#94a3b8" stroke-width="1"/><text x="52" y="91" font-family="Inter" font-size="8" fill="#64748b">1</text>
+      <line x1="63" y1="66" x2="69" y2="66" stroke="#94a3b8" stroke-width="1"/><text x="52" y="69" font-family="Inter" font-size="8" fill="#64748b">2</text>
+      <line x1="63" y1="44" x2="69" y2="44" stroke="#94a3b8" stroke-width="1"/><text x="52" y="47" font-family="Inter" font-size="8" fill="#64748b">3</text>
+      <!-- Line 1: y=2x−1 → at x=0: y=-1(xs=66,ys=132); at x=3:y=5(xs=132,ys=2) -->
+      <line x1="44" y1="154" x2="155" y2="2" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Line 2: y=−x+4 → at x=0: y=4(xs=66,ys=22); at x=4:y=0(xs=154,ys=110) -->
+      <line x1="10" y1="96" x2="180" y2="8" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="5,3"/>
+      <!-- Intersection: y=2x-1 and y=-x+4 → 3x=5 → x=5/3 → xs=66+22*5/3=66+36.7=102.7, y=2*5/3-1=7/3 → ys=110-22*7/3=110-51.3=58.7 -->
+      <circle cx="103" cy="59" r="5.5" fill="#6b21a8" stroke="white" stroke-width="2"/>
+      <!-- Labels -->
+      <text x="130" y="15" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#0d9488">y=2x−1</text>
+      <text x="145" y="42" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#ea580c">y=−x+4</text>
+      <text x="106" y="55" font-family="Inter" font-size="9" font-weight="700" fill="#6b21a8">(5/3, 7/3)</text>
+      <text x="10" y="16" font-family="Inter" font-size="9" font-weight="700" fill="#0f172a">Graphing</text>
+    </svg>
+  </div>
+
+  <!-- Method comparison table -->
+  <div class="card" style="grid-column: span 2;">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">⚖</div>
+      <h2>All Three Methods — When to Use Each<small>Choose the fastest method for each SAT question</small></h2>
+    </div>
+    <table class="comp-table" style="margin-bottom:12px">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Best Used When...</th>
+          <th>Advantage</th>
+          <th>Watch Out For</th>
+          <th>Speed on SAT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#0d9488">Substitution</strong></td>
+          <td>One variable is already isolated (e.g., <code>y = 3x + 1</code>) or coefficient is 1</td>
+          <td>Clean and systematic; easy to check</td>
+          <td>Fractions when dividing by non-1 coefficient</td>
+          <td>⚡⚡⚡ (fastest for isolated variable)</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#ea580c">Elimination</strong></td>
+          <td>Coefficients are multiples of each other; both in standard form</td>
+          <td>Avoids fractions; cancels variables cleanly</td>
+          <td>Easy to make sign errors when subtracting</td>
+          <td>⚡⚡⚡ (fastest for matching coefficients)</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#854d0e">Graphing</strong></td>
+          <td>SAT gives a graph or asks to identify intersection visually</td>
+          <td>Instant visual check of solution type</td>
+          <td>Imprecise for non-integer answers</td>
+          <td>⚡⚡ (good for verification)</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#6b21a8">Ratio / Proportion</strong></td>
+          <td>Finding value of unknown constant k for no/infinite solutions</td>
+          <td>Direct and formula-based; no full solve needed</td>
+          <td>Must check ALL three ratios for infinite solutions</td>
+          <td>⚡⚡⚡⚡ (fastest for SAT constant questions)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="g2">
+      <div class="trap-box" style="margin-bottom:0">
+        <div class="trap-title">⚠ TRAP: "0 = 0" vs "0 = 5"</div>
+        <div style="font-size:11.5px;color:#7f1d1d;line-height:1.5">
+          After elimination, if you get <code>0 = 0</code> → infinite solutions.
+          If you get <code>0 = non-zero number</code> (like <code>0 = 4</code>) → no solution.
+          These look identical to careless eyes!
+        </div>
+      </div>
+      <div class="trap-box" style="margin-bottom:0">
+        <div class="trap-title">⚠ TRAP: Substituting into the SAME equation</div>
+        <div style="font-size:11.5px;color:#7f1d1d;line-height:1.5">
+          After solving for x, substitute into either <em>original</em> equation — NOT the manipulated one.
+          Substituting into the equation you just used gives a trivial identity, not the answer.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION 6: WORD PROBLEMS + SAT TIPS ══════════ -->
+<div class="sec-title">06 · Word Problems &amp; SAT Strategies</div>
+<div class="g2 mb16">
+
+  <!-- Word problems setup -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">📝</div>
+      <h2>Setting Up Word Problems as Systems<small>Translate English → Math equations</small></h2>
+    </div>
+
+    <div style="background:#f0f9ff;border-radius:9px;padding:12px;border:1px solid #bae6fd;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Translation Guide</div>
+      <table class="comp-table">
+        <thead><tr><th>English Phrase</th><th>Math Symbol / Setup</th></tr></thead>
+        <tbody>
+          <tr><td>"sum of two numbers is 20"</td><td><code>x + y = 20</code></td></tr>
+          <tr><td>"twice as many as"</td><td><code>x = 2y</code></td></tr>
+          <tr><td>"total cost of x items at $3 and y items at $5 is $40"</td><td><code>3x + 5y = 40</code></td></tr>
+          <tr><td>"difference between x and y is 6"</td><td><code>x − y = 6</code></td></tr>
+          <tr><td>"combined age is 50; one is 4 years older"</td><td><code>x + y = 50; x = y + 4</code></td></tr>
+          <tr><td>"rate × time = distance"</td><td><code>r₁t = d₁; r₂t = d₂</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:9px;padding:12px;border:1px solid var(--border)">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Worked Word Problem</div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.7">
+        <em>"A store sells apples for $1.50 and oranges for $2.00. Chloe buys 10 fruits and spends $17.00. How many of each did she buy?"</em><br><br>
+        Let a = apples, o = oranges:<br>
+        <strong>a + o = 10</strong> &nbsp;(total fruits)<br>
+        <strong>1.5a + 2o = 17</strong> &nbsp;(total cost)<br><br>
+        Solve: From eq 1: a = 10 − o<br>
+        Sub: 1.5(10−o) + 2o = 17 → 15 − 1.5o + 2o = 17 → 0.5o = 2 → <strong style="color:#0d9488">o = 4, a = 6</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAT Tips & Traps -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fee2e2">⚠️</div>
+      <h2>SAT Traps &amp; Power Tips<small>The difference between 700 and 800</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 1: Missing the "infinite solutions" case</div>
+        <div style="font-size:11.5px;color:#7f1d1d;line-height:1.5">
+          SAT often hides infinite solutions as: <code>2x + 4y = 6</code> and <code>x + 2y = 3</code>.
+          Eq 2 is exactly half of Eq 1 — same line. Don't just check slopes!
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 2: Forgetting to check the constant ratio</div>
+        <div style="font-size:11.5px;color:#7f1d1d;line-height:1.5">
+          If slope ratios are equal but constant ratio is also equal → infinite solutions, NOT no solution.
+          Always check the third ratio before declaring "no solution."
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 3: Variable vs. coefficient confusion</div>
+        <div style="font-size:11.5px;color:#7f1d1d;line-height:1.5">
+          In <code>kx + 2y = 5</code>, k is the coefficient of x — not the variable.
+          Always identify what the unknown is (k) vs. what the variables are (x, y).
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP 1: Use elimination for most SAT systems</div>
+        <div style="font-size:11.5px;color:#14532d;line-height:1.5">
+          SAT systems are usually designed for elimination. Look for coefficients that sum to zero
+          or are simple multiples — this is rarely an accident.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP 2: The question often asks for x+y, not x and y separately</div>
+        <div style="font-size:11.5px;color:#14532d;line-height:1.5">
+          Don't solve the full system if SAT asks for <code>x + y</code> or <code>2x − y</code>.
+          Add/subtract the equations strategically to get exactly what's asked.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP 3: Plug-in on multiple choice for unknowns</div>
+        <div style="font-size:11.5px;color:#14532d;line-height:1.5">
+          When finding constant k, try each answer choice — substitute back and check which value
+          creates the required solution condition. Often faster than setting up ratios.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SECTION 7: MASTER SUMMARY ══════════ -->
+<div class="sec-title">07 · Master Summary — All Rules at a Glance</div>
+<div class="card mb16">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;border-bottom:2px solid var(--teal);padding-bottom:3px">Solution Types</div>
+      <ul class="blist">
+        <li><span class="bi teal">▶</span><span><span class="hl-t">1 solution</span>: different slopes → lines cross</span></li>
+        <li><span class="bi orange">▶</span><span><span class="hl-o">No solution</span>: same slope, diff y-int → parallel</span></li>
+        <li><span class="bi purple">▶</span><span><span class="hl-p">Infinite</span>: same slope &amp; y-int → identical lines</span></li>
+        <li><span class="bi teal">▶</span><span>Test: eliminate → <code>0=0</code> or <code>0=k</code></span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;border-bottom:2px solid var(--blue);padding-bottom:3px">Solving Methods</div>
+      <ul class="blist">
+        <li><span class="bi blue">▶</span><span><span class="hl-b">Substitution</span>: isolate → sub in → solve back</span></li>
+        <li><span class="bi orange">▶</span><span><span class="hl-o">Elimination</span>: match coefficients → add/subtract</span></li>
+        <li><span class="bi blue">▶</span><span><span class="hl-b">Graphing</span>: plot both lines → find intersection</span></li>
+        <li><span class="bi blue">▶</span><span>Always verify solution in BOTH equations</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;border-bottom:2px solid var(--orange);padding-bottom:3px">Unknown Constants (k)</div>
+      <ul class="blist">
+        <li><span class="bi orange">▶</span><span>No soln: <code>a₁/a₂ = b₁/b₂ ≠ c₁/c₂</code></span></li>
+        <li><span class="bi purple">▶</span><span>Inf soln: <code>a₁/a₂ = b₁/b₂ = c₁/c₂</code></span></li>
+        <li><span class="bi teal">▶</span><span>1 soln: <code>a₁/a₂ ≠ b₁/b₂</code></span></li>
+        <li><span class="bi orange">▶</span><span>Fastest: convert to <code>y=mx+b</code> → compare</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;border-bottom:2px solid var(--purple);padding-bottom:3px">SAT Smart Moves</div>
+      <ul class="blist">
+        <li><span class="bi purple">▶</span><span>Ask for x+y? Add equations directly</span></li>
+        <li><span class="bi purple">▶</span><span><code>0=0</code> → infinite; <code>0=5</code> → no solution</span></li>
+        <li><span class="bi purple">▶</span><span>Word problems: define variables first, then translate</span></li>
+        <li><span class="bi purple">▶</span><span>Try plugging in answer choices for k questions</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <strong>Systems of Equations &amp; Unknown Constants · SAT Math Master Guide</strong> &nbsp;·&nbsp;
+  All methods, solution types &amp; SAT-specific traps covered &nbsp;·&nbsp;
+  Aligned to College Board Digital SAT specifications
+</div>
+
+</body>
+</html>

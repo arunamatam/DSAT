@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformations of Functions — SAT Math Master Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+  @page { size: A3 landscape; margin: 14mm 12mm 14mm 12mm; }
+
+  :root {
+    --teal:   #0d9488; --teal-l:  #ccfbf1; --teal-m:  #14b8a6;
+    --blue:   #1e40af; --blue-l:  #dbeafe; --blue-m:  #3b82f6;
+    --orng:   #ea580c; --orng-l:  #fff7ed; --orng-m:  #f97316;
+    --yell:   #854d0e; --yell-l:  #fefce8; --yell-m:  #fbbf24;
+    --purp:   #6b21a8; --purp-l:  #f3e8ff; --purp-m:  #a855f7;
+    --red:    #b91c1c; --red-l:   #fee2e2;
+    --green:  #15803d; --green-l: #dcfce7;
+    --rose:   #9f1239; --rose-l:  #ffe4e6;
+    --cyan:   #0e7490; --cyan-l:  #cffafe;
+    --slate:  #334155; --muted:   #64748b;
+    --dark:   #0f172a; --border:  #e2e8f0;
+    --white:  #ffffff; --bg:      #f8fafc;
+  }
+
+  *  { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--dark); width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #0c3460 100%);
+    padding: 26px 32px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .hero-left { flex: 1; }
+  .hero-tag { display: inline-block; background: var(--orng-m); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+  .hero h1 { font-size: 36px; font-weight: 900; color: white; line-height: 1.1; letter-spacing: -1px; }
+  .hero h1 em { color: var(--yell-m); font-style: normal; }
+  .hero-sub { color: #94a3b8; font-size: 13px; margin-top: 7px; }
+  .hero-pills { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .pill { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 10.5px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+  .hero-right { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15); border-radius: 14px; padding: 16px 22px; min-width: 360px; }
+  .hero-right h3 { color: var(--yell-m); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 9px; }
+  .kfr { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 6px; }
+  .kfd { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .kft { color: #fff; font-size: 12px; line-height: 1.4; }
+  .kft strong { font-family: 'JetBrains Mono',monospace; font-size: 11.5px; color: #5eead4; }
+
+  /* ── LAYOUT ── */
+  .page { padding: 14px 18px; background: var(--bg); }
+  .st { font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+  .st::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card { background: var(--white); border-radius: 11px; border: 1px solid var(--border); padding: 13px 15px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+  .ch { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .ci { width: 29px; height: 29px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .card h2 { font-size: 13.5px; font-weight: 800; color: var(--dark); line-height: 1.2; }
+  .card h2 small { display: block; font-size: 10px; font-weight: 500; color: var(--muted); margin-top: 1px; }
+
+  .fb { border-radius: 8px; padding: 8px 12px; margin-bottom: 8px; border-left: 4px solid; }
+  .fb.t  { background: var(--teal-l); border-color: var(--teal); }
+  .fb.b  { background: var(--blue-l); border-color: var(--blue); }
+  .fb.o  { background: var(--orng-l); border-color: var(--orng); }
+  .fb.y  { background: var(--yell-l); border-color: var(--yell-m); }
+  .fb.p  { background: var(--purp-l); border-color: var(--purp); }
+  .fb.g  { background: var(--green-l);border-color: var(--green); }
+  .fb.r  { background: var(--red-l);  border-color: var(--red);   }
+  .fb.ro { background: var(--rose-l); border-color: var(--rose);  }
+  .fb.c  { background: var(--cyan-l); border-color: var(--cyan);  }
+  .lb { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; }
+  .fb.t .lb { color: var(--teal); }  .fb.b .lb { color: var(--blue); }
+  .fb.o .lb { color: var(--orng); }  .fb.y .lb { color: var(--yell); }
+  .fb.p .lb { color: var(--purp); }  .fb.g .lb { color: var(--green); }
+  .fb.r .lb { color: var(--red);  }  .fb.ro .lb { color: var(--rose); }
+  .fb.c .lb { color: var(--cyan); }
+  .fbig { font-family: 'JetBrains Mono',monospace; font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .fn { font-size: 11.5px; color: var(--slate); line-height: 1.45; }
+
+  .bl { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .bl li { display: flex; gap: 6px; font-size: 11.5px; color: var(--slate); line-height: 1.4; align-items: flex-start; }
+  .bl li .bi { font-size: 9px; flex-shrink: 0; margin-top: 3px; font-weight: 700; }
+  .bi.t  { color: var(--teal); } .bi.b  { color: var(--blue); }
+  .bi.o  { color: var(--orng); } .bi.p  { color: var(--purp); }
+  .bi.r  { color: var(--red);  } .bi.g  { color: var(--green);}
+  .bi.y  { color: var(--yell); } .bi.ro { color: var(--rose); }
+
+  .g2 { display: grid; grid-template-columns: 1fr 1fr;        gap: 11px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr;   gap: 11px; }
+  .g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 11px; }
+  .g5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; }
+  .g6 { display: grid; grid-template-columns: repeat(6,1fr); gap: 10px; }
+  .g12 { display: grid; grid-template-columns: 1fr 2fr; gap: 11px; }
+  .g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 11px; }
+  .g13 { display: grid; grid-template-columns: 1fr 3fr; gap: 11px; }
+  .mb8  { margin-bottom: 8px;  }
+  .mb12 { margin-bottom: 12px; }
+  .mb16 { margin-bottom: 16px; }
+
+  code { font-family: 'JetBrains Mono',monospace; background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: 11px; color: var(--blue); }
+  .sb { width: 21px; height: 21px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0; }
+
+  .trap { background: var(--red-l); border: 1.5px dashed var(--red); border-radius: 8px; padding: 8px 12px; margin-bottom: 7px; }
+  .trap .tt { font-size: 9.5px; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .tip { background: #f0fdf4; border: 1.5px solid #16a34a; border-radius: 8px; padding: 8px 12px; margin-bottom: 7px; }
+  .tip .tp { font-size: 9.5px; font-weight: 800; color: #16a34a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* Transform row in the master table */
+  .tr { display: flex; align-items: center; gap: 7px; padding: 6px 9px; background: #f8fafc; border-radius: 7px; border: 1px solid var(--border); margin-bottom: 5px; }
+  .tr-tag { padding: 2px 7px; border-radius: 4px; font-size: 9.5px; font-weight: 700; color: #fff; flex-shrink: 0; min-width: 70px; text-align: center; }
+  .tr-form { font-family: 'JetBrains Mono',monospace; font-size: 12px; font-weight: 700; flex-shrink: 0; min-width: 120px; }
+  .tr-desc { font-size: 11px; color: var(--slate); line-height: 1.35; }
+  .tr-dir  { font-size: 11px; font-weight: 700; flex-shrink: 0; min-width: 60px; }
+
+  /* Comparison graph panel */
+  .cg { background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); padding: 9px; }
+  .cg-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 6px; }
+
+  .footer { background: var(--dark); color: #94a3b8; font-size: 11px; text-align: center; padding: 12px; }
+  .footer strong { color: #fff; }
+
+  .hl  { font-weight: 700; color: var(--dark); }
+  .ht  { color: var(--teal);  font-weight: 700; }
+  .hb  { color: var(--blue);  font-weight: 700; }
+  .ho  { color: var(--orng);  font-weight: 700; }
+  .hp  { color: var(--purp);  font-weight: 700; }
+
+  /* coord SVG shared style applied via inline */
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Digital SAT Math · Last-Minute Reference</div>
+    <h1>Transformation<br>of <em>Functions</em></h1>
+    <p class="hero-sub">Every shift · stretch · compress · reflect — with annotated graphs, order rules &amp; SAT traps</p>
+    <div class="hero-pills">
+      <span class="pill">Vertical Shifts</span><span class="pill">Horizontal Shifts</span>
+      <span class="pill">Reflections</span><span class="pill">Vertical Stretch/Compress</span>
+      <span class="pill">Horizontal Stretch/Compress</span><span class="pill">Combined: a·f(b(x−h))+k</span>
+      <span class="pill">Vertex Form</span><span class="pill">Order of Transformations</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h3>⚡ Master Formula</h3>
+    <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;margin-bottom:10px;text-align:center">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#fbbf24;margin-bottom:4px">g(x) = a · f(b(x − h)) + k</div>
+      <div style="font-size:11px;color:#94a3b8">The general form of any transformed function</div>
+    </div>
+    <div class="kfr"><div class="kfd" style="background:#14b8a6"></div><div class="kft"><strong>+k / −k</strong> outside → shift UP / DOWN</div></div>
+    <div class="kfr"><div class="kfd" style="background:#3b82f6"></div><div class="kft"><strong>x − h</strong> inside → shift RIGHT h (sign is opposite!)</div></div>
+    <div class="kfr"><div class="kfd" style="background:#f97316"></div><div class="kft"><strong>|a| &gt; 1</strong> → vertical stretch &nbsp;|&nbsp; <strong>0 &lt; |a| &lt; 1</strong> → compress</div></div>
+    <div class="kfr"><div class="kfd" style="background:#a855f7"></div><div class="kft"><strong>a &lt; 0</strong> → flip over x-axis &nbsp;|&nbsp; <strong>b &lt; 0</strong> → flip over y-axis</div></div>
+    <div class="kfr"><div class="kfd" style="background:#fbbf24"></div><div class="kft"><strong>|b| &gt; 1</strong> → horiz. compress &nbsp;|&nbsp; <strong>0&lt;|b|&lt;1</strong> → horiz. stretch</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ════════ SEC 1: MASTER REFERENCE TABLE ════════ -->
+<div class="st">01 · Master Transformation Reference</div>
+<div class="g2 mb16">
+
+  <!-- All transformation rules -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#ccfbf1">⇄</div><h2>All 8 Transformation Rules<small>The complete SAT reference — memorise these</small></h2></div>
+
+    <div class="tr"><div class="tr-tag" style="background:#0d9488">SHIFT ↑</div><div class="tr-form" style="color:#0d9488">f(x) + k</div><div class="tr-dir" style="color:#0d9488">Up k</div><div class="tr-desc">Add k <strong>outside</strong> → every y-value increases by k. Graph moves vertically upward by k units.</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#0d9488">SHIFT ↓</div><div class="tr-form" style="color:#0d9488">f(x) − k</div><div class="tr-dir" style="color:#0d9488">Down k</div><div class="tr-desc">Subtract k <strong>outside</strong> → every y-value decreases by k. Graph moves vertically downward by k units.</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#1e40af">SHIFT →</div><div class="tr-form" style="color:#1e40af">f(x − h)</div><div class="tr-dir" style="color:#1e40af">Right h ⚠</div><div class="tr-desc">Subtract h <strong>inside</strong> → graph shifts RIGHT h. Counterintuitive: minus = right!</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#1e40af">SHIFT ←</div><div class="tr-form" style="color:#1e40af">f(x + h)</div><div class="tr-dir" style="color:#1e40af">Left h ⚠</div><div class="tr-desc">Add h <strong>inside</strong> → graph shifts LEFT h. Counterintuitive: plus = left!</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#ea580c">V. STRETCH</div><div class="tr-form" style="color:#ea580c">a · f(x), a&gt;1</div><div class="tr-dir" style="color:#ea580c">Taller</div><div class="tr-desc">Multiply <strong>outside</strong> by a &gt; 1 → all y-values × a. Graph stretches vertically (gets taller/narrower).</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#854d0e">V. COMPRESS</div><div class="tr-form" style="color:#854d0e">a · f(x), 0&lt;a&lt;1</div><div class="tr-dir" style="color:#854d0e">Flatter</div><div class="tr-desc">Multiply <strong>outside</strong> by 0&lt;a&lt;1 → all y-values × a. Graph compresses vertically (gets flatter/wider).</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#6b21a8">FLIP x</div><div class="tr-form" style="color:#6b21a8">−f(x)</div><div class="tr-dir" style="color:#6b21a8">Over x-axis</div><div class="tr-desc">Negate <strong>outside</strong> → all y-values flip sign. Graph reflects over the x-axis (upside down).</div></div>
+    <div class="tr"><div class="tr-tag" style="background:#9d174d">FLIP y</div><div class="tr-form" style="color:#9d174d">f(−x)</div><div class="tr-dir" style="color:#9d174d">Over y-axis</div><div class="tr-desc">Negate x <strong>inside</strong> → all x-values flip sign. Graph reflects over the y-axis (left-right mirror).</div></div>
+  </div>
+
+  <!-- Inside vs Outside + Order -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#dbeafe">①②</div><h2>Inside vs. Outside — The Golden Rule<small>This determines whether transformation is vertical or horizontal</small></h2></div>
+
+    <div class="g2 mb10">
+      <div style="background:#f0fdfa;border-radius:9px;padding:10px 12px;border:2px solid #0d9488">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">OUTSIDE f(x) — affects Y</div>
+        <div style="font-size:12px;color:#064e3b;line-height:1.7;font-family:'JetBrains Mono',monospace">
+          f(x) <span style="color:#0d9488;font-weight:700;font-size:14px">+ k</span> → shift UP k<br>
+          f(x) <span style="color:#0d9488;font-weight:700;font-size:14px">− k</span> → shift DOWN k<br>
+          <span style="color:#ea580c;font-weight:700;font-size:14px">a</span> · f(x) → vertical scale<br>
+          <span style="color:#6b21a8;font-weight:700;font-size:14px">−</span>f(x) → flip over x-axis
+        </div>
+        <div style="margin-top:7px;font-size:11px;color:#0d9488;font-weight:600">Direction: SAME as sign</div>
+        <div style="font-size:10.5px;color:#065f46">+k means move up; −k means move down</div>
+      </div>
+      <div style="background:#dbeafe;border-radius:9px;padding:10px 12px;border:2px solid #1e40af">
+        <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">INSIDE f(x) — affects X</div>
+        <div style="font-size:12px;color:#1e3a8a;line-height:1.7;font-family:'JetBrains Mono',monospace">
+          f(x <span style="color:#1e40af;font-weight:700;font-size:14px">− h</span>) → shift RIGHT h<br>
+          f(x <span style="color:#1e40af;font-weight:700;font-size:14px">+ h</span>) → shift LEFT h<br>
+          f(<span style="color:#ea580c;font-weight:700;font-size:14px">b</span>x) → horizontal scale<br>
+          f(<span style="color:#9d174d;font-weight:700;font-size:14px">−</span>x) → flip over y-axis
+        </div>
+        <div style="margin-top:7px;font-size:11px;color:#b91c1c;font-weight:700">⚠ Direction: OPPOSITE to sign!</div>
+        <div style="font-size:10.5px;color:#7f1d1d">f(x−3) → right 3 (NOT left!)</div>
+      </div>
+    </div>
+
+    <!-- Order of transformations -->
+    <div style="background:#f8fafc;border-radius:9px;padding:10px 12px;border:1px solid var(--border)">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Order of Transformations for a · f(b(x − h)) + k</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <div style="background:#1e40af;color:#fff;padding:6px 11px;border-radius:7px;text-align:center;font-size:11px;font-weight:700">① Horiz. Shift<br><code style="background:transparent;color:#bfdbfe;font-size:10px">x → x−h</code></div>
+        <div style="font-size:18px;color:#0d9488;font-weight:700">→</div>
+        <div style="background:#ea580c;color:#fff;padding:6px 11px;border-radius:7px;text-align:center;font-size:11px;font-weight:700">② Horiz. Scale<br><code style="background:transparent;color:#fed7aa;font-size:10px">x → bx</code></div>
+        <div style="font-size:18px;color:#0d9488;font-weight:700">→</div>
+        <div style="background:#0d9488;color:#fff;padding:6px 11px;border-radius:7px;text-align:center;font-size:11px;font-weight:700">③ Reflect<br><code style="background:transparent;color:#99f6e4;font-size:10px">a or b &lt; 0</code></div>
+        <div style="font-size:18px;color:#0d9488;font-weight:700">→</div>
+        <div style="background:#6b21a8;color:#fff;padding:6px 11px;border-radius:7px;text-align:center;font-size:11px;font-weight:700">④ Vert. Scale<br><code style="background:transparent;color:#e9d5ff;font-size:10px">y → |a|y</code></div>
+        <div style="font-size:18px;color:#0d9488;font-weight:700">→</div>
+        <div style="background:#854d0e;color:#fff;padding:6px 11px;border-radius:7px;text-align:center;font-size:11px;font-weight:700">⑤ Vert. Shift<br><code style="background:transparent;color:#fde68a;font-size:10px">y → y+k</code></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SEC 2: VERTICAL SHIFTS ════════ -->
+<div class="st">02 · Vertical Shifts — f(x) ± k</div>
+<div class="g3 mb16">
+
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#ccfbf1">↑↓</div><h2>Shifting Up: f(x) + k<small>Every point moves up by k units</small></h2></div>
+    <div class="fb t mb8">
+      <div class="lb">Rule</div>
+      <div class="fbig">y = f(x) + k &nbsp; (k &gt; 0)</div>
+      <div class="fn">All y-coordinates increase by k. x-coordinates unchanged. y-intercept increases by k.</div>
+    </div>
+    <svg viewBox="0 0 230 150" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f0fdfa;display:block;margin-bottom:9px">
+      <defs>
+        <marker id="ar" markerWidth="5" markerHeight="5" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6Z" fill="#94a3b8"/></marker>
+        <pattern id="gvs" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
+      </defs>
+      <rect width="230" height="150" fill="url(#gvs)"/>
+      <line x1="10" y1="110" x2="220" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="50"  y1="140" x2="50"  y2="8"   stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Original: parabola f(x)=x², origin(50,110), scale 18px -->
+      <!-- x=-2:xs=14,ys=110-4*9=74; x=-1:xs=32,ys=101; x=0:xs=50,ys=110; x=1:xs=68,ys=101; x=2:xs=86,ys=74 -->
+      <path d="M14,74 Q32,118 50,110 Q68,102 86,74" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Shifted up 3: ys-54=74-54=20... too complicated. Let's use ys_new = ys_orig - 3*9=ys-27 -->
+      <!-- shifted parabola: x=-2:ys=74-27=47; x=0:ys=110-27=83; x=2:ys=74-27=47 -->
+      <path d="M14,47 Q32,91 50,83 Q68,75 86,47" fill="none" stroke="#0d9488" stroke-width="2.5"/>
+      <!-- Vertical shift arrows -->
+      <line x1="50" y1="110" x2="50" y2="86" stroke="#ea580c" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="53" y="101" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">+k up</text>
+      <!-- Labels -->
+      <text x="88" y="73" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#0d9488">f(x)+k</text>
+      <text x="88" y="84" font-family="JetBrains Mono" font-size="10" fill="#94a3b8">(grey: f(x))</text>
+      <!-- Y-intercept markers -->
+      <circle cx="50" cy="110" r="4" fill="#94a3b8" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="50" cy="83"  r="4" fill="#0d9488" stroke="#fff" stroke-width="1.5"/>
+      <text x="8"  y="113" font-family="Inter" font-size="8" fill="#94a3b8">b</text>
+      <text x="8"  y="85"  font-family="Inter" font-size="8" fill="#0d9488">b+k</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi t">▶</span><span>Vertex, intercepts, and all points shift up by exactly k</span></li>
+      <li><span class="bi t">▶</span><span>Shape &amp; orientation of graph do NOT change</span></li>
+      <li><span class="bi o">▶</span><span>Example: <code>f(x)=x²</code> → <code>f(x)+4 = x²+4</code> — vertex moves from (0,0) to (0,4)</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#ccfbf1">↕</div><h2>Shifting Down: f(x) − k<small>Every point moves down by k units</small></h2></div>
+    <div class="fb t mb8">
+      <div class="lb">Rule</div>
+      <div class="fbig">y = f(x) − k &nbsp; (k &gt; 0)</div>
+      <div class="fn">All y-coordinates decrease by k. x-intercepts change (zeros shift). y-intercept decreases by k.</div>
+    </div>
+    <svg viewBox="0 0 230 150" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f0fdfa;display:block;margin-bottom:9px">
+      <defs><pattern id="gvs2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="230" height="150" fill="url(#gvs2)"/>
+      <line x1="10" y1="90" x2="220" y2="90" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="50" y1="140" x2="50" y2="8"  stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Original parabola: vertex at (50,90) -->
+      <path d="M14,54 Q32,78 50,90 Q68,78 86,54" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Shifted down 3 (27px): vertex (50,117) -->
+      <path d="M14,81 Q32,105 50,117 Q68,105 86,81" fill="none" stroke="#0d9488" stroke-width="2.5"/>
+      <!-- Down arrow -->
+      <line x1="50" y1="90" x2="50" y2="114" stroke="#ea580c" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="53" y="106" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">−k down</text>
+      <text x="88" y="80" font-family="JetBrains Mono" font-size="10" fill="#94a3b8">(grey: f(x))</text>
+      <text x="88" y="108" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#0d9488">f(x)−k</text>
+      <!-- new x-intercepts appear -->
+      <circle cx="50" cy="117" r="4" fill="#0d9488" stroke="#fff" stroke-width="1.5"/>
+      <text x="53" y="116" font-family="Inter" font-size="8" fill="#0d9488">new vertex</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi t">▶</span><span>When shifted down enough, new x-intercepts may appear (or disappear)</span></li>
+      <li><span class="bi t">▶</span><span>Example: <code>x²</code> has no x-intercepts at vertex (0,4), but <code>x²−4</code> crosses x-axis at x=±2</span></li>
+      <li><span class="bi o">▶</span><span>SAT: "Find value of c so that f(x)+c has exactly one zero" → vertex touches x-axis</span></li>
+    </ul>
+  </div>
+
+  <!-- Vertical shift SAT applications -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#fefce8">📝</div><h2>Vertical Shift SAT Questions<small>Most common ways SAT tests this</small></h2></div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="background:#fefce8;border-radius:8px;padding:9px 12px;border:1px solid #fde68a">
+        <div style="font-size:10px;font-weight:700;color:#854d0e;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Q-Type A: Identify shift from equation</div>
+        <div style="font-size:12px;color:#78350f;line-height:1.6;font-family:'JetBrains Mono',monospace">
+          f(x) = x² → g(x) = x² + 5<br>
+          → g is f shifted <strong>UP 5</strong>
+        </div>
+      </div>
+      <div style="background:#dbeafe;border-radius:8px;padding:9px 12px;border:1px solid #93c5fd">
+        <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Q-Type B: Find k from a point</div>
+        <div style="font-size:12px;color:#1e3a8a;line-height:1.6;font-family:'JetBrains Mono',monospace">
+          g(x) = f(x) + k. If f(2)=3 and<br>
+          g(2)=7, then k = 7−3 = <strong>4</strong>
+        </div>
+      </div>
+      <div style="background:#ccfbf1;border-radius:8px;padding:9px 12px;border:1px solid #5eead4">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Q-Type C: Interpret y-intercept change</div>
+        <div style="font-size:12px;color:#064e3b;line-height:1.6;font-family:'JetBrains Mono',monospace">
+          f(x) has y-int = 3.<br>
+          f(x)+6 has y-int = <strong>9</strong><br>
+          (y-int shifts by same k)
+        </div>
+      </div>
+      <div class="tip" style="margin-bottom:0">
+        <div class="tp">✓ KEY INSIGHT</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">Vertical shifts ONLY change y-values. The x-coordinates of all points are unchanged — only their heights change.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SEC 3: HORIZONTAL SHIFTS ════════ -->
+<div class="st">03 · Horizontal Shifts — f(x ± h) · The Counterintuitive Rule</div>
+<div class="g3 mb16">
+
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#dbeafe">→</div><h2>Shift Right: f(x − h)<small>Minus inside → moves RIGHT — counterintuitive!</small></h2></div>
+    <div class="fb b mb8">
+      <div class="lb">Rule (h &gt; 0)</div>
+      <div class="fbig">y = f(x − h)</div>
+      <div class="fn">Replace x with (x−h) inside. Graph moves <strong>RIGHT</strong> by h units. All x-values + h.</div>
+    </div>
+    <svg viewBox="0 0 230 150" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#eff6ff;display:block;margin-bottom:9px">
+      <defs><pattern id="ghs" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="230" height="150" fill="url(#ghs)"/>
+      <line x1="10" y1="110" x2="220" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="70"  y1="140" x2="70"  y2="8"   stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Original parabola: vertex at (70,110) -->
+      <path d="M30,74 Q50,98 70,110 Q90,98 110,74" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Shifted right by 3 (3*20=60px): vertex at (130,110) -->
+      <path d="M90,74 Q110,98 130,110 Q150,98 170,74" fill="none" stroke="#1e40af" stroke-width="2.5"/>
+      <!-- Horizontal arrow -->
+      <line x1="70" y1="92" x2="126" y2="92" stroke="#ea580c" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="82" y="88" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">+h right</text>
+      <!-- Vertex markers -->
+      <circle cx="70"  cy="110" r="4" fill="#94a3b8" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="130" cy="110" r="4" fill="#1e40af" stroke="#fff" stroke-width="1.5"/>
+      <text x="60" y="125" font-family="Inter" font-size="8" fill="#94a3b8">(0,0)</text>
+      <text x="118" y="125" font-family="Inter" font-size="8" fill="#1e40af">(h,0)</text>
+      <text x="155" y="72" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#1e40af">f(x−h)</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi b">▶</span><span>Why counterintuitive: f(x−3)=0 when x−3=0, i.e. x=<strong>3</strong> (shifted right to 3)</span></li>
+      <li><span class="bi b">▶</span><span>Vertex of <code>f(x−h)²</code> is at x=h (positive h = moved right)</span></li>
+      <li><span class="bi o">▶</span><span>Example: <code>(x−2)²</code> → parabola with vertex at (2, 0) — shifted right 2</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#dbeafe">←</div><h2>Shift Left: f(x + h)<small>Plus inside → moves LEFT — counterintuitive!</small></h2></div>
+    <div class="fb b mb8">
+      <div class="lb">Rule (h &gt; 0)</div>
+      <div class="fbig">y = f(x + h)</div>
+      <div class="fn">Replace x with (x+h) inside. Graph moves <strong>LEFT</strong> by h units. All x-values − h.</div>
+    </div>
+    <svg viewBox="0 0 230 150" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#eff6ff;display:block;margin-bottom:9px">
+      <defs><pattern id="ghs2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="230" height="150" fill="url(#ghs2)"/>
+      <line x1="10" y1="110" x2="220" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="130" y1="140" x2="130" y2="8"  stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Original: vertex at (130,110) -->
+      <path d="M90,74 Q110,98 130,110 Q150,98 170,74" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Shifted left 3 (60px): vertex at (70,110) -->
+      <path d="M30,74 Q50,98 70,110 Q90,98 110,74" fill="none" stroke="#1e40af" stroke-width="2.5"/>
+      <!-- Arrow -->
+      <line x1="130" y1="90" x2="74" y2="90" stroke="#ea580c" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="82" y="86" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">−h left</text>
+      <circle cx="130" cy="110" r="4" fill="#94a3b8" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="70"  cy="110" r="4" fill="#1e40af" stroke="#fff" stroke-width="1.5"/>
+      <text x="120" y="125" font-family="Inter" font-size="8" fill="#94a3b8">(0,0)</text>
+      <text x="52" y="125" font-family="Inter" font-size="8" fill="#1e40af">(−h,0)</text>
+      <text x="10" y="72" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#1e40af">f(x+h)</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi b">▶</span><span>Example: <code>(x+3)²</code> → parabola with vertex at (−3, 0) — shifted LEFT 3</span></li>
+      <li><span class="bi b">▶</span><span>To find vertex x: set the expression inside = 0 and solve</span></li>
+      <li><span class="bi o">▶</span><span>SAT: "If g(x)=f(x+4), which point on g corresponds to (2,5) on f?" → (−2, 5)</span></li>
+    </ul>
+  </div>
+
+  <!-- Horizontal shift cheat sheet -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#fefce8">💡</div><h2>Decoding Horizontal Shifts<small>Inside the parentheses — always opposite!</small></h2></div>
+    <div style="background:#1a1a2e;border-radius:9px;padding:12px;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;color:#5eead4;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">TRICK: "What makes inside = 0?"</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#fff;line-height:2">
+        <span style="color:#fbbf24">f(x − 3)</span>: set x−3=0 → x=<span style="color:#5eead4">3</span> → shifts <span style="color:#f97316">RIGHT 3</span><br>
+        <span style="color:#fbbf24">f(x + 5)</span>: set x+5=0 → x=<span style="color:#5eead4">−5</span> → shifts <span style="color:#f97316">LEFT 5</span><br>
+        <span style="color:#fbbf24">f(2x − 4)</span>: set 2x−4=0 → x=<span style="color:#5eead4">2</span> → shifts <span style="color:#f97316">RIGHT 2</span>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:9px;border:1px solid var(--border);margin-bottom:9px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Key Points That Move With the Graph</div>
+      <table style="width:100%;border-collapse:collapse;font-size:11.5px">
+        <thead><tr>
+          <th style="background:#0f172a;color:#fff;padding:5px 8px;font-size:10px;text-align:left">Original f(x)</th>
+          <th style="background:#0f172a;color:#fff;padding:5px 8px;font-size:10px;text-align:left">Shift Right 3: f(x−3)</th>
+          <th style="background:#0f172a;color:#fff;padding:5px 8px;font-size:10px;text-align:left">Shift Left 2: f(x+2)</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace">(0, 5)</td><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#1e40af">(3, 5)</td><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#ea580c">(−2, 5)</td></tr>
+          <tr style="background:#f8fafc"><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace">(2, 0)</td><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#1e40af">(5, 0)</td><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#ea580c">(0, 0)</td></tr>
+          <tr><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace">(−1, 3)</td><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#1e40af">(2, 3)</td><td style="padding:5px 8px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#ea580c">(−3, 3)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="trap" style="margin-bottom:0">
+      <div class="tt">⚠ #1 SAT TRAP: SIGN OF HORIZONTAL SHIFT</div>
+      <div style="font-size:11px;color:#7f1d1d;line-height:1.4"><code>g(x) = f(x−5)</code> → shifted RIGHT 5, NOT left 5. The minus sign inside always means right. This is the single most common transformation mistake.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SEC 4: REFLECTIONS ════════ -->
+<div class="st">04 · Reflections — Flipping Over Axes</div>
+<div class="g2 mb16">
+
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#f3e8ff">⊥x</div><h2>Reflect Over x-axis: −f(x)<small>All y-values flip sign — graph turns upside down</small></h2></div>
+    <div class="g2 mb8">
+      <div>
+        <div class="fb p mb8">
+          <div class="lb">Rule</div>
+          <div class="fbig">y = −f(x)</div>
+          <div class="fn">Negate the <strong>output</strong>. Every point (x, y) → (x, −y). Graph is mirror image across x-axis.</div>
+        </div>
+        <ul class="bl">
+          <li><span class="bi p">▶</span><span>Parabola opening up → opens down (and vice versa)</span></li>
+          <li><span class="bi p">▶</span><span>x-intercepts (zeros) stay the same — they're on the x-axis so y=0 → −0=0</span></li>
+          <li><span class="bi p">▶</span><span>y-intercept changes sign: if f(0)=4, then −f(0)=−4</span></li>
+          <li><span class="bi o">▶</span><span>Example: <code>f(x)=x²</code> → <code>−f(x)=−x²</code> (opens down)</span></li>
+          <li><span class="bi o">▶</span><span>SAT: −f(x) increases when f(x) decreases</span></li>
+        </ul>
+      </div>
+      <svg viewBox="0 0 200 160" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#faf5ff;display:block">
+        <defs><pattern id="gref1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+        <rect width="200" height="160" fill="url(#gref1)"/>
+        <line x1="10" y1="80" x2="190" y2="80" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="60" y1="150" x2="60"  y2="8"  stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+        <!-- Original parabola opening up -->
+        <path d="M20,56 Q40,70 60,80 Q80,70 100,56" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- Reflected: opens down -->
+        <path d="M20,104 Q40,90 60,80 Q80,90 100,104" fill="none" stroke="#6b21a8" stroke-width="2.5"/>
+        <!-- Reflection line markers -->
+        <line x1="30" y1="62" x2="30" y2="98" stroke="#ea580c" stroke-width="1" stroke-dasharray="2,2"/>
+        <line x1="80" y1="66" x2="80" y2="94" stroke="#ea580c" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="105" y="56" font-family="JetBrains Mono" font-size="9" fill="#94a3b8">f(x)</text>
+        <text x="105" y="108" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#6b21a8">−f(x)</text>
+        <text x="12" y="16" font-family="Inter" font-size="9" font-weight="700" fill="#0f172a">x-axis reflection</text>
+        <!-- x-intercepts unchanged -->
+        <circle cx="20" cy="80" r="3.5" fill="#ea580c"/>
+        <circle cx="100" cy="80" r="3.5" fill="#ea580c"/>
+        <text x="8"  y="77" font-family="Inter" font-size="7" fill="#ea580c">zeros</text>
+        <text x="100" y="77" font-family="Inter" font-size="7" fill="#ea580c">same!</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#ffe4e6">⊥y</div><h2>Reflect Over y-axis: f(−x)<small>All x-values flip sign — graph mirrors left-right</small></h2></div>
+    <div class="g2 mb8">
+      <div>
+        <div class="fb ro mb8">
+          <div class="lb">Rule</div>
+          <div class="fbig">y = f(−x)</div>
+          <div class="fn">Negate the <strong>input</strong>. Every point (x, y) → (−x, y). Left and right sides swap.</div>
+        </div>
+        <ul class="bl">
+          <li><span class="bi ro">▶</span><span>y-intercept stays the same: f(0) = f(−0) = f(0)</span></li>
+          <li><span class="bi ro">▶</span><span>x-intercepts mirror: if f(3)=0, then f(−3)=0 in f(−x)</span></li>
+          <li><span class="bi ro">▶</span><span>Even functions are unchanged: f(−x)=f(x) for even f</span></li>
+          <li><span class="bi o">▶</span><span>Example: <code>f(x)=2ˣ</code> → <code>f(−x)=2⁻ˣ</code> (decaying instead of growing)</span></li>
+          <li><span class="bi o">▶</span><span>SAT: Tests whether a graph is the y-axis reflection</span></li>
+        </ul>
+      </div>
+      <svg viewBox="0 0 200 160" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#fff1f2;display:block">
+        <defs><pattern id="gref2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+        <rect width="200" height="160" fill="url(#gref2)"/>
+        <line x1="10" y1="100" x2="190" y2="100" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="90"  y1="150" x2="90"  y2="8"   stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+        <!-- Original exponential (right side) -->
+        <path d="M90,95 Q115,70 140,38 Q155,22 170,12" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- Reflected over y-axis (left side) -->
+        <path d="M90,95 Q65,70 40,38 Q25,22 10,12" fill="none" stroke="#9f1239" stroke-width="2.5"/>
+        <!-- Y-axis is reflection line -->
+        <text x="95" y="20" font-family="JetBrains Mono" font-size="9" fill="#94a3b8">f(x)=2ˣ</text>
+        <text x="8"  y="20" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#9f1239">f(−x)=2⁻ˣ</text>
+        <!-- y-intercept same -->
+        <circle cx="90" cy="95" r="4" fill="#ea580c" stroke="#fff" stroke-width="1.5"/>
+        <text x="93" y="92" font-family="Inter" font-size="7" fill="#ea580c">y-int same</text>
+        <text x="12" y="14" font-family="Inter" font-size="9" font-weight="700" fill="#0f172a">y-axis reflection</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SEC 5: STRETCHES & COMPRESSIONS ════════ -->
+<div class="st">05 · Vertical &amp; Horizontal Stretches and Compressions</div>
+<div class="g4 mb16">
+
+  <!-- V. Stretch -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#fff7ed">↕+</div><h2>Vertical Stretch<small>a · f(x), |a| &gt; 1</small></h2></div>
+    <div class="fb o mb8">
+      <div class="lb">Rule — outside multiplier</div>
+      <div class="fbig" style="font-size:14px">a · f(x), |a| &gt; 1</div>
+      <div class="fn">All y-values multiplied by a. Graph gets <strong>taller/narrower</strong>.</div>
+    </div>
+    <svg viewBox="0 0 170 120" width="100%" style="border-radius:7px;border:1px solid #e2e8f0;background:#fff7ed;display:block;margin-bottom:8px">
+      <line x1="8" y1="95" x2="162" y2="95" stroke="#94a3b8" stroke-width="1.2"/>
+      <line x1="48" y1="115" x2="48"  y2="6"  stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Original (gray) -->
+      <path d="M10,78 Q30,88 48,95 Q66,88 86,78" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Stretched (taller, narrower) -->
+      <path d="M22,44 Q36,74 48,95 Q60,74 74,44" fill="none" stroke="#ea580c" stroke-width="2.5"/>
+      <!-- Arrows show y-stretch -->
+      <line x1="22" y1="78" x2="22" y2="47" stroke="#1e40af" stroke-width="1.2"/>
+      <polygon points="22,47 19,54 25,54" fill="#1e40af"/>
+      <text x="25" y="65" font-family="Inter" font-size="8" fill="#1e40af">×a</text>
+      <text x="88" y="72" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#ea580c">af(x)</text>
+      <text x="88" y="84" font-family="JetBrains Mono" font-size="9" fill="#94a3b8">f(x)</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi o">▶</span><span>x-intercepts unchanged (y=0 → a·0=0)</span></li>
+      <li><span class="bi o">▶</span><span>Vertex/peak moves further from x-axis</span></li>
+      <li><span class="bi o">▶</span><span>Example: <code>3x²</code> is taller/narrower than <code>x²</code></span></li>
+    </ul>
+  </div>
+
+  <!-- V. Compress -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#fff7ed">↕−</div><h2>Vertical Compress<small>a · f(x), 0 &lt; |a| &lt; 1</small></h2></div>
+    <div class="fb y mb8">
+      <div class="lb">Rule — outside fraction</div>
+      <div class="fbig" style="font-size:14px">a · f(x), 0&lt;|a|&lt;1</div>
+      <div class="fn">All y-values × a (fraction). Graph gets <strong>flatter/wider</strong>.</div>
+    </div>
+    <svg viewBox="0 0 170 120" width="100%" style="border-radius:7px;border:1px solid #e2e8f0;background:#fefce8;display:block;margin-bottom:8px">
+      <line x1="8" y1="95" x2="162" y2="95" stroke="#94a3b8" stroke-width="1.2"/>
+      <line x1="48" y1="115" x2="48"  y2="6"  stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Original (gray) -->
+      <path d="M10,62 Q30,82 48,95 Q66,82 86,62" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Compressed (flatter, wider) -->
+      <path d="M10,80 Q30,89 48,95 Q66,89 86,80" fill="none" stroke="#854d0e" stroke-width="2.5"/>
+      <text x="88" y="76" font-family="JetBrains Mono" font-size="9" fill="#94a3b8">f(x)</text>
+      <text x="88" y="88" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#854d0e">½f(x)</text>
+      <!-- Down arrow -->
+      <line x1="22" y1="62" x2="22" y2="78" stroke="#b91c1c" stroke-width="1.2"/>
+      <polygon points="22,78 19,71 25,71" fill="#b91c1c"/>
+      <text x="25" y="73" font-family="Inter" font-size="8" fill="#b91c1c">×½</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi y">▶</span><span>Graph moves closer to x-axis</span></li>
+      <li><span class="bi y">▶</span><span>Example: <code>½x²</code> is flatter/wider than <code>x²</code></span></li>
+      <li><span class="bi o">▶</span><span>SAT: "Stretch or compress?" → compare a to 1</span></li>
+    </ul>
+  </div>
+
+  <!-- H. Compress (b > 1) -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#ccfbf1">↔−</div><h2>Horizontal Compress<small>f(bx), |b| &gt; 1</small></h2></div>
+    <div class="fb t mb8">
+      <div class="lb">Rule — inside multiplier</div>
+      <div class="fbig" style="font-size:14px">f(bx), |b| &gt; 1</div>
+      <div class="fn">x-values divided by b. Graph gets <strong>narrower</strong> (horizontally squeezed).</div>
+    </div>
+    <svg viewBox="0 0 170 120" width="100%" style="border-radius:7px;border:1px solid #e2e8f0;background:#f0fdfa;display:block;margin-bottom:8px">
+      <line x1="8" y1="95" x2="162" y2="95" stroke="#94a3b8" stroke-width="1.2"/>
+      <line x1="85" y1="115" x2="85"  y2="6"  stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Original (gray, wide) -->
+      <path d="M20,60 Q52,85 85,95 Q118,85 150,60" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Compressed horizontally: narrower -->
+      <path d="M52,60 Q70,85 85,95 Q100,85 118,60" fill="none" stroke="#0d9488" stroke-width="2.5"/>
+      <!-- Arrows showing x-compression -->
+      <line x1="20" y1="60" x2="52" y2="60" stroke="#ea580c" stroke-width="1.2"/>
+      <polygon points="52,60 45,57 45,63" fill="#ea580c"/>
+      <text x="22" y="55" font-family="Inter" font-size="7" fill="#ea580c">÷b</text>
+      <text x="120" y="58" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#0d9488">f(bx)</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi t">▶</span><span>b=2 means graph is <strong>half as wide</strong></span></li>
+      <li><span class="bi t">▶</span><span>Counterintuitive: b&gt;1 COMPRESSES (not stretches)</span></li>
+      <li><span class="bi o">▶</span><span>Example: <code>sin(2x)</code> completes cycle in π instead of 2π</span></li>
+    </ul>
+  </div>
+
+  <!-- H. Stretch (0 < b < 1) -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#ccfbf1">↔+</div><h2>Horizontal Stretch<small>f(bx), 0 &lt; |b| &lt; 1</small></h2></div>
+    <div class="fb t mb8">
+      <div class="lb">Rule — inside small multiplier</div>
+      <div class="fbig" style="font-size:14px">f(bx), 0&lt;|b|&lt;1</div>
+      <div class="fn">x-values divided by b (b&lt;1 → dividing by a fraction = multiplying). Graph gets <strong>wider</strong>.</div>
+    </div>
+    <svg viewBox="0 0 170 120" width="100%" style="border-radius:7px;border:1px solid #e2e8f0;background:#f0fdfa;display:block;margin-bottom:8px">
+      <line x1="8" y1="95" x2="162" y2="95" stroke="#94a3b8" stroke-width="1.2"/>
+      <line x1="85" y1="115" x2="85"  y2="6"  stroke="#94a3b8" stroke-width="1.2"/>
+      <!-- Original (gray, medium) -->
+      <path d="M52,60 Q70,85 85,95 Q100,85 118,60" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Stretched horizontally: wider -->
+      <path d="M14,60 Q50,85 85,95 Q120,85 156,60" fill="none" stroke="#0d9488" stroke-width="2.5"/>
+      <!-- Arrow showing widening -->
+      <line x1="52" y1="60" x2="14" y2="60" stroke="#ea580c" stroke-width="1.2"/>
+      <polygon points="14,60 21,57 21,63" fill="#ea580c"/>
+      <text x="10" y="55" font-family="Inter" font-size="7" fill="#ea580c">×(1/b)</text>
+      <text x="122" y="58" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#0d9488">f(½x)</text>
+    </svg>
+    <ul class="bl">
+      <li><span class="bi t">▶</span><span>b=½ means graph is <strong>twice as wide</strong></span></li>
+      <li><span class="bi t">▶</span><span>Horizontal scale factor = 1/b</span></li>
+      <li><span class="bi o">▶</span><span>Example: <code>sin(½x)</code> has period 4π (doubled)</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════ SEC 6: COMBINED + VERTEX FORM ════════ -->
+<div class="st">06 · Combined Transformations &amp; Vertex Form</div>
+<div class="g3 mb16">
+
+  <!-- Combined -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#f3e8ff">⊕</div><h2>Combined: a · f(b(x−h)) + k<small>Read off all four transformations at once</small></h2></div>
+    <div class="fb p mb8">
+      <div class="lb">General Transform Form</div>
+      <div class="fbig" style="font-size:13px">g(x) = a · f(b(x − h)) + k</div>
+      <div class="fn"><strong>a</strong> = vert. scale &amp; reflect &nbsp;|&nbsp; <strong>b</strong> = horiz. scale &amp; reflect &nbsp;|&nbsp; <strong>h</strong> = horiz. shift &nbsp;|&nbsp; <strong>k</strong> = vert. shift</div>
+    </div>
+
+    <div style="background:#1a1a2e;border-radius:9px;padding:11px;margin-bottom:9px">
+      <div style="font-size:10px;font-weight:700;color:#5eead4;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Decode: g(x) = −3 · f(2(x − 4)) + 7</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="background:#ea580c;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0;min-width:30px;text-align:center">a=−3</div>
+          <div style="font-size:11.5px;color:#fff">Vertical stretch × 3, then <strong>flip over x-axis</strong> (negative)</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="background:#0d9488;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0;min-width:30px;text-align:center">b=2</div>
+          <div style="font-size:11.5px;color:#fff">Horizontal compression by factor of 2 (narrower)</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="background:#1e40af;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0;min-width:30px;text-align:center">h=4</div>
+          <div style="font-size:11.5px;color:#fff">Horizontal shift: <strong>RIGHT 4</strong> (minus inside = right)</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="background:#854d0e;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0;min-width:30px;text-align:center">k=7</div>
+          <div style="font-size:11.5px;color:#fff">Vertical shift: <strong>UP 7</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="tip" style="margin-bottom:0">
+      <div class="tp">✓ APPLY TRANSFORMATIONS IN ORDER</div>
+      <div style="font-size:11px;color:#14532d;line-height:1.4">①Horiz. shift (h) → ②Horiz. scale (b) → ③Reflect → ④Vert. scale (a) → ⑤Vert. shift (k). Doing them out of order gives wrong graphs!</div>
+    </div>
+  </div>
+
+  <!-- Vertex Form of Quadratic -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#dbeafe">∧</div><h2>Vertex Form: a(x − h)² + k<small>The most tested quadratic transform on SAT</small></h2></div>
+    <div class="fb b mb8">
+      <div class="lb">Vertex Form = Transformations of x²</div>
+      <div class="fbig">f(x) = a(x − h)² + k</div>
+      <div class="fn"><strong>Vertex: (h, k)</strong> &nbsp;|&nbsp; <strong>a &gt; 0</strong>: opens up &nbsp;|&nbsp; <strong>a &lt; 0</strong>: opens down</div>
+    </div>
+    <svg viewBox="0 0 260 150" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#eff6ff;display:block;margin-bottom:9px">
+      <defs><pattern id="gvf" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="260" height="150" fill="url(#gvf)"/>
+      <line x1="10" y1="110" x2="250" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="60"  y1="140" x2="60"  y2="8"   stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Base: f(x)=x² — vertex at (60,110) gray dashed -->
+      <path d="M20,82 Q40,100 60,110 Q80,100 100,82" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- 2(x−3)²+1: a=2, h=3(right 3→xs+60), k=1(up ~9px) -->
+      <!-- vertex at (60+60=120, 110-9=101) -->
+      <path d="M84,65 Q103,90 120,101 Q137,90 156,65" fill="none" stroke="#1e40af" stroke-width="2.5"/>
+      <!-- Vertex marker -->
+      <circle cx="120" cy="101" r="5" fill="#ea580c" stroke="#fff" stroke-width="2"/>
+      <!-- Vertex labels -->
+      <line x1="120" y1="101" x2="120" y2="120" stroke="#ea580c" stroke-width="1" stroke-dasharray="2,2"/>
+      <line x1="60"  y1="120" x2="120" y2="120" stroke="#ea580c" stroke-width="1" stroke-dasharray="2,2"/>
+      <text x="107" y="130" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">h</text>
+      <text x="123" y="107" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">k</text>
+      <text x="157" y="62" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#1e40af">2(x−3)²+1</text>
+      <text x="101" y="78" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">VERTEX (3, 1)</text>
+      <!-- Annotations -->
+      <text x="8" y="20" font-family="Inter" font-size="9" fill="#0f172a" font-weight="700">Vertex Form Explained</text>
+      <text x="8" y="32" font-family="Inter" font-size="8" fill="#64748b">h=3: shifted right 3</text>
+      <text x="8" y="43" font-family="Inter" font-size="8" fill="#64748b">k=1: shifted up 1</text>
+      <text x="8" y="54" font-family="Inter" font-size="8" fill="#64748b">a=2: stretched ×2</text>
+    </svg>
+    <div style="display:flex;gap:8px">
+      <div style="flex:1;background:#f0fdfa;border-radius:7px;padding:7px 9px;border:1px solid #5eead4">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;margin-bottom:4px">From Standard → Vertex</div>
+        <div style="font-size:11px;color:#064e3b;font-family:'JetBrains Mono',monospace;line-height:1.7">x²+6x+5<br>=(x+3)²−4<br>vertex: (−3, −4)</div>
+      </div>
+      <div style="flex:1;background:#fff7ed;border-radius:7px;padding:7px 9px;border:1px solid #fed7aa">
+        <div style="font-size:10px;font-weight:700;color:#ea580c;margin-bottom:4px">Axis of Symmetry</div>
+        <div style="font-size:11px;color:#78350f;font-family:'JetBrains Mono',monospace;line-height:1.7">x = h<br>a(x−h)²+k:<br>axis x = h</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applying to specific functions -->
+  <div class="card">
+    <div class="ch"><div class="ci" style="background:#fefce8">🔑</div><h2>SAT Traps &amp; Key Insights<small>The patterns that decide your score</small></h2></div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="trap">
+        <div class="tt">⚠ TRAP 1: Inside sign = opposite direction</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4"><code>f(x−5)</code>→ RIGHT 5 not left. <code>f(x+5)</code> → LEFT 5. Always set inside=0 to find where graph moved.</div>
+      </div>
+      <div class="trap">
+        <div class="tt">⚠ TRAP 2: b inside compresses (not stretches)</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4"><code>f(2x)</code> with b=2 makes the graph NARROWER (compressed by ½), not wider. "Big b = narrow" is the rule.</div>
+      </div>
+      <div class="trap">
+        <div class="tt">⚠ TRAP 3: f(x+h)+k: both shifts active</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4"><code>f(x+3)−2</code> means LEFT 3 AND DOWN 2 simultaneously. Don't forget to apply both!</div>
+      </div>
+      <div class="tip">
+        <div class="tp">✓ TIP: Use a known point to verify</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">If f(2)=5, then for g(x)=f(x−3)+1: g(5)=f(5−3)+1=f(2)+1=6. Tracing transformed points verifies your equation.</div>
+      </div>
+      <div class="tip">
+        <div class="tp">✓ TIP: Vertex form tells all</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">For SAT quadratic questions, always convert to vertex form. It reveals the vertex, axis of symmetry, direction, and all transformations at once.</div>
+      </div>
+      <div style="background:#eef0fb;border-radius:8px;padding:8px 12px;border:1px solid #c7d2fe">
+        <div style="font-size:9.5px;font-weight:800;color:#3730a3;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">✓ SAT SPEED SHORTCUT</div>
+        <div style="font-size:11px;color:#3730a3;line-height:1.4">For "which graph shows f(x−2)+3?": move every key point (vertex, intercepts) RIGHT 2, UP 3. Match to answer choices by checking those specific coordinates.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ SEC 7: MASTER SUMMARY ════════ -->
+<div class="st">07 · Master Summary — Complete Transformation Reference</div>
+<div class="card mb16">
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px">
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--teal);padding-bottom:3px">Vertical Shifts</div>
+      <ul class="bl">
+        <li><span class="bi t">▶</span><span><code>f(x)+k</code> → up k</span></li>
+        <li><span class="bi t">▶</span><span><code>f(x)−k</code> → down k</span></li>
+        <li><span class="bi t">▶</span><span>All y-values ± k</span></li>
+        <li><span class="bi t">▶</span><span>Shape unchanged</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--blue);padding-bottom:3px">Horizontal Shifts ⚠</div>
+      <ul class="bl">
+        <li><span class="bi b">▶</span><span><code>f(x−h)</code> → RIGHT h</span></li>
+        <li><span class="bi b">▶</span><span><code>f(x+h)</code> → LEFT h</span></li>
+        <li><span class="bi b">▶</span><span>Inside sign = OPPOSITE</span></li>
+        <li><span class="bi b">▶</span><span>Set inside = 0 to find shift</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--purp);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--purp);padding-bottom:3px">Reflections</div>
+      <ul class="bl">
+        <li><span class="bi p">▶</span><span><code>−f(x)</code> → over x-axis</span></li>
+        <li><span class="bi p">▶</span><span><code>f(−x)</code> → over y-axis</span></li>
+        <li><span class="bi p">▶</span><span>−f: y-int changes sign</span></li>
+        <li><span class="bi p">▶</span><span>f(−x): y-int unchanged</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--orng);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--orng);padding-bottom:3px">Vertical Scale</div>
+      <ul class="bl">
+        <li><span class="bi o">▶</span><span><code>a·f(x)</code>, a&gt;1 → stretch</span></li>
+        <li><span class="bi o">▶</span><span>0&lt;a&lt;1 → compress</span></li>
+        <li><span class="bi o">▶</span><span>x-intercepts unchanged</span></li>
+        <li><span class="bi o">▶</span><span>y-values all × a</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--teal);padding-bottom:3px">Horizontal Scale ⚠</div>
+      <ul class="bl">
+        <li><span class="bi t">▶</span><span><code>f(bx)</code>, b&gt;1 → compress</span></li>
+        <li><span class="bi t">▶</span><span>0&lt;b&lt;1 → stretch wider</span></li>
+        <li><span class="bi t">▶</span><span>Scale factor = 1/b</span></li>
+        <li><span class="bi t">▶</span><span>y-intercept unchanged</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--blue);padding-bottom:3px">Combined &amp; Vertex</div>
+      <ul class="bl">
+        <li><span class="bi b">▶</span><span>Form: <code>a·f(b(x−h))+k</code></span></li>
+        <li><span class="bi b">▶</span><span>Order: h→b→reflect→a→k</span></li>
+        <li><span class="bi b">▶</span><span>Vertex form: <code>a(x−h)²+k</code></span></li>
+        <li><span class="bi b">▶</span><span>Vertex at (h, k) always</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- .page -->
+
+<div class="footer">
+  <strong>Transformation of Functions · SAT Math Master Guide</strong> &nbsp;·&nbsp;
+  Vertical &amp; Horizontal Shifts · Reflections · Stretches &amp; Compressions · Combined · Vertex Form &nbsp;·&nbsp; Aligned to Digital SAT
+</div>
+</body>
+</html>

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interpreting Linear Models & Desmos Tables — SAT Math Master Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  @page { size: A3 landscape; margin: 14mm 12mm 14mm 12mm; }
+
+  :root {
+    --teal:    #0d9488; --teal-l:  #ccfbf1; --teal-m:  #14b8a6;
+    --blue:    #1e40af; --blue-l:  #dbeafe; --blue-m:  #3b82f6;
+    --orange:  #ea580c; --orange-l:#fff7ed; --orange-m:#f97316;
+    --yellow:  #854d0e; --yellow-l:#fefce8; --yellow-m:#fbbf24;
+    --purple:  #6b21a8; --purple-l:#f3e8ff; --purple-m:#a855f7;
+    --red:     #b91c1c; --red-l:   #fee2e2;
+    --green:   #15803d; --green-l: #dcfce7;
+    --cyan:    #0e7490; --cyan-l:  #cffafe;
+    --dark:    #0f172a; --mid:     #334155; --muted:   #64748b;
+    --border:  #e2e8f0; --white:   #ffffff; --bg:      #f8fafc;
+    --desmos:  #5c5ea6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--dark); min-width: 0; width: 100%; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #0c3460 40%, #0d4a47 100%);
+    padding: 26px 32px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .hero-tag { display: inline-block; background: var(--orange-m); color: white; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+  .hero h1 { font-size: 34px; font-weight: 900; color: white; line-height: 1.1; letter-spacing: -1px; }
+  .hero h1 span { color: var(--yellow-m); }
+  .hero-sub { color: #94a3b8; font-size: 13px; margin-top: 7px; }
+  .hero-pills { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 10.5px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+  .hero-right { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 16px 22px; min-width: 360px; }
+  .hero-right h3 { color: var(--yellow-m); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 9px; }
+  .kf-row { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 6px; }
+  .kf-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .kf-text { color: white; font-size: 12px; line-height: 1.4; }
+  .kf-text strong { font-family: 'JetBrains Mono',monospace; font-size: 11.5px; color: #5eead4; }
+
+  /* PAGE */
+  .page { padding: 14px 18px; background: var(--bg); }
+
+  .sec-title { font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+  .sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card { background: var(--white); border-radius: 11px; border: 1px solid var(--border); padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .card-header { display: flex; align-items: center; gap: 9px; margin-bottom: 11px; }
+  .card-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .card h2 { font-size: 14px; font-weight: 800; color: var(--dark); line-height: 1.2; }
+  .card h2 small { display: block; font-size: 10.5px; font-weight: 500; color: var(--muted); margin-top: 1px; }
+
+  .formula-box { border-radius: 8px; padding: 9px 13px; margin-bottom: 9px; border-left: 4px solid; }
+  .formula-box.teal   { background: var(--teal-l);   border-color: var(--teal);   }
+  .formula-box.blue   { background: var(--blue-l);   border-color: var(--blue);   }
+  .formula-box.orange { background: var(--orange-l); border-color: var(--orange); }
+  .formula-box.yellow { background: var(--yellow-l); border-color: var(--yellow-m); }
+  .formula-box.purple { background: var(--purple-l); border-color: var(--purple); }
+  .formula-box.red    { background: var(--red-l);    border-color: var(--red);    }
+  .formula-box.green  { background: var(--green-l);  border-color: var(--green);  }
+  .formula-box.cyan   { background: var(--cyan-l);   border-color: var(--cyan);   }
+  .formula-box.desmos { background: #eef0fb;          border-color: var(--desmos); }
+
+  .formula-box .label { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; }
+  .formula-box.teal   .label { color: var(--teal); }
+  .formula-box.blue   .label { color: var(--blue); }
+  .formula-box.orange .label { color: var(--orange); }
+  .formula-box.yellow .label { color: var(--yellow); }
+  .formula-box.purple .label { color: var(--purple); }
+  .formula-box.red    .label { color: var(--red); }
+  .formula-box.green  .label { color: var(--green); }
+  .formula-box.cyan   .label { color: var(--cyan); }
+  .formula-box.desmos .label { color: var(--desmos); }
+
+  .formula-big { font-family: 'JetBrains Mono',monospace; font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .formula-note { font-size: 11.5px; color: var(--mid); line-height: 1.45; }
+
+  .blist { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .blist li { display: flex; gap: 6px; font-size: 12px; color: var(--mid); line-height: 1.4; align-items: flex-start; }
+  .blist li .bi { font-size: 9px; flex-shrink: 0; margin-top: 3px; font-weight: 700; }
+  .blist li .bi.teal   { color: var(--teal); }
+  .blist li .bi.blue   { color: var(--blue); }
+  .blist li .bi.orange { color: var(--orange); }
+  .blist li .bi.purple { color: var(--purple); }
+  .blist li .bi.red    { color: var(--red); }
+  .blist li .bi.green  { color: var(--green); }
+  .blist li .bi.desmos { color: var(--desmos); }
+
+  .g3  { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .g2  { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .g4  { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .g12 { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
+  .g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+  .g13 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .g23 { display: grid; grid-template-columns: 2fr 3fr; gap: 12px; }
+
+  .mb8  { margin-bottom: 8px;  }
+  .mb12 { margin-bottom: 12px; }
+  .mb16 { margin-bottom: 16px; }
+
+  code { font-family: 'JetBrains Mono',monospace; background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: 11px; color: var(--blue); }
+  code.desmos { background: #eef0fb; color: var(--desmos); }
+
+  .step-badge { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: white; flex-shrink: 0; }
+
+  .trap-box { background: var(--red-l); border: 1.5px dashed var(--red); border-radius: 8px; padding: 9px 12px; margin-bottom: 7px; }
+  .trap-box .trap-title { font-size: 9.5px; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+  .tip-box { background: #f0fdf4; border: 1.5px solid #16a34a; border-radius: 8px; padding: 9px 12px; margin-bottom: 7px; }
+  .tip-box .tip-title { font-size: 9.5px; font-weight: 800; color: #16a34a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+  .desmos-box { background: #eef0fb; border: 1.5px solid var(--desmos); border-radius: 8px; padding: 9px 12px; margin-bottom: 7px; }
+  .desmos-box .d-title { font-size: 9.5px; font-weight: 800; color: var(--desmos); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .comp-table th { background: var(--dark); color: white; padding: 6px 9px; text-align: left; font-weight: 700; font-size: 10px; }
+  .comp-table th:first-child { border-radius: 5px 0 0 0; }
+  .comp-table th:last-child  { border-radius: 0 5px 0 0; }
+  .comp-table td { padding: 6px 9px; border-bottom: 1px solid var(--border); color: var(--mid); vertical-align: top; }
+  .comp-table tr:nth-child(even) td { background: #f8fafc; }
+
+  /* Desmos mockup styles */
+  .desmos-ui { background: #1a1a2e; border-radius: 10px; overflow: hidden; border: 2px solid var(--desmos); }
+  .desmos-topbar { background: #2d2d5e; padding: 6px 12px; display: flex; align-items: center; gap: 8px; }
+  .desmos-logo { background: var(--desmos); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; letter-spacing: 1px; }
+  .desmos-body { display: flex; }
+  .desmos-sidebar { background: #f8f9ff; width: 160px; flex-shrink: 0; border-right: 1px solid #d4d8f0; }
+  .desmos-graph-area { flex: 1; background: white; min-height: 130px; position: relative; }
+  .desmos-expr { padding: 6px 8px; border-bottom: 1px solid #e8eaf5; font-family: 'JetBrains Mono',monospace; font-size: 11px; }
+  .desmos-expr .expr-num { color: #888; font-size: 9px; margin-right: 4px; }
+  .desmos-table-cell { background: white; border: 1px solid #d4d8f0; border-radius: 3px; padding: 2px 5px; font-family: 'JetBrains Mono',monospace; font-size: 10.5px; text-align: center; }
+
+  /* Data table style */
+  .data-table { border-collapse: collapse; font-size: 12px; }
+  .data-table th { background: var(--dark); color: white; padding: 6px 14px; font-weight: 700; font-size: 11px; text-align: center; }
+  .data-table td { padding: 5px 14px; border: 1px solid var(--border); text-align: center; color: var(--mid); font-family: 'JetBrains Mono',monospace; font-size: 12px; }
+  .data-table tr:nth-child(even) td { background: #f8fafc; }
+  .data-table td.hi { background: #fefce8; color: #854d0e; font-weight: 700; }
+
+  .footer { background: var(--dark); color: #94a3b8; font-size: 11px; text-align: center; padding: 12px; }
+  .footer strong { color: white; }
+
+  .hl   { font-weight: 700; color: var(--dark); }
+  .hl-t { color: var(--teal);   font-weight: 700; }
+  .hl-b { color: var(--blue);   font-weight: 700; }
+  .hl-o { color: var(--orange); font-weight: 700; }
+  .hl-p { color: var(--purple); font-weight: 700; }
+  .hl-d { color: var(--desmos); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Digital SAT Math · Desmos Calculator · Last-Minute Reference</div>
+    <h1>Interpreting <span>Linear Models</span><br>&amp; Desmos Table Functions</h1>
+    <p class="hero-sub">Read tables · Write equations · Interpret slope &amp; intercepts · Use Desmos regression for instant answers</p>
+    <div class="hero-pills">
+      <span class="pill">Linear Models</span>
+      <span class="pill">Rate of Change</span>
+      <span class="pill">Desmos Tables</span>
+      <span class="pill">Linear Regression y₁~mx₁+b</span>
+      <span class="pill">Interpolation</span>
+      <span class="pill">Extrapolation</span>
+      <span class="pill">Scatter Plots</span>
+      <span class="pill">Residuals</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h3>⚡ Desmos Power Moves</h3>
+    <div class="kf-row"><div class="kf-dot" style="background:#5c5ea6"></div><div class="kf-text">Open table: <strong>+ → Table</strong> — enter (x₁, y₁) data pairs</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#14b8a6"></div><div class="kf-text">Run regression: <strong>y₁ ~ mx₁ + b</strong> → reads off slope &amp; intercept</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#3b82f6"></div><div class="kf-text">Predict a value: <strong>type x = 5</strong> in a new line → graph shows y</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#f97316"></div><div class="kf-text">Find intersection: <strong>two equations</strong> → click the point</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#fbbf24"></div><div class="kf-text">Slope from table: <strong>Δy / Δx</strong> between any two rows</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#f43f5e"></div><div class="kf-text">Regression fits: <strong>m</strong> = slope shown, <strong>b</strong> = y-intercept shown</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ══════════ SEC 1: LINEAR MODEL BASICS ══════════ -->
+<div class="sec-title">01 · What is a Linear Model?</div>
+<div class="g3 mb16">
+
+  <!-- Definition -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">📈</div>
+      <h2>Linear Model Defined<small>A relationship where y changes at a constant rate</small></h2>
+    </div>
+    <div class="formula-box teal mb8">
+      <div class="label">Standard Form</div>
+      <div class="formula-big">y = mx + b</div>
+      <div class="formula-note"><strong>m</strong> = slope (rate of change) &nbsp;|&nbsp; <strong>b</strong> = y-intercept (initial value)</div>
+    </div>
+    <svg viewBox="0 0 210 140" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:9px">
+      <defs>
+        <pattern id="g1" width="21" height="21" patternUnits="userSpaceOnUse"><path d="M 21 0 L 0 0 0 21" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern>
+        <marker id="arr1" markerWidth="5" markerHeight="5" refX="3" refY="3" orient="auto"><path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/></marker>
+      </defs>
+      <rect width="210" height="140" fill="url(#g1)"/>
+      <line x1="15" y1="105" x2="200" y2="105" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr1)"/>
+      <line x1="42" y1="130" x2="42"  y2="8"   stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr1)"/>
+      <!-- Line y=1.5x+2: origin(42,105),scale 21px; y-int(0,2):xs=42,ys=63; x=5,y=9.5:xs=147,ys=-94.5...too high -->
+      <!-- scale 14px: y-int(0,3):xs=42,ys=105-42=63; x=5,y=10.5:xs=42+70=112,ys=63-105=-42...still high -->
+      <!-- scale 10px: y-int(0,3):xs=42,ys=75; x=6,y=11:xs=102,ys=5 -- ok -->
+      <line x1="14" y1="84" x2="150" y2="10" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- y-intercept dot: xs=42, ys=105-3*10=75 -->
+      <circle cx="42" cy="75" r="5" fill="#1e40af" stroke="white" stroke-width="1.5"/>
+      <!-- slope annotation rise/run -->
+      <line x1="80" y1="55" x2="110" y2="55" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="110" y1="55" x2="110" y2="33" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="85" y="65" font-family="Inter" font-size="8" font-weight="700" fill="#ea580c">run=Δx</text>
+      <text x="112" y="46" font-family="Inter" font-size="8" font-weight="700" fill="#ea580c">rise=Δy</text>
+      <!-- Labels -->
+      <text x="46" y="72" font-family="Inter" font-size="9" font-weight="700" fill="#1e40af">b (y-int)</text>
+      <text x="125" y="18" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#0d9488">y=mx+b</text>
+      <!-- slope label -->
+      <text x="60" y="28" font-family="Inter" font-size="9" fill="#ea580c" font-weight="700">m = Δy/Δx</text>
+      <text x="193" y="108" font-family="Inter" font-size="8" fill="#64748b">x</text>
+      <text x="45" y="14"  font-family="Inter" font-size="8" fill="#64748b">y</text>
+    </svg>
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span><span class="hl">Constant rate of change</span> — same Δy for every unit Δx</span></li>
+      <li><span class="bi teal">▶</span><span>Graph is always a <span class="hl">straight line</span></span></li>
+      <li><span class="bi orange">▶</span><span>SAT word problem → "per", "each", "every" → that's the slope</span></li>
+    </ul>
+  </div>
+
+  <!-- Table of values -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">🗃</div>
+      <h2>Reading a Table of Values<small>Identify slope &amp; equation from any table</small></h2>
+    </div>
+    <div class="g2 mb8">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Sample Table</div>
+        <table class="data-table" style="width:100%">
+          <thead><tr><th>x</th><th>y</th><th>Δy</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>3</td><td style="color:#ea580c;font-weight:700">—</td></tr>
+            <tr><td>1</td><td>7</td><td class="hi">+4</td></tr>
+            <tr><td>2</td><td>11</td><td class="hi">+4</td></tr>
+            <tr><td>3</td><td>15</td><td class="hi">+4</td></tr>
+            <tr><td>4</td><td>19</td><td class="hi">+4</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:#dbeafe;border-radius:7px;padding:9px;border:1px solid #93c5fd">
+          <div style="font-size:10px;font-weight:700;color:#1e40af;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">STEP 1 — Find Slope</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#1e40af">m = Δy/Δx = 4/1 = <strong>4</strong></div>
+          <div style="font-size:11px;color:#1e3a8a;margin-top:3px">Check: Δy is constant (+4 each row)</div>
+        </div>
+        <div style="background:#ccfbf1;border-radius:7px;padding:9px;border:1px solid #5eead4">
+          <div style="font-size:10px;font-weight:700;color:#0d9488;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">STEP 2 — Find y-intercept</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#0d9488">At x=0, y = <strong>3</strong> → b = 3</div>
+          <div style="font-size:11px;color:#064e3b;margin-top:3px">Read directly from x=0 row</div>
+        </div>
+        <div style="background:#fefce8;border-radius:7px;padding:9px;border:1px solid #fde68a">
+          <div style="font-size:10px;font-weight:700;color:#854d0e;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">RESULT — Equation</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#854d0e">y = 4x + 3</div>
+        </div>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi blue">▶</span><span>Verify linearity: <span class="hl">Δy must be constant</span> across all rows (constant Δx)</span></li>
+      <li><span class="bi blue">▶</span><span>If x=0 is in the table, <span class="hl">b is the y-value directly</span> — no calculation needed</span></li>
+      <li><span class="bi orange">▶</span><span>If x=0 is NOT in the table: use <code>b = y − mx</code> with any (x, y) row</span></li>
+    </ul>
+  </div>
+
+  <!-- Interpreting slope & y-int -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">📖</div>
+      <h2>Interpreting in Context<small>What slope &amp; y-intercept really mean</small></h2>
+    </div>
+    <div class="formula-box orange mb8">
+      <div class="label">Slope (m) = Rate of Change</div>
+      <div class="formula-big" style="font-size:14px">m = change in y per unit of x</div>
+      <div class="formula-note">Units: <strong>(y-units) per (x-unit)</strong>. Represents speed, cost-per-item, growth rate, etc.</div>
+    </div>
+    <div class="formula-box blue mb8">
+      <div class="label">Y-intercept (b) = Initial / Starting Value</div>
+      <div class="formula-big" style="font-size:14px">b = value of y when x = 0</div>
+      <div class="formula-note">Represents initial amount, starting cost, y-value at time zero, etc.</div>
+    </div>
+    <div style="background:#f8fafc;border-radius:7px;padding:9px;border:1px solid var(--border);margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Real Context Example</div>
+      <div style="font-size:11.5px;color:var(--mid);line-height:1.6">
+        <em>"A taxi charges $3 base fare + $2.50 per mile"</em><br>
+        → Equation: <strong>y = 2.50x + 3</strong><br>
+        → <span class="hl-o">Slope (2.50)</span> = $2.50 per mile (cost per mile)<br>
+        → <span class="hl-b">y-intercept (3)</span> = $3 base fare (cost at 0 miles)
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi orange">▶</span><span>SAT question: "What does the slope represent?" → look for rate/per/each</span></li>
+      <li><span class="bi blue">▶</span><span>SAT question: "What does the y-intercept represent?" → starting/initial value</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ SEC 2: DESMOS TABLE TOOL ══════════ -->
+<div class="sec-title">02 · Desmos Table Function — Step-by-Step Guide</div>
+<div class="g3 mb16">
+
+  <!-- How to open & enter data -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eef0fb">📊</div>
+      <h2>Opening &amp; Entering Data<small>Get data into Desmos in 30 seconds</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#5c5ea6">1</div>
+        <div><div style="font-size:12px;font-weight:700;color:#5c5ea6;margin-bottom:1px">Click the "+" button → select "Table"</div><div style="font-size:11px;color:#475569">A two-column table (x₁, y₁) appears in the expression list on the left panel.</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#5c5ea6">2</div>
+        <div><div style="font-size:12px;font-weight:700;color:#5c5ea6;margin-bottom:1px">Type x-values in the left column</div><div style="font-size:11px;color:#475569">Press Tab or Enter to move to the next cell. Press Tab to move to the y₁ column.</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#5c5ea6">3</div>
+        <div><div style="font-size:12px;font-weight:700;color:#5c5ea6;margin-bottom:1px">Type y-values in the right column</div><div style="font-size:11px;color:#475569">Each row = one data point. Desmos automatically plots each (x₁, y₁) on the graph.</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#5c5ea6">4</div>
+        <div><div style="font-size:12px;font-weight:700;color:#5c5ea6;margin-bottom:1px">Points appear on the graph instantly</div><div style="font-size:11px;color:#475569">You can see the scatter plot form as you type. Points are movable by dragging.</div></div>
+      </div>
+    </div>
+
+    <!-- Desmos mockup - table entry -->
+    <div class="desmos-ui">
+      <div class="desmos-topbar">
+        <div class="desmos-logo">DESMOS</div>
+        <span style="color:#94a3b8;font-size:10px">Graphing Calculator</span>
+      </div>
+      <div class="desmos-body">
+        <div class="desmos-sidebar" style="width:180px">
+          <div style="padding:6px 8px;border-bottom:1px solid #d4d8f0;font-size:9px;font-weight:700;color:#5c5ea6;text-transform:uppercase;letter-spacing:1px">Expression List</div>
+          <!-- Table -->
+          <div style="padding:7px 8px">
+            <div style="font-size:9px;color:#888;margin-bottom:5px;font-weight:600">TABLE 1</div>
+            <table style="width:100%;border-collapse:collapse">
+              <tr>
+                <td style="padding:2px 4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#5c5ea6;text-align:center;background:#eef0fb;border:1px solid #c7d2fe;border-radius:3px 0 0 3px">x₁</td>
+                <td style="padding:2px 4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#ea580c;text-align:center;background:#fff7ed;border:1px solid #fed7aa;border-radius:0 3px 3px 0">y₁</td>
+              </tr>
+              <tr><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0">0</td><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0">3</td></tr>
+              <tr><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0;background:#f8fafc">1</td><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0;background:#f8fafc">7</td></tr>
+              <tr><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0">2</td><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0">11</td></tr>
+              <tr><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0;background:#f8fafc">3</td><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0;background:#f8fafc">15</td></tr>
+              <tr><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0">4</td><td style="padding:2px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e2e8f0">19</td></tr>
+            </table>
+          </div>
+        </div>
+        <!-- Graph area with plotted points -->
+        <div class="desmos-graph-area">
+          <svg viewBox="0 0 200 140" width="100%" height="100%" style="display:block">
+            <defs><pattern id="dg1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0f0f8" stroke-width="0.8"/></pattern></defs>
+            <rect width="200" height="140" fill="white"/>
+            <rect width="200" height="140" fill="url(#dg1)"/>
+            <line x1="15" y1="100" x2="195" y2="100" stroke="#d4d8f0" stroke-width="1"/>
+            <line x1="35" y1="10"  x2="35"  y2="130" stroke="#d4d8f0" stroke-width="1"/>
+            <!-- Points: origin(35,100), scale 20px -->
+            <!-- (0,3): xs=35,ys=40 | (1,7):xs=55,ys=-40 too high. scale 8px: (0,3):ys=76;(1,7):ys=44;(2,11):ys=12... -->
+            <!-- scale 9px: (0,3):ys=73;(1,7):ys=37;(2,11):ys=1 -- too much -->
+            <!-- origin at (35,105), scale 20px horizontally, 7px vertically -->
+            <!-- (0,3): xs=35,ys=105-21=84 | (1,7):xs=55,ys=105-49=56 | (2,11):xs=75,ys=105-77=28 | (3,15):xs=95,ys=105-105=0 too high -->
+            <!-- scale 6px vert: (0,3):ys=87;(1,7):ys=63;(2,11):ys=39;(3,15):ys=15;(4,19):ys=-9 too high for 4 -->
+            <!-- scale 5px vert, origin at (35,115): (0,3):ys=100;(1,7):ys=80;(2,11):ys=60;(3,15):ys=40;(4,19):ys=20 -->
+            <circle cx="35" cy="100" r="4" fill="#ea580c"/>
+            <circle cx="55" cy="80"  r="4" fill="#ea580c"/>
+            <circle cx="75" cy="60"  r="4" fill="#ea580c"/>
+            <circle cx="95" cy="40"  r="4" fill="#ea580c"/>
+            <circle cx="115" cy="20" r="4" fill="#ea580c"/>
+            <!-- Best fit line through them -->
+            <line x1="25" y1="110" x2="140" y2="8" stroke="#5c5ea6" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7"/>
+            <text x="140" y="20" font-family="JetBrains Mono" font-size="8" fill="#5c5ea6" font-weight="700">points plotted</text>
+            <text x="140" y="32" font-family="JetBrains Mono" font-size="7" fill="#ea580c">● data points</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linear Regression in Desmos -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eef0fb">⟁</div>
+      <h2>Running Linear Regression<small>Let Desmos find the best-fit equation for you</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#0d9488">1</div>
+        <div><div style="font-size:12px;font-weight:700;color:#0d9488;margin-bottom:1px">After entering table data, click "+" → add new expression</div><div style="font-size:11px;color:#475569">This opens a new expression line below your table.</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#0d9488">2</div>
+        <div><div style="font-size:12px;font-weight:700;color:#0d9488;margin-bottom:1px">Type the regression formula</div>
+          <div style="background:#1a1a2e;border-radius:5px;padding:5px 10px;margin-top:3px;display:inline-block">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#5eead4">y₁ ~ mx₁ + b</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#0d9488">3</div>
+        <div><div style="font-size:12px;font-weight:700;color:#0d9488;margin-bottom:1px">Desmos displays m and b values</div><div style="font-size:11px;color:#475569">A parameters box appears below the expression showing exact values of <strong>m</strong> and <strong>b</strong>.</div></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="step-badge" style="background:#0d9488">4</div>
+        <div><div style="font-size:12px;font-weight:700;color:#0d9488;margin-bottom:1px">Read off slope and intercept instantly</div><div style="font-size:11px;color:#475569">m = slope, b = y-intercept. The regression line is also drawn on the graph.</div></div>
+      </div>
+    </div>
+
+    <!-- Desmos regression mockup -->
+    <div class="desmos-ui">
+      <div class="desmos-topbar">
+        <div class="desmos-logo">DESMOS</div>
+        <span style="color:#94a3b8;font-size:10px">Linear Regression Output</span>
+      </div>
+      <div class="desmos-body">
+        <div class="desmos-sidebar" style="width:200px">
+          <div style="padding:6px 8px;border-bottom:1px solid #d4d8f0;font-size:9px;font-weight:700;color:#5c5ea6;text-transform:uppercase;letter-spacing:1px">Expression List</div>
+          <div class="desmos-expr">
+            <span class="expr-num">1</span>
+            <span style="color:#888;font-size:9px">TABLE (data entered)</span>
+          </div>
+          <div class="desmos-expr" style="background:#f0f4ff">
+            <span class="expr-num">2</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#5c5ea6">y₁ ~ mx₁ + b</span>
+          </div>
+          <!-- Regression results box -->
+          <div style="background:#eef0fb;padding:8px 10px;border:1px solid #c7d2fe;margin:6px;border-radius:6px">
+            <div style="font-size:9px;font-weight:700;color:#5c5ea6;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Parameters</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c5ea6">m =</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#ea580c">4</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c5ea6">b =</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#0d9488">3</span>
+            </div>
+            <div style="border-top:1px solid #c7d2fe;padding-top:5px">
+              <div style="font-size:9px;color:#5c5ea6;font-weight:600">R² = 1.0000</div>
+              <div style="font-size:9px;color:#64748b">(perfect linear fit)</div>
+            </div>
+          </div>
+          <div style="padding:5px 8px;background:#ccfbf1;margin:5px 6px;border-radius:5px;border:1px solid #5eead4">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#0d9488">y = 4x + 3</div>
+            <div style="font-size:9px;color:#064e3b;margin-top:2px">Best-fit equation!</div>
+          </div>
+        </div>
+        <div class="desmos-graph-area">
+          <svg viewBox="0 0 200 145" width="100%" height="100%" style="display:block">
+            <defs><pattern id="dg2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0f0f8" stroke-width="0.8"/></pattern></defs>
+            <rect width="200" height="145" fill="white"/>
+            <rect width="200" height="145" fill="url(#dg2)"/>
+            <line x1="15" y1="105" x2="195" y2="105" stroke="#d4d8f0" stroke-width="1"/>
+            <line x1="35" y1="10"  x2="35"  y2="135" stroke="#d4d8f0" stroke-width="1"/>
+            <!-- Regression line -->
+            <line x1="20" y1="115" x2="150" y2="5" stroke="#5c5ea6" stroke-width="2" stroke-linecap="round"/>
+            <!-- Data points ON the line (perfect fit) -->
+            <circle cx="35" cy="100" r="4" fill="#ea580c" stroke="white" stroke-width="1"/>
+            <circle cx="55" cy="80"  r="4" fill="#ea580c" stroke="white" stroke-width="1"/>
+            <circle cx="75" cy="60"  r="4" fill="#ea580c" stroke="white" stroke-width="1"/>
+            <circle cx="95" cy="40"  r="4" fill="#ea580c" stroke="white" stroke-width="1"/>
+            <circle cx="115" cy="20" r="4" fill="#ea580c" stroke="white" stroke-width="1"/>
+            <!-- Annotations -->
+            <text x="150" y="18" font-family="JetBrains Mono" font-size="8" fill="#5c5ea6" font-weight="700">y=4x+3</text>
+            <text x="38" y="98" font-family="Inter" font-size="7" fill="#1e40af">b=3</text>
+            <!-- m annotation -->
+            <line x1="75" y1="60" x2="95" y2="60" stroke="#ea580c" stroke-width="1" stroke-dasharray="2,2"/>
+            <line x1="95" y1="60" x2="95" y2="40" stroke="#ea580c" stroke-width="1" stroke-dasharray="2,2"/>
+            <text x="98" y="52" font-family="Inter" font-size="7" fill="#ea580c">m=4</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Predictions using Desmos -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">🔮</div>
+      <h2>Making Predictions with Desmos<small>Interpolation &amp; Extrapolation</small></h2>
+    </div>
+
+    <div class="formula-box teal mb8">
+      <div class="label">After running regression</div>
+      <div class="formula-big" style="font-size:13px">Type x = [value] in new expression</div>
+      <div class="formula-note">Desmos draws a vertical line at that x — hover or click to read the y-value on the regression line</div>
+    </div>
+
+    <!-- Two methods side by side -->
+    <div class="g2 mb8">
+      <div style="background:#dbeafe;border-radius:7px;padding:9px;border:1px solid #93c5fd">
+        <div style="font-size:10px;font-weight:700;color:#1e40af;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">📍 Interpolation</div>
+        <div style="font-size:11px;color:#1e3a8a;line-height:1.5">Predicting <strong>within</strong> the range of your data. More reliable. Example: data goes from x=0 to x=10; predict at x=5.</div>
+        <div style="margin-top:5px;background:white;border-radius:4px;padding:5px 7px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#1e40af">y = 4(5) + 3 = <strong>23</strong></div>
+      </div>
+      <div style="background:#fff7ed;border-radius:7px;padding:9px;border:1px solid #fed7aa">
+        <div style="font-size:10px;font-weight:700;color:#ea580c;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">🚀 Extrapolation</div>
+        <div style="font-size:11px;color:#78350f;line-height:1.5">Predicting <strong>beyond</strong> the range of your data. Less reliable. Example: data goes to x=10; predict at x=20.</div>
+        <div style="margin-top:5px;background:white;border-radius:4px;padding:5px 7px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#ea580c">y = 4(20) + 3 = <strong>83</strong></div>
+      </div>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:7px;padding:9px;border:1px solid var(--border);margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Desmos Shortcut to Predict</div>
+      <div style="display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:var(--mid)">
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="background:#5c5ea6;color:white;border-radius:3px;padding:1px 6px;font-size:9px;font-weight:700">Method A</div>
+          <span>Type <code class="desmos">y = 4x + 3</code> → substitute x manually → read y</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="background:#0d9488;color:white;border-radius:3px;padding:1px 6px;font-size:9px;font-weight:700">Method B</div>
+          <span>After regression → type <code class="desmos">x = 7</code> → trace intersection with regression line</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="background:#ea580c;color:white;border-radius:3px;padding:1px 6px;font-size:9px;font-weight:700">Method C</div>
+          <span>Add a column to your table — type x-value, leave y₁ blank — Desmos fills it in!</span>
+        </div>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span>R² value (shown after regression): closer to <span class="hl">1.00 = better linear fit</span></span></li>
+      <li><span class="bi orange">▶</span><span>R² = 1.00 → data is perfectly linear (all points on one line)</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ SEC 3: COMMON SAT QUESTION TYPES ══════════ -->
+<div class="sec-title">03 · SAT Question Types — Linear Models from Tables</div>
+<div class="g2 mb16">
+
+  <!-- Question types table -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">📝</div>
+      <h2>8 SAT Question Types Decoded<small>How to tackle each type with Desmos</small></h2>
+    </div>
+    <table class="comp-table">
+      <thead>
+        <tr><th>SAT Question Type</th><th>What it's really asking</th><th>Desmos Strategy</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>"What is the slope / rate of change?"</strong></td>
+          <td>Find Δy/Δx from the table</td>
+          <td>Run <code class="desmos">y₁ ~ mx₁+b</code> → read m directly</td>
+        </tr>
+        <tr>
+          <td><strong>"What is the y-intercept / initial value?"</strong></td>
+          <td>Find y when x = 0</td>
+          <td>Run regression → read b value; or look at x=0 row</td>
+        </tr>
+        <tr>
+          <td><strong>"Which equation models this data?"</strong></td>
+          <td>Find equation from table values</td>
+          <td>Enter table → run regression → match to answer choices</td>
+        </tr>
+        <tr>
+          <td><strong>"Predict y when x = [value]?"</strong></td>
+          <td>Substitute x into the model equation</td>
+          <td>After regression, type <code class="desmos">x=[value]</code> → hover on line</td>
+        </tr>
+        <tr>
+          <td><strong>"What does the slope represent in context?"</strong></td>
+          <td>Interpret rate of change in real-world units</td>
+          <td>Find m → attach units from problem ($/mile, °/hr, etc.)</td>
+        </tr>
+        <tr>
+          <td><strong>"Find x when y = [value]?"</strong></td>
+          <td>Reverse-solve the linear equation</td>
+          <td>Type <code class="desmos">y=[value]</code> as new line → intersection with regression</td>
+        </tr>
+        <tr>
+          <td><strong>"How does y change if x increases by 3?"</strong></td>
+          <td>Multiply slope by the change in x</td>
+          <td>m × 3 = change in y. Verify: pick two rows 3 apart in table</td>
+        </tr>
+        <tr>
+          <td><strong>"Is the relationship linear?"</strong></td>
+          <td>Check if differences are constant</td>
+          <td>Enter data → R² ≈ 1.00 confirms linear; if not, data is non-linear</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Worked SAT example with table -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fefce8">✏</div>
+      <h2>Full SAT Worked Example<small>Table → interpret → predict → select answer</small></h2>
+    </div>
+
+    <div style="background:#fefce8;border-radius:8px;padding:10px;border:1px solid #fde68a;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;color:#854d0e;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">SAT-Style Question</div>
+      <div style="font-size:12px;color:#78350f;line-height:1.6">
+        The table shows the total number of songs downloaded on a music platform over x weeks since launch.
+        Based on a linear model, approximately how many songs will be downloaded after <strong>10 weeks?</strong>
+      </div>
+    </div>
+
+    <div class="g2 mb10">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Given Data</div>
+        <table class="data-table" style="width:100%">
+          <thead><tr><th>Weeks (x)</th><th>Downloads (y)</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>2,400</td></tr>
+            <tr><td>2</td><td>4,100</td></tr>
+            <tr><td>3</td><td>5,800</td></tr>
+            <tr><td>4</td><td>7,500</td></tr>
+            <tr><td>5</td><td>9,200</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#5c5ea6;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">DESMOS</div>
+          <div style="font-size:11.5px;color:var(--mid)">Enter x₁: 1,2,3,4,5 and y₁: 2400,4100,5800,7500,9200</div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#5c5ea6;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">REGRESS</div>
+          <div style="font-size:11.5px;color:var(--mid)">Type <code class="desmos">y₁ ~ mx₁ + b</code> → Desmos gives m = 1700, b = 700</div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#0d9488;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">VERIFY</div>
+          <div style="font-size:11.5px;color:var(--mid)">Δy = 1700 per week ✓ (4100−2400=1700). At x=0: y=700 ✓</div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0">PREDICT</div>
+          <div style="font-size:11.5px;color:var(--mid)">At x=10: y = 1700(10) + 700 = <strong style="color:#ea580c">17,700</strong></div>
+        </div>
+        <div style="background:#ccfbf1;border-radius:6px;padding:7px 10px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#0d9488">
+          Answer: ≈ 17,700 downloads
+        </div>
+      </div>
+    </div>
+
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span>Slope (1700) = 1,700 new downloads per week — the rate of growth</span></li>
+      <li><span class="bi blue">▶</span><span>Y-intercept (700) = estimated downloads at launch (week 0)</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ SEC 4: ADVANCED DESMOS TECHNIQUES ══════════ -->
+<div class="sec-title">04 · Advanced Desmos Techniques for SAT</div>
+<div class="g4 mb16">
+
+  <!-- Finding intersection -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eef0fb">✕</div>
+      <h2>Find Where Two Models Meet<small>When x = value for two lines</small></h2>
+    </div>
+    <div class="desmos-box mb8">
+      <div class="d-title">🖥 Desmos Steps</div>
+      <div style="font-size:11.5px;color:#3730a3;line-height:1.7">
+        1. Enter line 1: <code class="desmos">y = 3x + 5</code><br>
+        2. Enter line 2: <code class="desmos">y = -x + 13</code><br>
+        3. Click intersection point on graph<br>
+        4. Coordinates shown: <strong>(2, 11)</strong>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi desmos">▶</span><span>SAT asks: "At what value of x are the two models equal?" → find intersection x</span></li>
+      <li><span class="bi teal">▶</span><span>Works even for messy non-integer answers</span></li>
+      <li><span class="bi orange">▶</span><span>Faster than solving algebraically for non-clean values</span></li>
+    </ul>
+  </div>
+
+  <!-- Reverse lookup -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">↩</div>
+      <h2>Reverse Lookup: Find x from y<small>"When does the model reach 50?"</small></h2>
+    </div>
+    <div class="desmos-box mb8">
+      <div class="d-title">🖥 Desmos Steps</div>
+      <div style="font-size:11.5px;color:#3730a3;line-height:1.7">
+        1. After regression, type: <code class="desmos">y = 50</code><br>
+        2. A horizontal line appears at y=50<br>
+        3. Click where it crosses regression line<br>
+        4. Read off the x-coordinate = answer
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi desmos">▶</span><span>SAT: "After how many months will cost exceed $500?" → set y=500</span></li>
+      <li><span class="bi orange">▶</span><span>Much faster than reverse-solving algebraically</span></li>
+    </ul>
+  </div>
+
+  <!-- Checking if table is linear -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dcfce7">✔</div>
+      <h2>Is the Table Linear?<small>Use R² to confirm linearity</small></h2>
+    </div>
+    <div class="formula-box green mb8">
+      <div class="label">R² (R-Squared)</div>
+      <div class="formula-big" style="font-size:14px">R² = 1.00 → perfect linear fit</div>
+      <div class="formula-note">Shown after running regression. Closer to 1 = more linear. SAT data is usually close to 1.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:8px;background:#dcfce7;border-radius:5px;padding:5px 8px">
+        <span style="font-size:16px">✅</span>
+        <div style="font-size:11.5px;color:#14532d"><strong>R² = 1.00:</strong> Data is exactly linear — model is perfect</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:#fefce8;border-radius:5px;padding:5px 8px">
+        <span style="font-size:16px">⚠️</span>
+        <div style="font-size:11.5px;color:#854d0e"><strong>R² ≈ 0.95:</strong> Strong linear trend — model is approximately linear</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:#fee2e2;border-radius:5px;padding:5px 8px">
+        <span style="font-size:16px">❌</span>
+        <div style="font-size:11.5px;color:#7f1d1d"><strong>R² ≈ 0.60:</strong> Weak linear fit — may be non-linear data</div>
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi green">▶</span><span>Manual check: Is Δy constant across equal Δx steps? If yes → linear</span></li>
+    </ul>
+  </div>
+
+  <!-- Non-integer tables -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3e8ff">±</div>
+      <h2>Tables with Unequal Spacing<small>Δx isn't always 1 — here's how to handle it</small></h2>
+    </div>
+    <div style="background:#f8fafc;border-radius:7px;padding:9px;border:1px solid var(--border);margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Example: Unequal Spacing</div>
+      <table class="data-table" style="width:100%">
+        <thead><tr><th>x</th><th>y</th><th>Δy/Δx</th></tr></thead>
+        <tbody>
+          <tr><td>2</td><td>11</td><td>—</td></tr>
+          <tr><td>5</td><td>17</td><td class="hi">6/3 = 2</td></tr>
+          <tr><td>8</td><td>23</td><td class="hi">6/3 = 2</td></tr>
+          <tr><td>14</td><td>35</td><td class="hi">12/6 = 2</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:6px;font-size:11.5px;color:#475569">→ Slope = 2 (constant Δy/Δx). Use any two points to find b.</div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi purple">▶</span><span>Always compute <span class="hl">Δy ÷ Δx</span> — NOT just Δy — when x-spacing is unequal</span></li>
+      <li><span class="bi desmos">▶</span><span>In Desmos: just enter the table and run <code class="desmos">y₁ ~ mx₁ + b</code> — it handles unequal spacing automatically</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ SEC 5: SCATTER PLOT / LINE OF BEST FIT ══════════ -->
+<div class="sec-title">05 · Scatter Plots, Line of Best Fit &amp; Residuals</div>
+<div class="g3 mb16">
+
+  <!-- Scatter plot basics -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">⠿</div>
+      <h2>Scatter Plot &amp; Line of Best Fit<small>Approximately linear real-world data</small></h2>
+    </div>
+    <svg viewBox="0 0 220 150" width="100%" style="border-radius:8px;border:1px solid #e2e8f0;background:#f8fafc;margin-bottom:9px">
+      <defs><pattern id="gs" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M 22 0 L 0 0 0 22" fill="none" stroke="#e2e8f0" stroke-width="0.5"/></pattern></defs>
+      <rect width="220" height="150" fill="url(#gs)"/>
+      <line x1="20" y1="115" x2="210" y2="115" stroke="#94a3b8" stroke-width="1.5"/>
+      <line x1="40" y1="10"  x2="40"  y2="135" stroke="#94a3b8" stroke-width="1.5"/>
+      <!-- Best fit line -->
+      <line x1="30" y1="108" x2="200" y2="22" stroke="#0d9488" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
+      <!-- Scattered points near the line (origin 40,115, scale 20x,9y) -->
+      <!-- Line: y ~ -0.5x + 120 approx in screen coords -->
+      <circle cx="55"  cy="103" r="3.5" fill="#3b82f6"/>
+      <circle cx="70"  cy="96"  r="3.5" fill="#3b82f6"/>
+      <circle cx="85"  cy="88"  r="3.5" fill="#3b82f6"/>
+      <circle cx="100" cy="79"  r="3.5" fill="#3b82f6"/>
+      <circle cx="115" cy="74"  r="3.5" fill="#3b82f6"/>
+      <circle cx="130" cy="63"  r="3.5" fill="#3b82f6"/>
+      <circle cx="145" cy="57"  r="3.5" fill="#3b82f6"/>
+      <circle cx="160" cy="48"  r="3.5" fill="#3b82f6"/>
+      <circle cx="175" cy="42"  r="3.5" fill="#3b82f6"/>
+      <!-- Residuals (vertical gaps) for a few points -->
+      <line x1="70"  y1="96"  x2="70"  y2="104" stroke="#ea580c" stroke-width="1.5"/>
+      <line x1="100" y1="79"  x2="100" y2="85"  stroke="#ea580c" stroke-width="1.5"/>
+      <line x1="130" y1="63"  x2="130" y2="57"  stroke="#ea580c" stroke-width="1.5"/>
+      <!-- Labels -->
+      <text x="185" y="28" font-family="JetBrains Mono" font-size="9" fill="#0d9488" font-weight="700">best-fit line</text>
+      <text x="72"  y="85" font-family="Inter" font-size="8" fill="#ea580c" font-weight="700">residual</text>
+      <!-- Arrow -->
+      <line x1="72" y1="87" x2="72" y2="97" stroke="#ea580c" stroke-width="1" marker-end="none"/>
+    </svg>
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span><span class="hl">Line of best fit</span> minimizes total residual distance (least squares)</span></li>
+      <li><span class="bi teal">▶</span><span>Not all points need to be ON the line — line passes through the middle</span></li>
+      <li><span class="bi orange">▶</span><span>Desmos draws this line automatically after <code class="desmos">y₁ ~ mx₁ + b</code></span></li>
+    </ul>
+  </div>
+
+  <!-- Residuals -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fee2e2">↕</div>
+      <h2>Residuals Explained<small>Distance from data point to the model line</small></h2>
+    </div>
+    <div class="formula-box red mb8">
+      <div class="label">Residual Formula</div>
+      <div class="formula-big" style="font-size:16px">residual = y_actual − y_predicted</div>
+      <div class="formula-note">Positive residual → point is <strong>above</strong> the line. Negative → point is <strong>below</strong> the line.</div>
+    </div>
+    <div style="background:#f8fafc;border-radius:7px;padding:9px;border:1px solid var(--border);margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Worked Example</div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.7">
+        Model: <strong>y = 2x + 5</strong><br>
+        At x = 4: predicted y = 2(4)+5 = <strong>13</strong><br>
+        Actual data point: (4, 15)<br>
+        Residual = 15 − 13 = <strong style="color:#b91c1c">+2</strong> (point is above the line)
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi red">▶</span><span>Residual = 0 means the point lies exactly on the best-fit line</span></li>
+      <li><span class="bi red">▶</span><span>SAT asks: "Which point has the largest residual?" → furthest from line</span></li>
+      <li><span class="bi orange">▶</span><span>Desmos: run regression → open residual table from the parameters area</span></li>
+    </ul>
+  </div>
+
+  <!-- SAT Traps + Tips -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fee2e2">⚠️</div>
+      <h2>SAT Traps &amp; Power Tips<small>Linear models &amp; Desmos</small></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 1: Confusing slope with y-intercept in context</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+          "Initial fee" = y-intercept (not slope). "Per hour" = slope (not y-intercept). The words tell you which is which — read carefully.
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 2: Assuming x=0 is in the table</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+          If the table starts at x=2, you can't just read b. Use <code>b = y − mx</code> with any table row. Or let Desmos regression find b.
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 3: Using Δy only (not Δy/Δx) for slope</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+          When Δx ≠ 1, slope = Δy ÷ Δx, NOT just Δy. A table with x-steps of 2 means each Δy represents 2 units of x.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: Always run Desmos regression first</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">
+          For any table question, enter data → <code class="desmos">y₁ ~ mx₁ + b</code> → read m and b. Takes 20 seconds and eliminates all calculation errors.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: Check your answer by plugging back into the table</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">
+          After finding the equation, verify 2–3 rows from the table match the equation. Desmos makes this instant.
+        </div>
+      </div>
+      <div class="desmos-box" style="margin-bottom:0">
+        <div class="d-title">🖥 DESMOS SPEED TIP</div>
+        <div style="font-size:11px;color:#3730a3;line-height:1.4">
+          Add a 3rd column to your Desmos table labeled <code class="desmos">y₁ = mx₁ + b</code> (after regression). It shows predicted y for every x — instantly compare actual vs. predicted values!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SEC 6: MASTER SUMMARY ══════════ -->
+<div class="sec-title">06 · Master Summary — All Rules &amp; Desmos Moves at a Glance</div>
+<div class="card mb16">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--teal);padding-bottom:3px">Linear Model</div>
+      <ul class="blist">
+        <li><span class="bi teal">▶</span><span><code>y = mx + b</code> is the model</span></li>
+        <li><span class="bi teal">▶</span><span>m = slope = rate of change = Δy/Δx</span></li>
+        <li><span class="bi teal">▶</span><span>b = y-intercept = initial value (x=0)</span></li>
+        <li><span class="bi orange">▶</span><span>Constant Δy → data is linear</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--desmos);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--desmos);padding-bottom:3px">Desmos Table Steps</div>
+      <ul class="blist">
+        <li><span class="bi desmos">▶</span><span>+ → Table → enter (x₁, y₁) pairs</span></li>
+        <li><span class="bi desmos">▶</span><span>Regression: <code class="desmos">y₁ ~ mx₁ + b</code></span></li>
+        <li><span class="bi desmos">▶</span><span>Read m &amp; b from parameter box</span></li>
+        <li><span class="bi desmos">▶</span><span>R² ≈ 1.00 → linear fit confirmed</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--orange);padding-bottom:3px">Prediction Methods</div>
+      <ul class="blist">
+        <li><span class="bi orange">▶</span><span>Interpolate: predict within data range</span></li>
+        <li><span class="bi orange">▶</span><span>Extrapolate: predict beyond data range</span></li>
+        <li><span class="bi orange">▶</span><span>Desmos: type x=[val] to predict y</span></li>
+        <li><span class="bi orange">▶</span><span>Type y=[val] to reverse-find x</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--purple);padding-bottom:3px">SAT Interpretation</div>
+      <ul class="blist">
+        <li><span class="bi purple">▶</span><span>"per / each / every" → slope m</span></li>
+        <li><span class="bi purple">▶</span><span>"initial / starting / at zero" → b</span></li>
+        <li><span class="bi purple">▶</span><span>Residual = actual − predicted</span></li>
+        <li><span class="bi purple">▶</span><span>Above line → positive residual</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <strong>Interpreting Linear Models &amp; Desmos Table Functions · SAT Math Master Guide</strong> &nbsp;·&nbsp;
+  Tables · Regression · Interpretation · Prediction · Aligned to Digital SAT specifications
+</div>
+
+</body>
+</html>

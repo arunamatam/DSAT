@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Functions & Function Notation — SAT Math Master Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  @page { size: A3 landscape; margin: 14mm 12mm 14mm 12mm; }
+
+  :root {
+    --teal:    #0d9488; --teal-l:  #ccfbf1; --teal-m:  #14b8a6;
+    --blue:    #1e40af; --blue-l:  #dbeafe; --blue-m:  #3b82f6;
+    --orange:  #ea580c; --orange-l:#fff7ed; --orange-m:#f97316;
+    --yellow:  #854d0e; --yellow-l:#fefce8; --yellow-m:#fbbf24;
+    --purple:  #6b21a8; --purple-l:#f3e8ff; --purple-m:#a855f7;
+    --red:     #b91c1c; --red-l:   #fee2e2;
+    --green:   #15803d; --green-l: #dcfce7;
+    --pink:    #9d174d; --pink-l:  #fce7f3;
+    --indigo:  #3730a3; --indigo-l:#e0e7ff;
+    --dark:    #0f172a; --mid:     #334155; --muted:   #64748b;
+    --border:  #e2e8f0; --white:   #ffffff; --bg:      #f8fafc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--dark); width: 100%; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #312e81 50%, #0d4a47 100%);
+    padding: 26px 32px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .hero-left { flex: 1; }
+  .hero-tag { display: inline-block; background: var(--orange-m); color: white; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+  .hero h1 { font-size: 36px; font-weight: 900; color: white; line-height: 1.1; letter-spacing: -1px; }
+  .hero h1 span { color: var(--yellow-m); }
+  .hero-sub { color: #94a3b8; font-size: 13px; margin-top: 7px; }
+  .hero-pills { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 10.5px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+  .hero-right { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 16px 22px; min-width: 340px; }
+  .hero-right h3 { color: var(--yellow-m); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 9px; }
+  .kf-row { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 6px; }
+  .kf-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .kf-text { color: white; font-size: 12px; line-height: 1.4; }
+  .kf-text strong { font-family: 'JetBrains Mono',monospace; font-size: 11.5px; color: #5eead4; }
+
+  /* PAGE */
+  .page { padding: 14px 18px; background: var(--bg); }
+
+  .sec-title { font-size: 10.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+  .sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card { background: var(--white); border-radius: 11px; border: 1px solid var(--border); padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .card-header { display: flex; align-items: center; gap: 9px; margin-bottom: 11px; }
+  .card-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .card h2 { font-size: 14px; font-weight: 800; color: var(--dark); line-height: 1.2; }
+  .card h2 small { display: block; font-size: 10.5px; font-weight: 500; color: var(--muted); margin-top: 1px; }
+
+  .fbox { border-radius: 8px; padding: 9px 13px; margin-bottom: 9px; border-left: 4px solid; }
+  .fbox.teal   { background: var(--teal-l);   border-color: var(--teal);   }
+  .fbox.blue   { background: var(--blue-l);   border-color: var(--blue);   }
+  .fbox.orange { background: var(--orange-l); border-color: var(--orange); }
+  .fbox.yellow { background: var(--yellow-l); border-color: var(--yellow-m); }
+  .fbox.purple { background: var(--purple-l); border-color: var(--purple); }
+  .fbox.red    { background: var(--red-l);    border-color: var(--red);    }
+  .fbox.green  { background: var(--green-l);  border-color: var(--green);  }
+  .fbox.pink   { background: var(--pink-l);   border-color: var(--pink);   }
+  .fbox.indigo { background: var(--indigo-l); border-color: var(--indigo); }
+
+  .fbox .lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; }
+  .fbox.teal   .lbl { color: var(--teal); }
+  .fbox.blue   .lbl { color: var(--blue); }
+  .fbox.orange .lbl { color: var(--orange); }
+  .fbox.yellow .lbl { color: var(--yellow); }
+  .fbox.purple .lbl { color: var(--purple); }
+  .fbox.red    .lbl { color: var(--red); }
+  .fbox.green  .lbl { color: var(--green); }
+  .fbox.pink   .lbl { color: var(--pink); }
+  .fbox.indigo .lbl { color: var(--indigo); }
+
+  .fbig { font-family: 'JetBrains Mono',monospace; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .fnote { font-size: 11.5px; color: var(--mid); line-height: 1.45; }
+
+  .blist { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .blist li { display: flex; gap: 6px; font-size: 12px; color: var(--mid); line-height: 1.4; align-items: flex-start; }
+  .blist li .bi { font-size: 9px; flex-shrink: 0; margin-top: 3px; font-weight: 700; }
+  .blist li .bi.teal   { color: var(--teal); }
+  .blist li .bi.blue   { color: var(--blue); }
+  .blist li .bi.orange { color: var(--orange); }
+  .blist li .bi.purple { color: var(--purple); }
+  .blist li .bi.red    { color: var(--red); }
+  .blist li .bi.green  { color: var(--green); }
+  .blist li .bi.pink   { color: var(--pink); }
+  .blist li .bi.indigo { color: var(--indigo); }
+
+  .g3  { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .g2  { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .g4  { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .g5  { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
+  .g12 { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
+  .g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+
+  .mb8  { margin-bottom: 8px; }
+  .mb12 { margin-bottom: 12px; }
+  .mb16 { margin-bottom: 16px; }
+
+  code { font-family: 'JetBrains Mono',monospace; background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: 11px; color: var(--blue); }
+
+  .step-badge { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: white; flex-shrink: 0; }
+
+  .trap-box { background: var(--red-l); border: 1.5px dashed var(--red); border-radius: 8px; padding: 9px 12px; margin-bottom: 7px; }
+  .trap-box .trap-title { font-size: 9.5px; font-weight: 800; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+  .tip-box { background: #f0fdf4; border: 1.5px solid #16a34a; border-radius: 8px; padding: 9px 12px; margin-bottom: 7px; }
+  .tip-box .tip-title { font-size: 9.5px; font-weight: 800; color: #16a34a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .comp-table th { background: var(--dark); color: white; padding: 6px 9px; text-align: left; font-weight: 700; font-size: 10px; }
+  .comp-table th:first-child { border-radius: 5px 0 0 0; }
+  .comp-table th:last-child  { border-radius: 0 5px 0 0; }
+  .comp-table td { padding: 6px 9px; border-bottom: 1px solid var(--border); color: var(--mid); vertical-align: top; }
+  .comp-table tr:nth-child(even) td { background: #f8fafc; }
+
+  /* Machine diagram */
+  .machine { background: #f8fafc; border-radius: 10px; border: 2px solid var(--border); padding: 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .machine-arrow { font-size: 22px; color: var(--muted); }
+  .machine-box { background: var(--blue); border-radius: 10px; padding: 10px 16px; text-align: center; flex-shrink: 0; }
+  .machine-box .mb-label { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .machine-box .mb-formula { font-family: 'JetBrains Mono',monospace; font-size: 14px; font-weight: 700; color: white; }
+  .io-box { border-radius: 8px; padding: 8px 14px; text-align: center; border: 2px solid; }
+  .io-box .io-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .io-box .io-val { font-family: 'JetBrains Mono',monospace; font-size: 15px; font-weight: 700; }
+
+  /* Function type mini cards */
+  .ftype-card { border-radius: 9px; overflow: hidden; border: 1px solid var(--border); }
+  .ftype-head { padding: 7px 11px; display: flex; align-items: center; gap: 6px; }
+  .ftype-head span { font-size: 11.5px; font-weight: 800; color: white; }
+  .ftype-body { background: white; padding: 8px 11px; }
+
+  /* Transform row */
+  .tr-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; padding: 7px 10px; background: #f8fafc; border-radius: 7px; border: 1px solid var(--border); }
+  .tr-tag { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; color: white; flex-shrink: 0; }
+  .tr-formula { font-family: 'JetBrains Mono',monospace; font-size: 12px; font-weight: 700; flex-shrink: 0; min-width: 110px; }
+  .tr-desc { font-size: 11.5px; color: var(--mid); line-height: 1.4; }
+
+  .footer { background: var(--dark); color: #94a3b8; font-size: 11px; text-align: center; padding: 12px; }
+  .footer strong { color: white; }
+
+  .hl   { font-weight: 700; color: var(--dark); }
+  .hl-t { color: var(--teal);   font-weight: 700; }
+  .hl-b { color: var(--blue);   font-weight: 700; }
+  .hl-o { color: var(--orange); font-weight: 700; }
+  .hl-p { color: var(--purple); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Digital SAT Math · Last-Minute Reference</div>
+    <h1>Functions &amp;<br><span>Function Notation</span></h1>
+    <p class="hero-sub">Input/output · f(x) notation · Domain &amp; Range · Composite · Inverse · Transformations · SAT traps</p>
+    <div class="hero-pills">
+      <span class="pill">f(x) Notation</span>
+      <span class="pill">Domain &amp; Range</span>
+      <span class="pill">Evaluating f(a)</span>
+      <span class="pill">Composite f(g(x))</span>
+      <span class="pill">Inverse f⁻¹(x)</span>
+      <span class="pill">Transformations</span>
+      <span class="pill">Even &amp; Odd</span>
+      <span class="pill">Piecewise</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <h3>⚡ Quick-Look Essentials</h3>
+    <div class="kf-row"><div class="kf-dot" style="background:#14b8a6"></div><div class="kf-text">Function rule: <strong>every input has exactly ONE output</strong></div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#3b82f6"></div><div class="kf-text">Notation: <strong>f(x)</strong> = output when input is x</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#f97316"></div><div class="kf-text">Composite: <strong>f(g(x))</strong> = apply g first, then f</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#a855f7"></div><div class="kf-text">Inverse: <strong>f⁻¹(x)</strong> swaps input and output</div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#fbbf24"></div><div class="kf-text">Shift up k: <strong>f(x) + k</strong> &nbsp;|&nbsp; Shift right h: <strong>f(x − h)</strong></div></div>
+    <div class="kf-row"><div class="kf-dot" style="background:#f43f5e"></div><div class="kf-text">Even: <strong>f(−x) = f(x)</strong> &nbsp;|&nbsp; Odd: <strong>f(−x) = −f(x)</strong></div></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ══════════ SEC 1: WHAT IS A FUNCTION ══════════ -->
+<div class="sec-title">01 · What is a Function?</div>
+<div class="g3 mb16">
+
+  <!-- Definition & Machine -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">ƒ</div>
+      <h2>Function Definition<small>A rule: each input → exactly one output</small></h2>
+    </div>
+
+    <!-- Function machine diagram -->
+    <div class="machine">
+      <div class="io-box" style="border-color:#0d9488;background:#f0fdfa">
+        <div class="io-label" style="color:#0d9488">INPUT x</div>
+        <div class="io-val" style="color:#0d9488">3</div>
+      </div>
+      <div class="machine-arrow">→</div>
+      <div class="machine-box">
+        <div class="mb-label">Function Rule</div>
+        <div class="mb-formula">f(x) = 2x+1</div>
+      </div>
+      <div class="machine-arrow">→</div>
+      <div class="io-box" style="border-color:#ea580c;background:#fff7ed">
+        <div class="io-label" style="color:#ea580c">OUTPUT f(x)</div>
+        <div class="io-val" style="color:#ea580c">7</div>
+      </div>
+    </div>
+
+    <div class="fbox teal mb8">
+      <div class="lbl">Key Rule</div>
+      <div class="fbig" style="font-size:14px">One input → Exactly one output</div>
+      <div class="fnote">If any input maps to <em>two or more</em> outputs, it is <strong>NOT</strong> a function</div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi teal">▶</span><span><span class="hl">f(x)</span> is read "f of x" — it means the output of function f at input x</span></li>
+      <li><span class="bi teal">▶</span><span>Other names: <code>g(x)</code>, <code>h(x)</code>, <code>p(t)</code> — letter choice doesn't matter</span></li>
+      <li><span class="bi orange">▶</span><span>SAT: <code>f(3) = 7</code> means when x=3, output = 7. It does NOT mean f×3</span></li>
+    </ul>
+  </div>
+
+  <!-- Function vs Not Function -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">✓✗</div>
+      <h2>Function vs. Not a Function<small>Vertical Line Test &amp; mapping rules</small></h2>
+    </div>
+
+    <div class="g2 mb8">
+      <!-- Is a function -->
+      <div style="border-radius:8px;overflow:hidden;border:2px solid #16a34a">
+        <div style="background:#16a34a;padding:6px 10px">
+          <span style="font-size:11px;font-weight:800;color:white">✓ IS a Function</span>
+        </div>
+        <div style="background:#f0fdf4;padding:9px 11px">
+          <svg viewBox="0 0 120 80" width="100%" style="display:block;margin-bottom:7px">
+            <!-- Domain bubble -->
+            <ellipse cx="28" cy="40" rx="24" ry="32" fill="#dbeafe" stroke="#1e40af" stroke-width="1.5"/>
+            <!-- Range bubble -->
+            <ellipse cx="92" cy="40" rx="24" ry="32" fill="#ccfbf1" stroke="#0d9488" stroke-width="1.5"/>
+            <!-- Domain elements -->
+            <circle cx="28" cy="18" r="3.5" fill="#1e40af"/>
+            <circle cx="28" cy="35" r="3.5" fill="#1e40af"/>
+            <circle cx="28" cy="52" r="3.5" fill="#1e40af"/>
+            <circle cx="28" cy="66" r="3.5" fill="#1e40af"/>
+            <!-- Range elements -->
+            <circle cx="92" cy="22" r="3.5" fill="#0d9488"/>
+            <circle cx="92" cy="40" r="3.5" fill="#0d9488"/>
+            <circle cx="92" cy="58" r="3.5" fill="#0d9488"/>
+            <!-- Arrows: each input → one output -->
+            <line x1="32" y1="18" x2="88" y2="22" stroke="#ea580c" stroke-width="1.3" marker-end="none"/>
+            <line x1="32" y1="35" x2="88" y2="40" stroke="#ea580c" stroke-width="1.3"/>
+            <line x1="32" y1="52" x2="88" y2="40" stroke="#ea580c" stroke-width="1.3"/>
+            <line x1="32" y1="66" x2="88" y2="58" stroke="#ea580c" stroke-width="1.3"/>
+            <!-- Arrowheads -->
+            <polygon points="88,22 82,19 82,25" fill="#ea580c"/>
+            <polygon points="88,40 82,37 82,43" fill="#ea580c"/>
+            <polygon points="88,58 82,55 82,61" fill="#ea580c"/>
+            <!-- Labels -->
+            <text x="18" y="6" font-family="Inter" font-size="8" fill="#1e40af" font-weight="700">Domain</text>
+            <text x="80" y="6" font-family="Inter" font-size="8" fill="#0d9488" font-weight="700">Range</text>
+          </svg>
+          <div style="font-size:10.5px;color:#14532d;line-height:1.4">Each input maps to <strong>exactly one</strong> output. Two inputs CAN share an output.</div>
+        </div>
+      </div>
+      <!-- Not a function -->
+      <div style="border-radius:8px;overflow:hidden;border:2px solid #b91c1c">
+        <div style="background:#b91c1c;padding:6px 10px">
+          <span style="font-size:11px;font-weight:800;color:white">✗ NOT a Function</span>
+        </div>
+        <div style="background:#fff5f5;padding:9px 11px">
+          <svg viewBox="0 0 120 80" width="100%" style="display:block;margin-bottom:7px">
+            <ellipse cx="28" cy="40" rx="24" ry="32" fill="#dbeafe" stroke="#1e40af" stroke-width="1.5"/>
+            <ellipse cx="92" cy="40" rx="24" ry="32" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+            <circle cx="28" cy="25" r="3.5" fill="#1e40af"/>
+            <circle cx="28" cy="55" r="3.5" fill="#1e40af"/>
+            <circle cx="92" cy="18" r="3.5" fill="#b91c1c"/>
+            <circle cx="92" cy="38" r="3.5" fill="#b91c1c"/>
+            <circle cx="92" cy="58" r="3.5" fill="#b91c1c"/>
+            <!-- One input → two outputs (INVALID) -->
+            <line x1="32" y1="25" x2="88" y2="18" stroke="#b91c1c" stroke-width="1.5"/>
+            <line x1="32" y1="25" x2="88" y2="38" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4,2"/>
+            <line x1="32" y1="55" x2="88" y2="58" stroke="#ea580c" stroke-width="1.3"/>
+            <polygon points="88,18 82,15 82,21" fill="#b91c1c"/>
+            <polygon points="88,38 82,35 82,41" fill="#b91c1c"/>
+            <polygon points="88,58 82,55 82,61" fill="#ea580c"/>
+            <text x="14" y="6" font-family="Inter" font-size="8" fill="#b91c1c" font-weight="700">x=2 → y=3 AND y=5 ✗</text>
+          </svg>
+          <div style="font-size:10.5px;color:#7f1d1d;line-height:1.4">One input maps to <strong>two outputs</strong> → breaks the function rule.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertical Line Test -->
+    <div style="background:#f8fafc;border-radius:8px;padding:9px 12px;border:1px solid var(--border)">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Vertical Line Test (for graphs)</div>
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <svg viewBox="0 0 80 70" width="80" style="flex-shrink:0">
+          <!-- Parabola (IS a function) -->
+          <text x="4" y="8" font-family="Inter" font-size="7" fill="#16a34a" font-weight="700">y=x² ✓</text>
+          <line x1="5" y1="55" x2="75" y2="55" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="40" y1="12" x2="40" y2="62" stroke="#94a3b8" stroke-width="1"/>
+          <path d="M 10,52 Q 40,14 70,52" fill="none" stroke="#0d9488" stroke-width="2"/>
+          <!-- Vertical test line: hits only once -->
+          <line x1="55" y1="12" x2="55" y2="62" stroke="#1e40af" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="55" cy="38" r="3" fill="#1e40af"/>
+          <text x="58" y="28" font-family="Inter" font-size="6" fill="#1e40af">1 point ✓</text>
+        </svg>
+        <svg viewBox="0 0 80 70" width="80" style="flex-shrink:0">
+          <!-- Circle (NOT a function) -->
+          <text x="4" y="8" font-family="Inter" font-size="7" fill="#b91c1c" font-weight="700">circle ✗</text>
+          <line x1="5" y1="45" x2="75" y2="45" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="40" y1="8" x2="40" y2="62" stroke="#94a3b8" stroke-width="1"/>
+          <circle cx="40" cy="40" r="20" fill="none" stroke="#ea580c" stroke-width="2"/>
+          <line x1="55" y1="12" x2="55" y2="65" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="55" cy="24" r="3" fill="#b91c1c"/>
+          <circle cx="55" cy="56" r="3" fill="#b91c1c"/>
+          <text x="58" y="42" font-family="Inter" font-size="6" fill="#b91c1c">2 pts ✗</text>
+        </svg>
+        <div style="font-size:11.5px;color:var(--mid);line-height:1.5">
+          Draw a vertical line through the graph.<br>
+          <strong style="color:#16a34a">Hits 1 point</strong> → function ✓<br>
+          <strong style="color:#b91c1c">Hits 2+ points</strong> → not a function ✗
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Domain & Range -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">⟷</div>
+      <h2>Domain &amp; Range<small>The allowed inputs and possible outputs</small></h2>
+    </div>
+    <div class="g2 mb8">
+      <div class="fbox orange" style="margin-bottom:0">
+        <div class="lbl">Domain</div>
+        <div class="fbig" style="font-size:14px">All valid x-inputs</div>
+        <div class="fnote">The set of all x-values you can plug in. Restrictions come from: ÷0 or √negative</div>
+      </div>
+      <div class="fbox teal" style="margin-bottom:0">
+        <div class="lbl">Range</div>
+        <div class="fbig" style="font-size:14px">All possible y-outputs</div>
+        <div class="fnote">The set of all f(x) values the function can produce. Look at graph's y-coverage.</div>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:9px;border:1px solid var(--border);margin:8px 0">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Domain Restriction Rules</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="display:flex;gap:7px;align-items:center;font-size:11.5px">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:1px 7px;font-weight:700;font-size:10px;flex-shrink:0">÷ 0</div>
+          <span style="color:var(--mid)">Denominator ≠ 0 → set denom ≠ 0 and exclude those x-values</span>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center;font-size:11.5px">
+          <div style="background:#0d9488;color:white;border-radius:4px;padding:1px 7px;font-weight:700;font-size:10px;flex-shrink:0">√</div>
+          <span style="color:var(--mid)">Square root → expression inside ≥ 0</span>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center;font-size:11.5px">
+          <div style="background:#1e40af;color:white;border-radius:4px;padding:1px 7px;font-weight:700;font-size:10px;flex-shrink:0">log</div>
+          <span style="color:var(--mid)">Log/ln → argument must be &gt; 0</span>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center;font-size:11.5px">
+          <div style="background:#6b21a8;color:white;border-radius:4px;padding:1px 7px;font-weight:700;font-size:10px;flex-shrink:0">poly</div>
+          <span style="color:var(--mid)">Polynomials → domain is all real numbers (−∞, ∞)</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fefce8;border-radius:7px;padding:8px 10px;border:1px solid #fde68a">
+      <div style="font-size:10px;font-weight:700;color:#854d0e;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Example: f(x) = √(x − 3)</div>
+      <div style="font-size:12px;color:#78350f;line-height:1.6">Domain: x − 3 ≥ 0 → <strong>x ≥ 3</strong> or [3, ∞)<br>Range: √ always ≥ 0 → <strong>y ≥ 0</strong> or [0, ∞)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SEC 2: NOTATION & EVALUATION ══════════ -->
+<div class="sec-title">02 · Function Notation &amp; Evaluating Functions</div>
+<div class="g3 mb16">
+
+  <!-- Notation anatomy -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dbeafe">f(x)</div>
+      <h2>Anatomy of f(x) Notation<small>Every part has a specific meaning</small></h2>
+    </div>
+
+    <!-- Labeled notation diagram -->
+    <svg viewBox="0 0 310 90" width="100%" style="display:block;margin-bottom:12px">
+      <!-- Main formula -->
+      <text x="55" y="52" font-family="JetBrains Mono" font-size="34" font-weight="700" fill="#0f172a">f(x) = 2x + 5</text>
+      <!-- Label: f -->
+      <line x1="65" y1="58" x2="65" y2="78" stroke="#0d9488" stroke-width="1.5"/>
+      <line x1="65" y1="78" x2="30" y2="78" stroke="#0d9488" stroke-width="1.5"/>
+      <text x="5"  y="86" font-family="Inter" font-size="9" font-weight="700" fill="#0d9488">function name</text>
+      <!-- Label: (x) -->
+      <line x1="88" y1="58" x2="88" y2="68" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="88" y1="68" x2="135" y2="68" stroke="#1e40af" stroke-width="1.5"/>
+      <text x="100" y="80" font-family="Inter" font-size="9" font-weight="700" fill="#1e40af">input variable</text>
+      <!-- Label: 2x+5 -->
+      <line x1="220" y1="34" x2="220" y2="14" stroke="#ea580c" stroke-width="1.5"/>
+      <line x1="220" y1="14" x2="260" y2="14" stroke="#ea580c" stroke-width="1.5"/>
+      <text x="210" y="10" font-family="Inter" font-size="9" font-weight="700" fill="#ea580c">output rule</text>
+      <!-- = sign -->
+      <text x="113" y="52" font-family="JetBrains Mono" font-size="34" font-weight="700" fill="#64748b">=</text>
+    </svg>
+
+    <div class="fbox blue mb8">
+      <div class="lbl">Reading f(x) Expressions</div>
+      <div class="fnote">
+        <strong>f(3)</strong> → evaluate at x = 3 &nbsp;|&nbsp; <strong>f(a)</strong> → evaluate at x = a<br>
+        <strong>f(2x)</strong> → replace every x with 2x &nbsp;|&nbsp; <strong>f(x+1)</strong> → replace x with (x+1)
+      </div>
+    </div>
+    <ul class="blist">
+      <li><span class="bi blue">▶</span><span><code>f(x) = 3</code> means the output is 3 — the y-value is 3</span></li>
+      <li><span class="bi orange">▶</span><span>SAT trap: <code>f(3)</code> means "evaluate f when x=3" — NOT "f times 3"</span></li>
+      <li><span class="bi teal">▶</span><span><code>f(0)</code> = y-intercept. This is tested often!</span></li>
+    </ul>
+  </div>
+
+  <!-- Evaluating step by step -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">✏</div>
+      <h2>Evaluating Functions — 4 Types<small>Substitute every x with the given expression</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <!-- Type 1: numeric -->
+      <div style="background:#f0fdfa;border-radius:8px;padding:9px 12px;border:1px solid #5eead4">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="background:#0d9488;color:white;border-radius:4px;padding:1px 8px;font-size:10px;font-weight:700">TYPE 1</div>
+          <div style="font-size:12px;font-weight:700;color:#0d9488">Evaluate at a number: f(3)</div>
+        </div>
+        <div style="font-size:12px;color:#064e3b;line-height:1.6;font-family:'JetBrains Mono',monospace">
+          f(x) = 2x² − x + 4<br>
+          f(3) = 2(3)² − (3) + 4 = 18 − 3 + 4 = <strong>19</strong>
+        </div>
+      </div>
+      <!-- Type 2: expression -->
+      <div style="background:#dbeafe;border-radius:8px;padding:9px 12px;border:1px solid #93c5fd">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="background:#1e40af;color:white;border-radius:4px;padding:1px 8px;font-size:10px;font-weight:700">TYPE 2</div>
+          <div style="font-size:12px;font-weight:700;color:#1e40af">Evaluate at an expression: f(a+1)</div>
+        </div>
+        <div style="font-size:12px;color:#1e3a8a;line-height:1.6;font-family:'JetBrains Mono',monospace">
+          f(x) = 3x − 2<br>
+          f(a+1) = 3(a+1) − 2 = 3a + 3 − 2 = <strong>3a + 1</strong>
+        </div>
+      </div>
+      <!-- Type 3: from table -->
+      <div style="background:#fff7ed;border-radius:8px;padding:9px 12px;border:1px solid #fed7aa">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="background:#ea580c;color:white;border-radius:4px;padding:1px 8px;font-size:10px;font-weight:700">TYPE 3</div>
+          <div style="font-size:12px;font-weight:700;color:#ea580c">Evaluate from a table: find f(2)</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <table style="border-collapse:collapse;font-size:12px">
+            <tr><th style="background:#ea580c;color:white;padding:3px 10px;font-size:10px">x</th><th style="background:#ea580c;color:white;padding:3px 10px;font-size:10px">f(x)</th></tr>
+            <tr><td style="padding:3px 8px;border:1px solid #fed7aa;text-align:center;font-family:'JetBrains Mono',monospace">1</td><td style="padding:3px 8px;border:1px solid #fed7aa;text-align:center;font-family:'JetBrains Mono',monospace">5</td></tr>
+            <tr><td style="padding:3px 8px;border:1px solid #fed7aa;text-align:center;background:#fef3c7;font-weight:700;font-family:'JetBrains Mono',monospace">2</td><td style="padding:3px 8px;border:1px solid #fed7aa;text-align:center;background:#fef3c7;font-weight:700;color:#ea580c;font-family:'JetBrains Mono',monospace">8</td></tr>
+            <tr><td style="padding:3px 8px;border:1px solid #fed7aa;text-align:center;font-family:'JetBrains Mono',monospace">3</td><td style="padding:3px 8px;border:1px solid #fed7aa;text-align:center;font-family:'JetBrains Mono',monospace">11</td></tr>
+          </table>
+          <div style="font-size:12px;color:#78350f">f(2) = <strong style="color:#ea580c;font-size:14px">8</strong><br>Read directly from row x=2</div>
+        </div>
+      </div>
+      <!-- Type 4: from graph -->
+      <div style="background:#f3e8ff;border-radius:8px;padding:9px 12px;border:1px solid #d8b4fe">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="background:#6b21a8;color:white;border-radius:4px;padding:1px 8px;font-size:10px;font-weight:700">TYPE 4</div>
+          <div style="font-size:12px;font-weight:700;color:#6b21a8">Evaluate from a graph: find f(2)</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <svg viewBox="0 0 80 60" width="80" style="flex-shrink:0">
+            <line x1="5" y1="45" x2="75" y2="45" stroke="#94a3b8" stroke-width="1"/>
+            <line x1="20" y1="5"  x2="20" y2="55" stroke="#94a3b8" stroke-width="1"/>
+            <path d="M 10,42 Q 20,40 30,34 Q 45,24 60,16" fill="none" stroke="#6b21a8" stroke-width="2"/>
+            <!-- x=2 → go up to curve, read y -->
+            <line x1="40" y1="45" x2="40" y2="27" stroke="#ea580c" stroke-width="1.2" stroke-dasharray="3,2"/>
+            <line x1="5"  y1="27" x2="40" y2="27" stroke="#ea580c" stroke-width="1.2" stroke-dasharray="3,2"/>
+            <circle cx="40" cy="27" r="3" fill="#ea580c"/>
+            <text x="41" y="42" font-family="Inter" font-size="7" fill="#ea580c">x=2</text>
+            <text x="5" y="25" font-family="Inter" font-size="7" fill="#ea580c">y=f(2)</text>
+          </svg>
+          <div style="font-size:12px;color:#4a1772">At x=2, trace up to graph curve, then left to y-axis. That y-value is <strong>f(2)</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAT function notation tricks -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3e8ff">⚡</div>
+      <h2>SAT Notation Tricks<small>The patterns that appear most on SAT</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <div style="background:#f3e8ff;border-radius:8px;padding:9px 12px;border:1px solid #d8b4fe">
+        <div style="font-size:10px;font-weight:700;color:#6b21a8;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Pattern A — Nested Evaluation</div>
+        <div style="font-size:12px;color:#4a1772;font-family:'JetBrains Mono',monospace;line-height:1.7">
+          f(x)=x+2, g(x)=3x<br>
+          f(g(2)) → first: g(2)=6 → then: f(6)=8 ✓<br>
+          g(f(2)) → first: f(2)=4 → then: g(4)=12
+        </div>
+      </div>
+      <div style="background:#fff7ed;border-radius:8px;padding:9px 12px;border:1px solid #fed7aa">
+        <div style="font-size:10px;font-weight:700;color:#ea580c;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Pattern B — Find x given f(x)</div>
+        <div style="font-size:12px;color:#78350f;font-family:'JetBrains Mono',monospace;line-height:1.7">
+          f(x) = 2x + 3, find x if f(x) = 11<br>
+          Set 2x + 3 = 11 → 2x = 8 → x = 4 ✓
+        </div>
+      </div>
+      <div style="background:#ccfbf1;border-radius:8px;padding:9px 12px;border:1px solid #5eead4">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Pattern C — f(x) in terms of another</div>
+        <div style="font-size:12px;color:#064e3b;font-family:'JetBrains Mono',monospace;line-height:1.7">
+          If f(x+2) = 3x − 1, find f(5):<br>
+          x+2 = 5 → x = 3 → f(5) = 3(3)−1 = 8 ✓
+        </div>
+      </div>
+    </div>
+
+    <ul class="blist">
+      <li><span class="bi purple">▶</span><span>For <code>f(x+2)</code>: set the inside equal to the target, solve for x, then substitute</span></li>
+      <li><span class="bi orange">▶</span><span>SAT often gives you f(some expression) and asks for f(a number) — work backwards</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ SEC 3: TYPES OF FUNCTIONS ══════════ -->
+<div class="sec-title">03 · Key Function Types for SAT</div>
+<div class="g5 mb16">
+
+  <!-- Linear -->
+  <div class="ftype-card">
+    <div class="ftype-head" style="background:#0d9488"><span>Linear</span></div>
+    <div class="ftype-body">
+      <svg viewBox="0 0 100 70" width="100%" style="display:block;margin-bottom:6px;background:#f0fdfa;border-radius:5px">
+        <line x1="5" y1="52" x2="95" y2="52" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="30" y1="5"  x2="30" y2="62" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="5" y1="60" x2="92" y2="12" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#0d9488;margin-bottom:4px">f(x) = mx + b</div>
+      <div style="font-size:10.5px;color:var(--mid);line-height:1.4">Constant rate of change. Straight line. Domain &amp; Range: all reals.</div>
+    </div>
+  </div>
+
+  <!-- Quadratic -->
+  <div class="ftype-card">
+    <div class="ftype-head" style="background:#1e40af"><span>Quadratic</span></div>
+    <div class="ftype-body">
+      <svg viewBox="0 0 100 70" width="100%" style="display:block;margin-bottom:6px;background:#dbeafe;border-radius:5px">
+        <line x1="5" y1="58" x2="95" y2="58" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="50" y1="5"  x2="50" y2="65" stroke="#94a3b8" stroke-width="1"/>
+        <path d="M 8,55 Q 50,8 92,55" fill="none" stroke="#1e40af" stroke-width="2.5"/>
+        <circle cx="50" cy="18" r="3" fill="#ea580c"/>
+        <text x="54" y="17" font-family="Inter" font-size="7" fill="#ea580c">vertex</text>
+      </svg>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px">f(x) = ax² + bx + c</div>
+      <div style="font-size:10.5px;color:var(--mid);line-height:1.4">Parabola. Has vertex, axis of symmetry. Range: [min, ∞) or (−∞, max]</div>
+    </div>
+  </div>
+
+  <!-- Absolute Value -->
+  <div class="ftype-card">
+    <div class="ftype-head" style="background:#ea580c"><span>Absolute Value</span></div>
+    <div class="ftype-body">
+      <svg viewBox="0 0 100 70" width="100%" style="display:block;margin-bottom:6px;background:#fff7ed;border-radius:5px">
+        <line x1="5" y1="58" x2="95" y2="58" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="50" y1="5"  x2="50" y2="65" stroke="#94a3b8" stroke-width="1"/>
+        <polyline points="8,55 50,15 92,55" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="50" cy="15" r="3" fill="#6b21a8"/>
+        <text x="54" y="14" font-family="Inter" font-size="7" fill="#6b21a8">vertex</text>
+      </svg>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#ea580c;margin-bottom:4px">f(x) = |x|</div>
+      <div style="font-size:10.5px;color:var(--mid);line-height:1.4">V-shape. Always ≥ 0. Range: [0, ∞). Left side mirrors right.</div>
+    </div>
+  </div>
+
+  <!-- Exponential -->
+  <div class="ftype-card">
+    <div class="ftype-head" style="background:#6b21a8"><span>Exponential</span></div>
+    <div class="ftype-body">
+      <svg viewBox="0 0 100 70" width="100%" style="display:block;margin-bottom:6px;background:#f3e8ff;border-radius:5px">
+        <line x1="5" y1="58" x2="95" y2="58" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="20" y1="5"  x2="20" y2="65" stroke="#94a3b8" stroke-width="1"/>
+        <path d="M 5,56 Q 20,54 35,48 Q 50,38 65,22 Q 75,12 85,6" fill="none" stroke="#6b21a8" stroke-width="2.5"/>
+        <line x1="5" y1="58" x2="95" y2="58" stroke="#94a3b8" stroke-width="1"/>
+        <text x="22" y="20" font-family="Inter" font-size="7" fill="#6b21a8">rapid growth</text>
+      </svg>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#6b21a8;margin-bottom:4px">f(x) = a · bˣ</div>
+      <div style="font-size:10.5px;color:var(--mid);line-height:1.4">Growth (b&gt;1) or decay (0&lt;b&lt;1). Range: (0, ∞). Horizontal asymptote at y=0.</div>
+    </div>
+  </div>
+
+  <!-- Piecewise -->
+  <div class="ftype-card">
+    <div class="ftype-head" style="background:#854d0e"><span>Piecewise</span></div>
+    <div class="ftype-body">
+      <svg viewBox="0 0 100 70" width="100%" style="display:block;margin-bottom:6px;background:#fefce8;border-radius:5px">
+        <line x1="5" y1="52" x2="95" y2="52" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="40" y1="5"  x2="40" y2="62" stroke="#94a3b8" stroke-width="1"/>
+        <!-- Left piece: line -->
+        <line x1="5" y1="48" x2="40" y2="30" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Right piece: different line -->
+        <line x1="40" y1="42" x2="90" y2="18" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="40" cy="30" r="3" fill="white" stroke="#0d9488" stroke-width="1.5"/>
+        <circle cx="40" cy="42" r="3" fill="#ea580c" stroke="white" stroke-width="1"/>
+        <text x="10" y="14" font-family="Inter" font-size="7" fill="#0d9488">piece 1</text>
+        <text x="60" y="14" font-family="Inter" font-size="7" fill="#ea580c">piece 2</text>
+      </svg>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#854d0e;margin-bottom:4px">f(x) = {rule1 if x&lt;a<br>         rule2 if x≥a}</div>
+      <div style="font-size:10.5px;color:var(--mid);line-height:1.4">Different formulas for different x-intervals. Open circle = excluded.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SEC 4: COMPOSITE + INVERSE ══════════ -->
+<div class="sec-title">04 · Composite Functions &amp; Inverse Functions</div>
+<div class="g2 mb16">
+
+  <!-- Composite Functions -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">∘</div>
+      <h2>Composite Functions f(g(x))<small>Apply one function inside another — ORDER matters!</small></h2>
+    </div>
+
+    <div class="fbox teal mb8">
+      <div class="lbl">Definition</div>
+      <div class="fbig">(f ∘ g)(x) = f(g(x))</div>
+      <div class="fnote">Apply <strong>g first</strong>, then apply f to the result. Also written as f(g(x)).</div>
+    </div>
+
+    <!-- Arrow flow diagram -->
+    <div style="background:#f8fafc;border-radius:9px;padding:12px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Process Flow: f(g(x))</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <div style="background:#0f172a;color:white;padding:7px 12px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">x</div>
+        <div style="font-size:18px;color:#0d9488;font-weight:700">→</div>
+        <div style="background:#0d9488;color:white;padding:7px 14px;border-radius:7px;text-align:center">
+          <div style="font-size:9px;font-weight:700;opacity:0.8;text-transform:uppercase;letter-spacing:1px">Step 1: Apply g</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">g(x)</div>
+        </div>
+        <div style="font-size:18px;color:#1e40af;font-weight:700">→</div>
+        <div style="background:#1e40af;color:white;padding:7px 14px;border-radius:7px;text-align:center">
+          <div style="font-size:9px;font-weight:700;opacity:0.8;text-transform:uppercase;letter-spacing:1px">Step 2: Apply f</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">f(g(x))</div>
+        </div>
+        <div style="font-size:18px;color:#ea580c;font-weight:700">→</div>
+        <div style="background:#ea580c;color:white;padding:7px 12px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">output</div>
+      </div>
+    </div>
+
+    <div class="g2 mb8">
+      <div style="background:#f0fdfa;border-radius:8px;padding:9px;border:1px solid #5eead4">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Worked: f(g(3))</div>
+        <div style="font-size:12px;color:#064e3b;font-family:'JetBrains Mono',monospace;line-height:1.7">
+          f(x) = x + 1<br>
+          g(x) = x²<br>
+          g(3) = 9<br>
+          f(g(3)) = f(9) = <strong>10</strong>
+        </div>
+      </div>
+      <div style="background:#dbeafe;border-radius:8px;padding:9px;border:1px solid #93c5fd">
+        <div style="font-size:10px;font-weight:700;color:#1e40af;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Worked: f(g(x)) general</div>
+        <div style="font-size:12px;color:#1e3a8a;font-family:'JetBrains Mono',monospace;line-height:1.7">
+          f(x) = 2x − 1<br>
+          g(x) = x + 3<br>
+          f(g(x)) = f(x+3)<br>
+          = 2(x+3) − 1 = <strong>2x+5</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="trap-box" style="margin-bottom:0">
+      <div class="trap-title">⚠ f(g(x)) ≠ g(f(x)) — ORDER MATTERS!</div>
+      <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+        Composition is NOT commutative. Always apply the innermost function first.
+        SAT will test both orders and only one will give the right answer.
+      </div>
+    </div>
+  </div>
+
+  <!-- Inverse Functions -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3e8ff">f⁻¹</div>
+      <h2>Inverse Functions f⁻¹(x)<small>Swap input &amp; output — reverse the machine</small></h2>
+    </div>
+
+    <div class="fbox purple mb8">
+      <div class="lbl">Key Relationship</div>
+      <div class="fbig">f⁻¹(f(x)) = x</div>
+      <div class="fnote">If f(a) = b, then f⁻¹(b) = a. The inverse <strong>undoes</strong> the function.</div>
+    </div>
+
+    <!-- Inverse concept diagram -->
+    <div style="background:#f3e8ff;border-radius:9px;padding:12px;border:1px solid #d8b4fe;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap">
+        <div style="background:#0f172a;color:white;padding:7px 12px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">x</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+          <div style="display:flex;align-items:center;gap:5px">
+            <div style="font-size:14px;color:#6b21a8;font-weight:700">→</div>
+            <div style="background:#6b21a8;color:white;padding:5px 12px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">f(x)</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px">
+            <div style="font-size:14px;color:#ea580c;font-weight:700">←</div>
+            <div style="background:#ea580c;color:white;padding:5px 12px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">f⁻¹(x)</div>
+          </div>
+        </div>
+        <div style="background:#0f172a;color:white;padding:7px 12px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">y</div>
+      </div>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:8px;padding:10px;border:1px solid var(--border);margin-bottom:9px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Steps to Find Inverse</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div class="step-badge" style="background:#6b21a8">1</div>
+          <div style="font-size:12px;color:var(--mid)">Replace f(x) with y: &nbsp;<code>y = 2x + 6</code></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div class="step-badge" style="background:#6b21a8">2</div>
+          <div style="font-size:12px;color:var(--mid)">Swap x and y: &nbsp;<code>x = 2y + 6</code></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div class="step-badge" style="background:#6b21a8">3</div>
+          <div style="font-size:12px;color:var(--mid)">Solve for y: &nbsp;<code>y = (x − 6)/2</code></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div class="step-badge" style="background:#6b21a8">4</div>
+          <div style="font-size:12px;color:var(--mid)">Write: &nbsp;<code>f⁻¹(x) = (x − 6)/2</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="tip-box" style="margin-bottom:0">
+        <div class="tip-title">✓ GRAPHICALLY</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">Inverse is the <strong>reflection of f over the line y = x</strong>. If (a,b) is on f, then (b,a) is on f⁻¹.</div>
+      </div>
+      <div class="trap-box" style="margin-bottom:0">
+        <div class="trap-title">⚠ f⁻¹(x) ≠ 1/f(x)</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">The −1 is NOT an exponent. f⁻¹(x) means "inverse function", not reciprocal!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SEC 5: TRANSFORMATIONS ══════════ -->
+<div class="sec-title">05 · Function Transformations</div>
+<div class="g2 mb16">
+
+  <!-- Transformation rules -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fff7ed">↔↕</div>
+      <h2>All Transformation Rules<small>How modifying f(x) shifts, flips &amp; stretches the graph</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+      <!-- Vertical shift up -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#0d9488">SHIFT ↑</div>
+        <div class="tr-formula" style="color:#0d9488">f(x) + k</div>
+        <div class="tr-desc">Move graph <strong>UP</strong> by k units. y-intercept increases by k. All y-values + k.</div>
+      </div>
+      <!-- Vertical shift down -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#0d9488">SHIFT ↓</div>
+        <div class="tr-formula" style="color:#0d9488">f(x) − k</div>
+        <div class="tr-desc">Move graph <strong>DOWN</strong> by k units. y-intercept decreases by k. All y-values − k.</div>
+      </div>
+      <!-- Horizontal shift right -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#1e40af">SHIFT →</div>
+        <div class="tr-formula" style="color:#1e40af">f(x − h)</div>
+        <div class="tr-desc">Move graph <strong>RIGHT</strong> by h units. Note: minus h inside → right. (Counterintuitive!)</div>
+      </div>
+      <!-- Horizontal shift left -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#1e40af">SHIFT ←</div>
+        <div class="tr-formula" style="color:#1e40af">f(x + h)</div>
+        <div class="tr-desc">Move graph <strong>LEFT</strong> by h units. Plus h inside → left. (Counterintuitive!)</div>
+      </div>
+      <!-- Vertical stretch -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#ea580c">STRETCH ↕</div>
+        <div class="tr-formula" style="color:#ea580c">a·f(x), a&gt;1</div>
+        <div class="tr-desc">Stretch graph <strong>vertically</strong> by factor a. Graph gets taller. All y-values × a.</div>
+      </div>
+      <!-- Vertical compression -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#ea580c">COMPRESS ↕</div>
+        <div class="tr-formula" style="color:#ea580c">a·f(x), 0&lt;a&lt;1</div>
+        <div class="tr-desc">Compress graph <strong>vertically</strong> by factor a. Graph gets flatter. All y-values × a.</div>
+      </div>
+      <!-- Reflect over x-axis -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#6b21a8">FLIP ↕</div>
+        <div class="tr-formula" style="color:#6b21a8">−f(x)</div>
+        <div class="tr-desc">Reflect over the <strong>x-axis</strong>. All y-values negate. Graph flips upside-down.</div>
+      </div>
+      <!-- Reflect over y-axis -->
+      <div class="tr-row">
+        <div class="tr-tag" style="background:#6b21a8">FLIP ↔</div>
+        <div class="tr-formula" style="color:#6b21a8">f(−x)</div>
+        <div class="tr-desc">Reflect over the <strong>y-axis</strong>. All x-values negate. Graph flips left-right.</div>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-bottom:0">
+      <div class="tip-title">✓ MEMORY TRICK: Inside vs. Outside</div>
+      <div style="font-size:11.5px;color:#14532d;line-height:1.5">
+        <strong>Outside f(x):</strong> affects y-values → vertical change (shift up/down, flip, stretch)<br>
+        <strong>Inside f(x):</strong> affects x-values → horizontal change (shift left/right) — and direction is <em>opposite</em> to sign
+      </div>
+    </div>
+  </div>
+
+  <!-- Transformation visual examples -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ccfbf1">📊</div>
+      <h2>Transformations Visualized<small>Starting from f(x) = x² as a reference</small></h2>
+    </div>
+
+    <div class="g2 mb10">
+      <!-- Vertical shift -->
+      <div style="background:#f0fdfa;border-radius:8px;padding:9px;border:1px solid #5eead4">
+        <div style="font-size:10px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">f(x)+3 — Shift Up 3</div>
+        <svg viewBox="0 0 110 80" width="100%" style="display:block">
+          <line x1="5" y1="60" x2="105" y2="60" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="55" y1="5"  x2="55"  y2="72" stroke="#94a3b8" stroke-width="1"/>
+          <!-- Original: f(x)=x² in grey -->
+          <path d="M 15,58 Q 55,30 95,58" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Shifted: f(x)+3 in teal -->
+          <path d="M 15,42 Q 55,14 95,42" fill="none" stroke="#0d9488" stroke-width="2.5"/>
+          <!-- Arrows showing shift -->
+          <line x1="55" y1="38" x2="55" y2="22" stroke="#ea580c" stroke-width="1.5"/>
+          <polygon points="55,22 52,29 58,29" fill="#ea580c"/>
+          <text x="58" y="32" font-family="Inter" font-size="8" fill="#ea580c">+3 units</text>
+          <text x="8" y="16" font-family="JetBrains Mono" font-size="9" fill="#0d9488">f(x)+3</text>
+        </svg>
+      </div>
+      <!-- Horizontal shift -->
+      <div style="background:#dbeafe;border-radius:8px;padding:9px;border:1px solid #93c5fd">
+        <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">f(x−2) — Shift Right 2</div>
+        <svg viewBox="0 0 110 80" width="100%" style="display:block">
+          <line x1="5" y1="68" x2="105" y2="68" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="35" y1="5"  x2="35"  y2="75" stroke="#94a3b8" stroke-width="1"/>
+          <!-- Original (gray) -->
+          <path d="M 5,65 Q 35,22 65,65" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Shifted right (blue) -->
+          <path d="M 25,65 Q 55,22 85,65" fill="none" stroke="#1e40af" stroke-width="2.5"/>
+          <line x1="35" y1="50" x2="55" y2="50" stroke="#ea580c" stroke-width="1.5"/>
+          <polygon points="55,50 48,47 48,53" fill="#ea580c"/>
+          <text x="37" y="45" font-family="Inter" font-size="8" fill="#ea580c">+2 right</text>
+          <text x="62" y="16" font-family="JetBrains Mono" font-size="9" fill="#1e40af">f(x−2)</text>
+        </svg>
+      </div>
+      <!-- Vertical flip -->
+      <div style="background:#f3e8ff;border-radius:8px;padding:9px;border:1px solid #d8b4fe">
+        <div style="font-size:10px;font-weight:700;color:#6b21a8;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">−f(x) — Flip over x-axis</div>
+        <svg viewBox="0 0 110 80" width="100%" style="display:block">
+          <line x1="5" y1="40" x2="105" y2="40" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="55" y1="5"  x2="55"  y2="75" stroke="#94a3b8" stroke-width="1"/>
+          <!-- Original (opens up, gray) -->
+          <path d="M 15,38 Q 55,12 95,38" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Flipped (opens down) -->
+          <path d="M 15,42 Q 55,68 95,42" fill="none" stroke="#6b21a8" stroke-width="2.5"/>
+          <text x="8" y="16" font-family="JetBrains Mono" font-size="9" fill="#6b21a8">−f(x)</text>
+          <text x="8" y="72" font-family="Inter" font-size="8" fill="#6b21a8">opens down</text>
+        </svg>
+      </div>
+      <!-- Vertical stretch -->
+      <div style="background:#fff7ed;border-radius:8px;padding:9px;border:1px solid #fed7aa">
+        <div style="font-size:10px;font-weight:700;color:#ea580c;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">2·f(x) — Stretch × 2</div>
+        <svg viewBox="0 0 110 80" width="100%" style="display:block">
+          <line x1="5" y1="68" x2="105" y2="68" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="55" y1="5"  x2="55"  y2="75" stroke="#94a3b8" stroke-width="1"/>
+          <!-- Original (gray) -->
+          <path d="M 20,66 Q 55,38 90,66" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <!-- Stretched (taller) -->
+          <path d="M 28,66 Q 55,12 82,66" fill="none" stroke="#ea580c" stroke-width="2.5"/>
+          <text x="8" y="16" font-family="JetBrains Mono" font-size="9" fill="#ea580c">2f(x)</text>
+          <text x="8" y="72" font-family="Inter" font-size="8" fill="#ea580c">narrower/taller</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Transformation cheat sheet table -->
+    <table class="comp-table">
+      <thead><tr><th>Transformation</th><th>Formula</th><th>Effect on Graph</th></tr></thead>
+      <tbody>
+        <tr><td>Shift up k</td><td><code>f(x) + k</code></td><td>Every point moves up k</td></tr>
+        <tr><td>Shift right h</td><td><code>f(x − h)</code></td><td>Every point moves right h (sign flips!)</td></tr>
+        <tr><td>Flip x-axis</td><td><code>−f(x)</code></td><td>All y-values negated; graph inverts</td></tr>
+        <tr><td>Flip y-axis</td><td><code>f(−x)</code></td><td>All x-values negated; graph mirrors left-right</td></tr>
+        <tr><td>Vertical stretch</td><td><code>a·f(x), a&gt;1</code></td><td>Graph taller; y-values multiplied by a</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ SEC 6: EVEN, ODD & SAT TIPS ══════════ -->
+<div class="sec-title">06 · Even &amp; Odd Functions · Piecewise · SAT Traps</div>
+<div class="g3 mb16">
+
+  <!-- Even & Odd -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dcfce7">±</div>
+      <h2>Even &amp; Odd Functions<small>Symmetry properties tested on SAT</small></h2>
+    </div>
+    <div class="g2 mb8">
+      <div style="background:#dbeafe;border-radius:8px;padding:9px;border:1px solid #93c5fd">
+        <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">EVEN Function</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#1e40af;margin-bottom:4px">f(−x) = f(x)</div>
+        <svg viewBox="0 0 100 65" width="100%" style="display:block;margin-bottom:5px;background:#eff6ff;border-radius:5px">
+          <line x1="5" y1="52" x2="95" y2="52" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="50" y1="8"  x2="50"  y2="60" stroke="#94a3b8" stroke-width="1"/>
+          <path d="M 10,50 Q 50,10 90,50" fill="none" stroke="#1e40af" stroke-width="2.5"/>
+          <text x="36" y="24" font-family="Inter" font-size="8" fill="#1e40af" font-weight="700">y-axis symmetry</text>
+        </svg>
+        <div style="font-size:10.5px;color:#1e3a8a;line-height:1.4">Symmetric about the <strong>y-axis</strong>. Left half mirrors right half.<br>Examples: x², |x|, cos(x)</div>
+      </div>
+      <div style="background:#f3e8ff;border-radius:8px;padding:9px;border:1px solid #d8b4fe">
+        <div style="font-size:10px;font-weight:700;color:#6b21a8;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">ODD Function</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#6b21a8;margin-bottom:4px">f(−x) = −f(x)</div>
+        <svg viewBox="0 0 100 65" width="100%" style="display:block;margin-bottom:5px;background:#faf5ff;border-radius:5px">
+          <line x1="5" y1="32" x2="95" y2="32" stroke="#94a3b8" stroke-width="1"/>
+          <line x1="50" y1="5"  x2="50"  y2="62" stroke="#94a3b8" stroke-width="1"/>
+          <!-- Odd function (x³ like) -->
+          <path d="M 10,58 Q 30,36 50,32 Q 70,28 90,6" fill="none" stroke="#6b21a8" stroke-width="2.5"/>
+          <text x="30" y="20" font-family="Inter" font-size="8" fill="#6b21a8" font-weight="700">origin symmetry</text>
+        </svg>
+        <div style="font-size:10.5px;color:#4a1772;line-height:1.4">Symmetric about the <strong>origin</strong>. Rotate 180° = same graph.<br>Examples: x³, x, sin(x)</div>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:7px;padding:8px 10px;border:1px solid var(--border)">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Quick Test</div>
+      <div style="font-size:12px;color:var(--mid);line-height:1.6">Substitute <code>−x</code> into f(x). If result = f(x) → <strong>even</strong>. If result = −f(x) → <strong>odd</strong>. If neither → <strong>neither</strong>.</div>
+    </div>
+  </div>
+
+  <!-- Piecewise -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fefce8">⎧</div>
+      <h2>Piecewise Functions<small>Different rules for different x-ranges</small></h2>
+    </div>
+
+    <div class="fbox yellow mb8">
+      <div class="lbl">General Form</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#854d0e;line-height:1.8">
+        f(x) = ⎧ rule₁ &nbsp;if x &lt; a<br>
+               ⎨ rule₂ &nbsp;if a ≤ x ≤ b<br>
+               ⎩ rule₃ &nbsp;if x &gt; b
+      </div>
+    </div>
+
+    <div style="background:#f8fafc;border-radius:8px;padding:10px;border:1px solid var(--border);margin-bottom:9px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">Worked Example</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#fefce8;padding:8px;border-radius:6px;margin-bottom:7px;color:#854d0e;line-height:1.8">
+        f(x) = ⎧ 2x + 1 &nbsp; if x &lt; 0<br>
+               ⎩ x² − 3 &nbsp; if x ≥ 0
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--mid)">
+        <div><strong style="color:#0d9488">f(−2):</strong> use 2x+1 (x&lt;0): 2(−2)+1 = <strong>−3</strong></div>
+        <div><strong style="color:#1e40af">f(0):</strong> use x²−3 (x≥0): 0−3 = <strong>−3</strong></div>
+        <div><strong style="color:#ea580c">f(3):</strong> use x²−3 (x≥0): 9−3 = <strong>6</strong></div>
+      </div>
+    </div>
+
+    <ul class="blist">
+      <li><span class="bi orange">▶</span><span><span class="hl">Open circle (○)</span> on graph = that endpoint is excluded</span></li>
+      <li><span class="bi orange">▶</span><span><span class="hl">Closed circle (●)</span> = that endpoint is included</span></li>
+      <li><span class="bi orange">▶</span><span>SAT: identify which piece to use based on where x falls</span></li>
+    </ul>
+  </div>
+
+  <!-- SAT Traps & Tips -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fee2e2">⚠️</div>
+      <h2>SAT Traps &amp; Power Tips<small>The function mistakes that cost the most points</small></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 1: f(x+a) ≠ f(x) + f(a)</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+          Functions are NOT distributive. For f(x)=x², f(x+2) = (x+2)² = x²+4x+4, NOT x²+4.
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 2: f(−x) shifts horizontally, not negates output</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+          f(−x) reflects over y-axis; −f(x) reflects over x-axis. Two different operations!
+        </div>
+      </div>
+      <div class="trap-box">
+        <div class="trap-title">⚠ TRAP 3: f(x−h) shifts RIGHT, not left</div>
+        <div style="font-size:11px;color:#7f1d1d;line-height:1.4">
+          f(x−3) moves the graph <strong>right 3</strong>. The minus sign inside means right — counterintuitive! f(x+3) moves left 3.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: "Zeros" of a function = x-intercepts</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">
+          Set f(x)=0 and solve. SAT may ask "for how many values does f(x)=0?" — count x-intercepts on the graph.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: f(a) = b means point (a, b) is on the graph</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">
+          f(2)=5 tells you the graph passes through (2, 5). Use this to verify equations or find unknowns.
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-title">✓ TIP: Work composites from the inside out</div>
+        <div style="font-size:11px;color:#14532d;line-height:1.4">
+          For f(g(h(x))), evaluate h(x) first, then g, then f. Never skip steps — this is where careless errors happen.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SEC 7: MASTER SUMMARY ══════════ -->
+<div class="sec-title">07 · Master Summary — All Function Concepts at a Glance</div>
+<div class="card mb16">
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--teal);padding-bottom:3px">Basics</div>
+      <ul class="blist">
+        <li><span class="bi teal">▶</span><span>One input → one output</span></li>
+        <li><span class="bi teal">▶</span><span>VLT: vertical line hits once → function</span></li>
+        <li><span class="bi teal">▶</span><span>Domain: all valid x inputs</span></li>
+        <li><span class="bi teal">▶</span><span>Range: all possible y outputs</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--blue);padding-bottom:3px">Notation</div>
+      <ul class="blist">
+        <li><span class="bi blue">▶</span><span>f(a) → substitute x = a</span></li>
+        <li><span class="bi blue">▶</span><span>f(x+1) → replace x with (x+1)</span></li>
+        <li><span class="bi blue">▶</span><span>f(0) = y-intercept</span></li>
+        <li><span class="bi blue">▶</span><span>f(x)=0 → x-intercepts (zeros)</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--orange);padding-bottom:3px">Composite &amp; Inverse</div>
+      <ul class="blist">
+        <li><span class="bi orange">▶</span><span>f(g(x)): apply g then f</span></li>
+        <li><span class="bi orange">▶</span><span>f(g(x)) ≠ g(f(x)) in general</span></li>
+        <li><span class="bi orange">▶</span><span>f⁻¹: swap x↔y, solve for y</span></li>
+        <li><span class="bi orange">▶</span><span>f⁻¹(f(x)) = x always</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--purple);padding-bottom:3px">Transformations</div>
+      <ul class="blist">
+        <li><span class="bi purple">▶</span><span>f(x)+k → up k</span></li>
+        <li><span class="bi purple">▶</span><span>f(x−h) → right h</span></li>
+        <li><span class="bi purple">▶</span><span>−f(x) → flip over x-axis</span></li>
+        <li><span class="bi purple">▶</span><span>a·f(x) → vertical stretch</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;border-bottom:2px solid var(--green);padding-bottom:3px">Even / Odd</div>
+      <ul class="blist">
+        <li><span class="bi green">▶</span><span>Even: f(−x) = f(x), y-axis sym.</span></li>
+        <li><span class="bi green">▶</span><span>Odd: f(−x) = −f(x), origin sym.</span></li>
+        <li><span class="bi green">▶</span><span>Test: substitute −x, simplify</span></li>
+        <li><span class="bi green">▶</span><span>Most functions are neither!</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <strong>Functions &amp; Function Notation · SAT Math Master Guide</strong> &nbsp;·&nbsp;
+  Definition · Notation · Evaluation · Composite · Inverse · Transformations · Even &amp; Odd · Piecewise &nbsp;·&nbsp; Aligned to Digital SAT specifications
+</div>
+
+</body>
+</html>
